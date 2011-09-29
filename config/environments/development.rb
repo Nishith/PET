@@ -23,5 +23,25 @@ PET::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+
+
+  require 'tlsmail' #key but not always described
+  Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.perform_deliveries = true
+  ActionMailer::Base.raise_delivery_errors = true
+
+  config.action_mailer.smtp_settings = {
+    :enable_starttls_auto => true,
+    :address        => 'smtp.gmail.com',
+    :port           => 587,
+    :domain         => 'gmail.com',
+    :authentication => :plain,
+    :user_name      => 'cmu.team.maglev',
+    :password       => 'TeAmMaGlEv2011'
+  }
+
 end
 
