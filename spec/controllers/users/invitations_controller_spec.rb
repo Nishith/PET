@@ -1,6 +1,7 @@
 require "spec_helper"
 
 describe Users::InvitationsController do
+  render_views
 
   let(:developer){ Factory(:developer) }
   let(:admin){ Factory(:admin) }
@@ -17,12 +18,6 @@ describe Users::InvitationsController do
       response.should be_success
     end
 
-  #it "manager should be able to access the invitation page" do
-  #  sign_in manager
-  #  get 'new'
-  #  response.should be_success
-  #end
-
     it "should assign user role when inviting for #{role}" do
       sign_in eval(role)
       post 'create', :user => {:email => "asd@asd.com", :role =>"admin"}, :skip_invitation => true
@@ -34,18 +29,32 @@ describe Users::InvitationsController do
       post 'create', :user => {:email => "asd@asd.com", :password => "123456", :role => "admin", :name => "Asd"}, :skip_invitation => true
       response.should redirect_to('/users')
     end
-  #
-  #it "should assign user role when inviting for manager" do
-  #  sign_in manager
-  #  post 'create', :user => {:email => "asd@asd.com", :role =>"admin"}, :skip_invitation => true
-  #  assigns[:user].role.should eq "admin"
-  #end
-  #
-  #it "should redirect to user index when inviting for manager" do
-  #  sign_in manager
-  #  post 'create', :user => {:email => "asd@asd.com", :password => "123456", :role => "admin", :name => "Asd"}, :skip_invitation => true
-  #  response.should redirect_to('/users')
-  #end
+
+  end
+
+
+  it "managers can not view 'create admin'" do
+    sign_in manager
+
+    get 'new'
+    response.should_not have_selector('option',:content=>"Admin")
+  end
+
+  it "managers can view 'create manager' and 'create developer'" do
+    sign_in manager
+
+    get 'new'
+    response.should have_selector('option',:content=>"Project Manager")
+    response.should have_selector('option',:content=>"Developer")
+  end
+
+  it "admin can view 'create admin', 'create manager' and 'create developer'" do
+    sign_in admin
+
+    get 'new'
+    response.should have_selector('option',:content=>"Project Manager")
+    response.should have_selector('option',:content=>"Developer")
+    response.should have_selector('option',:content=>"Admin")
   end
 
   it "should not be able to access send invitation page" do

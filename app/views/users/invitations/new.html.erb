@@ -7,7 +7,20 @@
   <%= f.text_field :email %></p>
 
   <p><%= f.label :role %><br />
-  <%= select(:user, :role, User::ROLES)  %></p>
+
+  <%
+    if current_user.role == 'admin' then
+  %>
+
+    <%= select(:user, :role, User::ROLES)  %>
+
+  <% else %>
+
+    <%= select(:user, :role, User::REDUCED_ROLES)  %>
+
+  <% end %>
+
+  </p>
 
   <p><%= f.submit "Send an invitation" %></p>
 <% end %>

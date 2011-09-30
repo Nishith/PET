@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   validates_presence_of :email, :role, :name
 
   ROLES = {"Admin" => "admin", "Project Manager" => "manager", "Developer" => "developer"}
+  REDUCED_ROLES = {"Project Manager" => "manager", "Developer" => "developer"}
 
   def role?(role)
     if self.role.nil?
