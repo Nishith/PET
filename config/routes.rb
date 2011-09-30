@@ -1,7 +1,11 @@
 PET::Application.routes.draw do
   get "user/index"
 
-  devise_for :users
+  devise_for :users, :controllers => { :invitations => 'user/invitations' } do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
+  resources :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

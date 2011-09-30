@@ -11,6 +11,8 @@ class Ability
       can :manage, :all
     else
       can :manage, :all #developer
+      cannot :manage, :invitation
+      can :edit, :invitation
     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

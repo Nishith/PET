@@ -6,6 +6,9 @@
   <p><%= f.label :email %><br />
   <%= f.text_field :email %></p>
 
+  <p><%= f.label :role %><br />
+  <%= select_tag :role, options_for_select(User::ROLES)  %></p>
+
   <p><%= f.submit "Send an invitation" %></p>
 <% end %>
 

@@ -24,6 +24,7 @@ PET::Application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
@@ -32,4 +33,21 @@ PET::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  require 'tlsmail' #key but not always described
+  Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.perform_deliveries = true
+  ActionMailer::Base.raise_delivery_errors = true
+
+  config.action_mailer.smtp_settings = {
+    :enable_starttls_auto => true,
+    :address        => 'smtp.gmail.com',
+    :port           => 587,
+    :domain         => 'gmail.com',
+    :authentication => :plain,
+    :user_name      => 'cmu.team.maglev',
+    :password       => 'TeAmMaGlEv2011'
+  }
 end
