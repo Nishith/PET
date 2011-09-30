@@ -1,7 +1,7 @@
 PET::Application.routes.draw do
   get "user/index"
 
-  devise_for :users, :controllers => { :invitations => 'user/invitations' } do
+  devise_for :users, :controllers => { :invitations => 'users/invitations' } do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 

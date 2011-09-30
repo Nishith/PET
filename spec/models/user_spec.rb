@@ -1,5 +1,10 @@
 require 'spec_helper'
 
 describe User do
-  pending "add some examples to (or delete) #{__FILE__}"
+  [:email, :name, :role].each do |attr|
+    it "should not be valid without #{attr}" do
+      subject.should_not be_valid
+      subject.errors[attr].should_not be_nil
+    end
+  end
 end
