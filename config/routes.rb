@@ -1,4 +1,6 @@
 PET::Application.routes.draw do
+  resources :projects
+
   get "user/index"
 
   devise_for :users, :controllers => { :invitations => 'users/invitations' } do

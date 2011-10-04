@@ -11,6 +11,7 @@ class Ability
       can :manage, :all
     else
       can :manage, :all #developer
+      cannot :manage, :project
       cannot :manage, :invitation
       can :edit, :invitation
     end

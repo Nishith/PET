@@ -19,4 +19,8 @@ FactoryGirl.define do
     role 'manager'
     password  '123456'
   end
+
+  factory :project, :class => Project do
+    name 'Test project'
+  end
 end
