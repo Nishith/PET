@@ -2,17 +2,29 @@
 <html>
 <head>
   <title>PET</title>
-  <%= stylesheet_link_tag :all %>
+  <%= render "layouts/stylesheets" %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-<p class="error"><%= flash[:error] %></p>
-<%= user_signed_in?? current_user.email: "Not logged in" %>
-<%= user_signed_in?? link_to('Logout', destroy_user_session_path, :method => :delete):"" %>
-<%= yield %>
+    <div id="header" class="container-fluid">
+        HEADEEEEEER
+        <%= user_signed_in?? "Welcome, "+current_user.email: link_to('Sign In', new_user_session_path) %>
+        <%= user_signed_in?? link_to('Logout', destroy_user_session_path, :method => :delete):"" %>
+    </div>
+    <div id="container" class="container-fluid">
+      <div id="sidebar" class="sidebar">
+          Test
+          Test
+          Test
+      </div>
+      <div id="content" class="content">
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+          <p class="error"><%= flash[:error] %></p>
+          <%= yield %>
+      </div>
+    </div>
 
 </body>
 </html>

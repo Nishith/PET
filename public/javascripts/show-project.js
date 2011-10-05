@@ -6,7 +6,9 @@
  * To change this template use File | Settings | File Templates.
  */
 $("#new-dialog").dialog({
-    autoOpen:false
+    autoOpen:false,
+    title: "New Project",
+    modal: true
 });
 $("#new-project").click(function() {
     $("#new-dialog").dialog("open");
