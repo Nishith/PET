@@ -4,7 +4,5 @@ require 'fileutils'
 require 'bundler' 
 
 desc "Task for the build machine"
-task :continuous_integration do
-  `rake db:migrate`
-  `rake spec`                     
-end  
+task :continuous_integration  => ['db:migrate', 'spec']
+
