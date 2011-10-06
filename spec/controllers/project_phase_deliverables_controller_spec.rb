@@ -27,6 +27,11 @@ describe ProjectPhaseDeliverablesController do
     {}
   end
 
+  before(:each) do
+    @admin = Factory(:admin)
+    sign_in @admin
+  end
+
   describe "GET index" do
     it "assigns all project_phase_deliverables as @project_phase_deliverables" do
       project_phase_deliverable = ProjectPhaseDeliverable.create! valid_attributes

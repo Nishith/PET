@@ -27,6 +27,12 @@ describe ProjectPhasesController do
     {}
   end
 
+  before(:each) do
+    @admin = Factory(:admin)
+    sign_in @admin
+  end
+
+
   describe "GET index" do
     it "assigns all project_phases as @project_phases" do
       project_phase = ProjectPhase.create! valid_attributes

@@ -10,12 +10,70 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111004222145) do
+ActiveRecord::Schema.define(:version => 20111005212504) do
+
+  create_table "deliverable_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lifecycle_phase_deliverables", :force => true do |t|
+    t.text     "description"
+    t.integer  "deliverable_type_id"
+    t.integer  "uom_id"
+    t.integer  "lifecycle_phase_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lifecycle_phases", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "lifecycle_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lifecycles", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "project_phase_deliverables", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "deliverable_type_id"
+    t.integer  "uom_id"
+    t.integer  "complexity"
+    t.float    "estimated_size"
+    t.float    "production_rate"
+    t.float    "total_effort"
+    t.integer  "project_phase_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "project_phases", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.integer  "lifecycle_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "uoms", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

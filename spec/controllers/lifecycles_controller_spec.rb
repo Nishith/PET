@@ -27,6 +27,11 @@ describe LifecyclesController do
     {}
   end
 
+  before(:each) do
+    @admin = Factory(:admin)
+    sign_in @admin
+  end
+
   describe "GET index" do
     it "assigns all lifecycles as @lifecycles" do
       lifecycle = Lifecycle.create! valid_attributes

@@ -14,7 +14,7 @@
 <% @lifecycle_phase_deliverables.each do |lifecycle_phase_deliverable| %>
   <tr>
     <td><%= lifecycle_phase_deliverable.description %></td>
-    <td><%= lifecycle_phase_deliverable.type_id %></td>
+    <td><%= lifecycle_phase_deliverable.deliverable_type_id %></td>
     <td><%= lifecycle_phase_deliverable.uom_id %></td>
     <td><%= lifecycle_phase_deliverable.lifecycle_phase_id %></td>
     <td><%= link_to 'Show', lifecycle_phase_deliverable %></td>
