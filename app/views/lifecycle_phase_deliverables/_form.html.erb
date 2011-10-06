@@ -1,0 +1,33 @@
+<%= form_for(@lifecycle_phase_deliverable) do |f| %>
+  <% if @lifecycle_phase_deliverable.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lifecycle_phase_deliverable.errors.count, "error") %> prohibited this lifecycle_phase_deliverable from being saved:</h2>
+
+      <ul>
+      <% @lifecycle_phase_deliverable.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :type_id %><br />
+    <%= f.text_field :type_id %>
+  </div>
+  <div class="field">
+    <%= f.label :uom_id %><br />
+    <%= f.text_field :uom_id %>
+  </div>
+  <div class="field">
+    <%= f.label :lifecycle_phase_id %><br />
+    <%= f.text_field :lifecycle_phase_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

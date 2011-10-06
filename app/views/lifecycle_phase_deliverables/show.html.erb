@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Description:</b>
+  <%= @lifecycle_phase_deliverable.description %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @lifecycle_phase_deliverable.type_id %>
+</p>
+
+<p>
+  <b>Uom:</b>
+  <%= @lifecycle_phase_deliverable.uom_id %>
+</p>
+
+<p>
+  <b>Lifecycle phase:</b>
+  <%= @lifecycle_phase_deliverable.lifecycle_phase_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_lifecycle_phase_deliverable_path(@lifecycle_phase_deliverable) %> |
+<%= link_to 'Back', lifecycle_phase_deliverables_path %>

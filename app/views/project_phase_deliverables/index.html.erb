@@ -1,0 +1,39 @@
+<h1>Listing project_phase_deliverables</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Deliverable type</th>
+    <th>Uom</th>
+    <th>Complexity</th>
+    <th>Estimated size</th>
+    <th>Production rate</th>
+    <th>Total effort</th>
+    <th>Project phase</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @project_phase_deliverables.each do |project_phase_deliverable| %>
+  <tr>
+    <td><%= project_phase_deliverable.name %></td>
+    <td><%= project_phase_deliverable.description %></td>
+    <td><%= project_phase_deliverable.deliverable_type_id %></td>
+    <td><%= project_phase_deliverable.uom_id %></td>
+    <td><%= project_phase_deliverable.complexity %></td>
+    <td><%= project_phase_deliverable.estimated_size %></td>
+    <td><%= project_phase_deliverable.production_rate %></td>
+    <td><%= project_phase_deliverable.total_effort %></td>
+    <td><%= project_phase_deliverable.project_phase_id %></td>
+    <td><%= link_to 'Show', project_phase_deliverable %></td>
+    <td><%= link_to 'Edit', edit_project_phase_deliverable_path(project_phase_deliverable) %></td>
+    <td><%= link_to 'Destroy', project_phase_deliverable, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project phase deliverable', new_project_phase_deliverable_path %>

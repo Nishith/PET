@@ -1,4 +1,14 @@
 PET::Application.routes.draw do
+  resources :project_phase_deliverables
+
+  resources :project_phases
+
+  resources :lifecycle_phase_deliverables
+
+  resources :lifecycle_phases
+
+  resources :lifecycles
+
   resources :projects
 
   get "user/index"

@@ -1,0 +1,29 @@
+<h1>Listing lifecycle_phase_deliverables</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Uom</th>
+    <th>Lifecycle phase</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @lifecycle_phase_deliverables.each do |lifecycle_phase_deliverable| %>
+  <tr>
+    <td><%= lifecycle_phase_deliverable.description %></td>
+    <td><%= lifecycle_phase_deliverable.type_id %></td>
+    <td><%= lifecycle_phase_deliverable.uom_id %></td>
+    <td><%= lifecycle_phase_deliverable.lifecycle_phase_id %></td>
+    <td><%= link_to 'Show', lifecycle_phase_deliverable %></td>
+    <td><%= link_to 'Edit', edit_lifecycle_phase_deliverable_path(lifecycle_phase_deliverable) %></td>
+    <td><%= link_to 'Destroy', lifecycle_phase_deliverable, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Lifecycle phase deliverable', new_lifecycle_phase_deliverable_path %>

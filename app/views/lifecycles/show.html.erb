@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @lifecycle.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @lifecycle.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_lifecycle_path(@lifecycle) %> |
+<%= link_to 'Back', lifecycles_path %>

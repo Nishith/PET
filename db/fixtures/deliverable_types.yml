@@ -1,0 +1,83 @@
+satisfaction_statement:
+  name: Condition of Satisfaction
+requirements_document:
+  name: Requirements Document
+business_rules:
+  name: Business Logic Document
+story_cards:
+  name: Story Cards
+rbs:
+  name: Requirements Breakdown
+priority_list:
+  name: Requirements Priority List
+sprint_planning:
+  name: Sprint Planning
+product_backlog:
+  name: Product backlog
+sprint_backlog:
+  name: Sprint backlog
+preliminary_plan:
+  name: Preliminary Plan
+rules_of_engagement:
+  name: Rules of engagement
+labor_parameters:
+  name: Labor or time parameters
+efficiency_measures:
+  name: Efficiency Measures
+demonstration:
+  name: Demonstration
+suggestions:
+  name: Suggestions
+lessons_learned:
+  name: Lessons Learned
+system_code:
+  name: System Code
+stories:
+  name: Stories
+iteration_plan:
+  name: Iteration Plan
+release_plan:
+  name: Release Plan
+unit_tests:
+  name: Unit Tests
+acceptance_tests:
+  name: Acceptance Tests
+
+project_plan:
+  name: Project Plan
+BRD:
+  name: BRD
+high_level_use_cases:
+  name: High Level Use Cases
+UML_diagram:
+  name: UML diagram
+QA_testing_cases:
+  name: QA testing cases
+test_script:
+  name: Test Script
+test_plan:
+  name: Test Plan
+product_delivery:
+  name: Product Delivery
+product_document:
+  name: Product Document
+concept_proposal:
+  name: Concept Proposal
+system_boundary_document:
+  name: System Boundary Document
+cost_benefit_analysis:
+  name: Cost Benefit Analysis
+risk_management_plan:
+  name: Risk Management Plan
+feasibility_study:
+  name: Feasibility Study
+project_management_plan:
+  name: Project Management Plan
+requirements_analysis:
+  name: Requirement Analysis
+product_architecture:
+  name: Product Architecture
+in_process_review:
+  name: In Process Review
+archived_data_analysis:
+  name: Archived Data Analysis

@@ -1,0 +1,130 @@
+rup_inception:
+  name: Inception
+  description: |
+    Inception Phase
+  lifecycle: rup
+rup_elaboration:
+  name: Elaboration
+  description: |
+    Elaboration Phase
+  lifecycle: rup
+rup_construction:
+  name: Construction
+  description: |
+    Construction Phase
+  lifecycle: rup
+rup_transition:
+  name: Transition
+  description: |
+    Transition Phase
+  lifecycle: rup
+wf_initiation:
+  name: Initiation
+  description: |
+    Initiation Phase
+  lifecycle: waterfall
+wf_concept:
+  name: System Concept
+  description: |
+    System Concept Phase
+  lifecycle: waterfall
+wf_planning:
+  name: Planning
+  description: |
+    Planning Phase
+  lifecycle: waterfall
+wf_requirements:
+  name: Requirements Analysis
+  description: |
+    Requirements Analysis Phase
+  lifecycle: waterfall
+wf_design:
+  name: Design
+  description: |
+    Design Phase
+  lifecycle: waterfall
+wf_development:
+  name: Development
+  description: |
+    Development Phase
+  lifecycle: waterfall
+wf_integration:
+  name: Integration and Test
+  description: |
+    Integration and Test Phase
+  lifecycle: waterfall
+wf_implementation:
+  name: Implementation/Deployment
+  description: |
+    Implementation/Deployment Phase
+  lifecycle: waterfall
+wf_operation:
+  name: Operation and Maintenance
+  description: |
+    Operation and Maintenance Phase
+  lifecycle: waterfall
+wf_disposition:
+  name: Disposition
+  description: |
+    Disposition Phase
+  lifecycle: waterfall
+scrum_scoping:
+  name: Scoping
+  description: |
+    Scoping Phase
+  lifecycle: scrum
+scrum_planning:
+  name: Planning
+  description: |
+    Planning Phase
+  lifecycle: scrum
+scrum_launching:
+  name: Launching
+  description: |
+    Launching Phase
+  lifecycle: scrum
+scrum_monitor:
+  name: Monitor & Control
+  description: |
+    Monitor and Control Phase
+  lifecycle: scrum
+scrum_closing:
+  name: Closing
+  description: |
+    Closing Phase
+  lifecycle: scrum
+xp_exploration:
+  name: Exploration
+  description: |
+    Exploration Phase
+  lifecycle: xp
+xp_planning:
+  name: Planning
+  description: |
+    Planning Phase
+  lifecycle: xp
+xp_iteration1:
+  name: Iteration 1
+  description: |
+    Iteration 1
+  lifecycle: xp
+xp_iteration2:
+  name: Iteration 2
+  description: |
+    Iteration 2
+  lifecycle: xp
+xp_release:
+  name: Release
+  description: |
+    Release
+  lifecycle: xp
+xp_productionizing:
+  name: Productionizing
+  description: |
+    Productionizing Phase
+  lifecycle: xp
+xp_maintenance:
+  name: Maintenance
+  description: |
+    Maintenance Phase
+  lifecycle: xp

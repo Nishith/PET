@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @project_phase_deliverable.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @project_phase_deliverable.description %>
+</p>
+
+<p>
+  <b>Deliverable type:</b>
+  <%= @project_phase_deliverable.deliverable_type_id %>
+</p>
+
+<p>
+  <b>Uom:</b>
+  <%= @project_phase_deliverable.uom_id %>
+</p>
+
+<p>
+  <b>Complexity:</b>
+  <%= @project_phase_deliverable.complexity %>
+</p>
+
+<p>
+  <b>Estimated size:</b>
+  <%= @project_phase_deliverable.estimated_size %>
+</p>
+
+<p>
+  <b>Production rate:</b>
+  <%= @project_phase_deliverable.production_rate %>
+</p>
+
+<p>
+  <b>Total effort:</b>
+  <%= @project_phase_deliverable.total_effort %>
+</p>
+
+<p>
+  <b>Project phase:</b>
+  <%= @project_phase_deliverable.project_phase_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_project_phase_deliverable_path(@project_phase_deliverable) %> |
+<%= link_to 'Back', project_phase_deliverables_path %>

@@ -1,0 +1,27 @@
+<h1>Listing lifecycle_phases</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Lifecycle</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @lifecycle_phases.each do |lifecycle_phase| %>
+  <tr>
+    <td><%= lifecycle_phase.name %></td>
+    <td><%= lifecycle_phase.description %></td>
+    <td><%= lifecycle_phase.lifecycle_id %></td>
+    <td><%= link_to 'Show', lifecycle_phase %></td>
+    <td><%= link_to 'Edit', edit_lifecycle_phase_path(lifecycle_phase) %></td>
+    <td><%= link_to 'Destroy', lifecycle_phase, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Lifecycle phase', new_lifecycle_phase_path %>

@@ -1,0 +1,16 @@
+rup:
+  name: R.U.P.
+  description: |
+    Rational Unified Process
+waterfall:
+  name: Waterfall
+  description: |
+    Waterfall Lifecycle Process
+xp:
+  name: Extreme Programming
+  description: |
+    Extreme Programming Lifecycle Process
+scrum:
+  name: Scrum
+  description: |
+    SCRUM Agile development lifecycle
