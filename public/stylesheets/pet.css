@@ -1,0 +1,56 @@
+html{
+    background: #000;
+}
+body{
+    background: #fff;
+}
+#header{
+    height: 90px;
+    background: #000;
+    padding-left: 60px;
+    padding-top: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0px 5px 5px #ccc;
+    color: white;
+}
+
+#content{
+    min-height: 420px;
+    margin-bottom: 20px;
+    padding-left: 30px;
+}
+
+ul.tabs > li{
+    float:none;    
+}
+
+ul.tabs > li > a{
+    border-radius: 4px 0px 0px 4px;
+}
+
+#sidebar ul.tabs > li.active > a{
+    border: #DDD 1px solid;
+    border-right-color: white;
+    border-radius: 4px 0px 0px 4px;
+    position: relative;
+    left: 0.9px;
+}
+
+#sidebar{
+    margin-left: 24px;
+    padding-top: 20px;
+}
+
+#content{
+    border-left: 1px solid #DDD;
+}
+
+ul.tabs {
+    border-bottom: 0px;
+}
+#footer{
+    background-color: #000;
+    height: 40px;
+    padding-top: 20px;
+    text-align: center;
+}
