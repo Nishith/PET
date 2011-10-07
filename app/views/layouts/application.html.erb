@@ -24,6 +24,9 @@
 	  <li <%= controller_name == 'effort_logs'? "class='active'":"" %> >
             <a href="/effort_logs"">Effort Logging</a>
 	  </li>
+	  <li <%= controller_name == 'invitations'? "class='active'":"" %> >
+            <a href="/users/invitation/new"">Invite a User</a>
+	  </li>
       </div>
       <div id="content" class="content">
           <p class="notice"><%= notice %></p>
