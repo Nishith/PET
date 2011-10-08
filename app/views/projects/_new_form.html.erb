@@ -1,10 +1,10 @@
-<%= form_for(@new_project) do |f| %>
-  <% if @new_project.errors.any? %>
+<%= form_for(@project) do |f| %>
+  <% if @project.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@new_project.errors.count, "error") %> prohibited this new_project from being saved:</h2>
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
 
       <ul>
-      <% @new_project.errors.full_messages.each do |msg| %>
+      <% @project.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -20,8 +20,8 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :lifecycle_id %><br />
-    <%= f.text_field :lifecycle_id %>
+    <%= f.label :lifecycle_name %><br />
+    <%= select(:project, :lifecycle_name, Lifecycle.all.collect {|lf| [ lf.name, lf.name ] }, {:include_blank => "None"}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

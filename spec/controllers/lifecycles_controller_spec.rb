@@ -24,7 +24,7 @@ describe LifecyclesController do
   # Lifecycle. As you add validations to Lifecycle, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {:name => "Test lifecycle"}
   end
 
   before(:each) do

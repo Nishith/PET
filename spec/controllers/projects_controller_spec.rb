@@ -23,10 +23,31 @@ describe ProjectsController do
   # This should return the minimal set of attributes required to create a valid
   # Project. As you add validations to Project, be sure to
   # update the return value of this method accordingly.
+
   def valid_attributes
-    {:name => "Test Project"}
+    {:name => "Test Project",
+     :lifecycle_name => "None"}
   end
 
+  def project_lifecycle
+    {:name => "Test project Lifecycle",
+    :lifecycle_name => "Test lifecycle"}
+  end
+
+  def lifecycle
+    {:name => "Test lifecycle"}
+  end
+
+  def lifecycle_phase
+    {:name => "Test phase",
+    :lifecycle_id => 1}
+  end
+
+  def lifecycle_phase_deliverable
+    {:deliverable_type_id => 1,
+    :lifecycle_phase_id => 1}
+  end
+    
   before(:each) do
     @admin = Factory(:admin)
     sign_in @admin
@@ -71,6 +92,24 @@ describe ProjectsController do
         }.to change(Project, :count).by(1)
       end
 
+      it "creates a new project with a lifecycle" do
+        expect {
+          post :create, :project => project_lifecycle
+        }.to change(Project, :count).by(1)
+      end
+
+      it "creates a new project and copies the lifecycle data to it" do
+        lifecycle = Factory(:lifecycle)
+        lifecycle_phase = Factory(:lifecycle_phase)
+        lifecycle_phase_deliverable = Factory(:lifecycle_phase_deliverable)
+        post :create, :project => project_lifecycle
+        prj = Project.find_by_name("Test project Lifecycle")
+        prj.lifecycle_name.should == "Test lifecycle"
+        projectphase = ProjectPhase.find_by_project_id(prj.id)
+        projectphase.name == "Test lifecycle phase"
+        ProjectPhaseDeliverable.find_by_project_phase_id(projectphase.id).deliverable_type_id == 1
+      end
+
       it "assigns a newly created project as @project" do
         post :create, :project => valid_attributes
         assigns(:project).should be_a(Project)
@@ -93,6 +132,7 @@ describe ProjectsController do
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
+
         Project.any_instance.stub(:save).and_return(false)
         post :create, :project => {}
         response.should render_template("new")

@@ -44,6 +44,36 @@ class ProjectsController < ApplicationController
   # POST /projects.xml
   def create
     @project = Project.new(params[:project])
+    if @project.lifecycle_name == "" then
+      @project.lifecycle_name = "None"
+    end
+    
+    @project.save
+
+    lf_names = Lifecycle.find(:all, :select => "name")
+    lf_name_array = []
+    lf_names.each do |lfn|
+      lf_name_array << lfn.name
+    end
+    
+    if(lf_name_array.include? @project.lifecycle_name) then
+      #want to copy all data from the lifecycle to the project
+      lf = Lifecycle.find_all_by_name(@project.lifecycle_name).last
+      lf.lifecycle_phases.each do |lf_phase|
+        pf = ProjectPhase.new(:name => lf_phase.name, :description => lf_phase.description, :project_id => @project.id)
+        pf.save
+
+        lf_phase.lifecycle_phase_deliverables.each do |lf_ph_deliverable|
+          deliverable = ProjectPhaseDeliverable.new(:description => lf_ph_deliverable.description,
+                                                    :uom_id => lf_ph_deliverable.uom_id,
+                                                    :deliverable_type_id => lf_ph_deliverable.deliverable_type_id,
+                                                    :project_phase_id => pf.id)
+          deliverable.save
+        end
+      end
+    end
+
+
 
     respond_to do |format|
       if @project.save

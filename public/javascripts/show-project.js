@@ -12,4 +12,4 @@ $("#new-dialog").dialog({
 });
 $("#new-project").click(function() {
     $("#new-dialog").dialog("open");
-})
+});

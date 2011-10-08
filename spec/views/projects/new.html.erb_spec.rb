@@ -3,9 +3,9 @@ require 'spec_helper'
 describe "projects/new.html.erb" do
   before(:each) do
     assign(:project, stub_model(Project,
-      :name => "",
+      :name => "My project",
       :description => "MyText",
-      :lifecycle_id => 1
+      :lifecycle_name => "My lifecycle"
     ).as_new_record)
   end
 
@@ -16,7 +16,7 @@ describe "projects/new.html.erb" do
     assert_select "form", :action => projects_path, :method => "post" do
       assert_select "input#project_name", :name => "project[name]"
       assert_select "textarea#project_description", :name => "project[description]"
-      assert_select "input#project_lifecycle_id", :name => "project[lifecycle_id]"
+      assert_select "select#project_lifecycle_name", :name => "project[lifecycle_name]"
     end
   end
 end

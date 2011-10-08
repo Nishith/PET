@@ -20,8 +20,8 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :lifecycle_id %><br />
-    <%= f.text_field :lifecycle_id %>
+    <%= f.label :lifecycle_name %><br />
+    <%= f.text_field :lifecycle_name, :readonly => "readonly" %>
   </div>
   <div class="actions">
     <%= f.submit %>
