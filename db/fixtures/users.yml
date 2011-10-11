@@ -1,0 +1,15 @@
+admin:
+  email: admin@pet.com
+  encrypted_password: $2a$10$H0/Wsu7CXjc9IowplDs9Yek1GOihEGQMr424WGh96EdlsTUvhVTV.
+  name: Admin
+  role: admin
+manager:
+  email: manager@pet.com
+  encrypted_password: $2a$10$H0/Wsu7CXjc9IowplDs9Yek1GOihEGQMr424WGh96EdlsTUvhVTV.
+  name: Project Manager
+  role: manager
+developer:
+  email: developer@pet.com
+  encrypted_password: $2a$10$H0/Wsu7CXjc9IowplDs9Yek1GOihEGQMr424WGh96EdlsTUvhVTV.
+  name: Developer
+  role: developer
