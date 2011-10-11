@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Users::InvitationsController do
+describe User::InvitationsController do
   render_views
 
   let(:developer){ Factory(:developer) }
