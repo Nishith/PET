@@ -1,4 +1,4 @@
-class Users::InvitationsController < Devise::InvitationsController
+class User::InvitationsController < Devise::InvitationsController
   authorize_resource :class => false
   skip_authorize_resource :only => [:edit,:update]
 
