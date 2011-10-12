@@ -12,6 +12,7 @@ $("#new-dialog").dialog({
 });
 $("#new-project").click(function() {
     $("#new-dialog").dialog("open");
+    return false;
 });
 
 $(function() {
@@ -28,4 +29,15 @@ $(function() {
 				return false;
 			})
 			.next().addClass("ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom").toggle().toggle();
-})
+});
+
+$("#edit-dialog").dialog({
+    autoOpen:false,
+    title: "Edit Project",
+    modal: true
+});
+
+$("#edit-project").click(function() {
+    $("#edit-dialog").dialog("open");
+    return false;
+});

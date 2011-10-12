@@ -43,12 +43,12 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.xml
   def create
-    @project = Project.new(params[:project])
-    if @project.lifecycle_name == "" then
-      @project.lifecycle_name = "None"
+    @new_project = Project.new(params[:project])
+    if @new_project.lifecycle_name == "" then
+      @new_project.lifecycle_name = "None"
     end
     
-    @project.save
+    @new_project.save
 
     lf_names = Lifecycle.find(:all, :select => "name")
     lf_name_array = []
@@ -56,11 +56,11 @@ class ProjectsController < ApplicationController
       lf_name_array << lfn.name
     end
     
-    if(lf_name_array.include? @project.lifecycle_name) then
+    if(lf_name_array.include? @new_project.lifecycle_name) then
       #want to copy all data from the lifecycle to the project
-      lf = Lifecycle.find_all_by_name(@project.lifecycle_name).last
+      lf = Lifecycle.find_all_by_name(@new_project.lifecycle_name).last
       lf.lifecycle_phases.each do |lf_phase|
-        pf = ProjectPhase.new(:name => lf_phase.name, :description => lf_phase.description, :project_id => @project.id)
+        pf = ProjectPhase.new(:name => lf_phase.name, :description => lf_phase.description, :project_id => @new_project.id)
         pf.save
 
         lf_phase.lifecycle_phase_deliverables.each do |lf_ph_deliverable|
@@ -76,12 +76,12 @@ class ProjectsController < ApplicationController
 
 
     respond_to do |format|
-      if @project.save
-        format.html { redirect_to(@project, :notice => 'Project was successfully created.') }
-        format.xml  { render :xml => @project, :status => :created, :location => @project }
+      if @new_project.save
+        format.html { redirect_to(@new_project, :notice => 'Project was successfully created.') }
+        format.xml  { render :xml => @new_project, :status => :created, :location => @new_project }
       else
         format.html { render :action => "new"}
-        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @new_project.errors, :status => :unprocessable_entity }
       end
     end
   end

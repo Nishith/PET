@@ -1,14 +1,3 @@
-<div id="new-dialog">
-  <%= render 'new_form' %>
-</div>
-
-<a href="#" id="new-project">New Project</a>
-
-
-
-<p id="notice"><%= notice %></p>
-
-
 <p>
   <b>Name:</b>
   <%= @project.name %>
@@ -25,7 +14,7 @@
 </p>
 
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
+<a href="#" id="edit-project">Edit</a>
 <%= link_to 'Back', projects_path %>
 
 <div id="notaccordion">
@@ -80,8 +69,11 @@
     <% end %>
 </div>
 
-
-
-
+<div id="new-dialog">
+  <%= render 'new_form' %>
+</div>
+<div id="edit-dialog">
+  <%= render 'form' %>
+</div>
 
 <%= javascript_include_tag 'show-project' %>

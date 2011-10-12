@@ -112,8 +112,8 @@ describe ProjectsController do
 
       it "assigns a newly created project as @project" do
         post :create, :project => valid_attributes
-        assigns(:project).should be_a(Project)
-        assigns(:project).should be_persisted
+        assigns(:new_project).should be_a(Project)
+        assigns(:new_project).should be_persisted
       end
 
       it "redirects to the created project" do
@@ -127,7 +127,7 @@ describe ProjectsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stub(:save).and_return(false)
         post :create, :project => {}
-        assigns(:project).should be_a_new(Project)
+        assigns(:new_project).should be_a_new(Project)
       end
 
       it "re-renders the 'new' template" do

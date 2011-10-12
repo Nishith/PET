@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "projects/new.html.erb" do
   before(:each) do
-    assign(:project, stub_model(Project,
+    assign(:new_project, stub_model(Project,
       :name => "My project",
       :description => "MyText",
       :lifecycle_name => "My lifecycle"
