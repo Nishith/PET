@@ -1,3 +1,18 @@
+# LifecyclePhase has many LifecyclePhaseDeliverable.
+# LifecyclePhase belongs to Lifecycle.
+#
+# == Schema Information
+#
+# Table name: lifecycle_phases
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)
+#  description  :text
+#  lifecycle_id :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
 class LifecyclePhase < ActiveRecord::Base
   validates_presence_of(:name)
   validates_uniqueness_of(:name)

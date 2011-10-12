@@ -1,8 +1,12 @@
+# The lifecycles_controller manage Lifecycle.
+# Available actions include creation, modification, deletion and show.
+#
+
 class LifecyclesController < ApplicationController
   before_filter :authenticate_user!
 
-  # GET /lifecycles
-  # GET /lifecycles.xml
+  # Triggered by "GET /lifecycles".
+  # Display all Lifecycle.
   def index
     @lifecycles = Lifecycle.all
 
@@ -12,8 +16,8 @@ class LifecyclesController < ApplicationController
     end
   end
 
-  # GET /lifecycles/1
-  # GET /lifecycles/1.xml
+  # Triggered by "GET /lifecycles/:id".
+  # Show the Lifecycle specified by user.
   def show
     @lifecycle = Lifecycle.find(params[:id])
 
@@ -23,8 +27,8 @@ class LifecyclesController < ApplicationController
     end
   end
 
-  # GET /lifecycles/new
-  # GET /lifecycles/new.xml
+  # Triggered by "GET /lifecycles/new".
+  # Display the creation form for users to create new Lifecycle.
   def new
     @lifecycle = Lifecycle.new
 
@@ -34,13 +38,14 @@ class LifecyclesController < ApplicationController
     end
   end
 
-  # GET /lifecycles/1/edit
+  # Triggered by "GET /lifecycles/:id/edit".
+  # Display the edition form.
   def edit
     @lifecycle = Lifecycle.find(params[:id])
   end
 
-  # POST /lifecycles
-  # POST /lifecycles.xml
+  # Triggered by "POST /lifecycles".
+  # Receive the parameters from client side and create a new Lifecycle.
   def create
     @lifecycle = Lifecycle.new(params[:lifecycle])
 
@@ -55,8 +60,8 @@ class LifecyclesController < ApplicationController
     end
   end
 
-  # PUT /lifecycles/1
-  # PUT /lifecycles/1.xml
+  # Triggered by "PUT /lifecycles/:id".
+  # Receive the parameters from client side and update the Lifecycle.
   def update
     @lifecycle = Lifecycle.find(params[:id])
 
@@ -71,8 +76,8 @@ class LifecyclesController < ApplicationController
     end
   end
 
-  # DELETE /lifecycles/1
-  # DELETE /lifecycles/1.xml
+  # Triggered by "DELETE /lifecycles/:id".
+  # Delete a Lifecycle.
   def destroy
     @lifecycle = Lifecycle.find(params[:id])
     @lifecycle.destroy

@@ -1,8 +1,12 @@
+# The lifecycle_phases_controller manage LifecyclePhase.
+# Available actions include creation, modification, deletion and show.
+#
+
 class LifecyclePhasesController < ApplicationController
   before_filter :authenticate_user!
 
-  # GET /lifecycle_phases
-  # GET /lifecycle_phases.xml
+  # Triggered by "GET /lifecycle_phases".
+  # Display all LifecyclePhase.
   def index
     @lifecycle_phases = LifecyclePhase.all
 
@@ -12,8 +16,8 @@ class LifecyclePhasesController < ApplicationController
     end
   end
 
-  # GET /lifecycle_phases/1
-  # GET /lifecycle_phases/1.xml
+  # Triggered by "GET /lifecycle_phases/:id".
+  # Show the LifecyclePhase specified by user.
   def show
     @lifecycle_phase = LifecyclePhase.find(params[:id])
 
@@ -23,8 +27,8 @@ class LifecyclePhasesController < ApplicationController
     end
   end
 
-  # GET /lifecycle_phases/new
-  # GET /lifecycle_phases/new.xml
+  # Triggered by "GET /lifecycle_phases/new".
+  # Display the creation form for users to create new LifecyclePhase.
   def new
     @lifecycle_phase = LifecyclePhase.new
 
@@ -34,13 +38,14 @@ class LifecyclePhasesController < ApplicationController
     end
   end
 
-  # GET /lifecycle_phases/1/edit
+  # Triggered by "GET /lifecycle_phases/:id/edit".
+  # Display the edition form.
   def edit
     @lifecycle_phase = LifecyclePhase.find(params[:id])
   end
 
-  # POST /lifecycle_phases
-  # POST /lifecycle_phases.xml
+  # Triggered by "POST /lifecycle_phases".
+  # Receive the parameters from client side and create a new LifecyclePhase.
   def create
     @lifecycle_phase = LifecyclePhase.new(params[:lifecycle_phase])
 
@@ -55,8 +60,8 @@ class LifecyclePhasesController < ApplicationController
     end
   end
 
-  # PUT /lifecycle_phases/1
-  # PUT /lifecycle_phases/1.xml
+  # Triggered by "PUT /lifecycle_phases/:id".
+  # Receive the parameters from client side and update the LifecyclePhase.
   def update
     @lifecycle_phase = LifecyclePhase.find(params[:id])
 
@@ -71,8 +76,8 @@ class LifecyclePhasesController < ApplicationController
     end
   end
 
-  # DELETE /lifecycle_phases/1
-  # DELETE /lifecycle_phases/1.xml
+  # Triggered by "DELETE /lifecycle_phases/:id".
+  # Delete a LifecyclePhase.
   def destroy
     @lifecycle_phase = LifecyclePhase.find(params[:id])
     @lifecycle_phase.destroy

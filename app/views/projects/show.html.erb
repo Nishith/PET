@@ -8,6 +8,7 @@
 
 <p id="notice"><%= notice %></p>
 
+
 <p>
   <b>Name:</b>
   <%= @project.name %>
@@ -26,4 +27,61 @@
 
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
+
+<div id="notaccordion">
+    <% @project.project_phases.each do |phase| %>
+        <h3><a href="#"><%= phase.name %></a></h3>
+        <div>
+
+          <table>
+            <tbody>
+                <tr>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Type
+                  </th>
+                  <th>
+                    Complexity
+                  </th>
+                  <th>
+                    Estimated Effort
+                  </th>
+                  <th>
+                    Actual Effort
+                  </th>
+                </tr>
+
+
+                <% phase.project_phase_deliverables.each do |deliverable| %>
+                    <tr>
+                        <td>
+                          <%= deliverable.name %>
+                        </td>
+                        <td>
+                          <%= deliverable.deliverable_type.name %>
+                        </td>
+                        <td>
+                          <%= deliverable.complexity_str %>
+                        </td>
+                        <td>
+                          <% #deliverable.estimated_effort %>
+                        </td>
+                        <td>
+                          <% #deliverable.actual_effort %>
+                        </td>
+                    </tr>
+                <% end %>
+
+            </tbody>
+          </table>
+        </div>
+    <% end %>
+</div>
+
+
+
+
+
 <%= javascript_include_tag 'show-project' %>

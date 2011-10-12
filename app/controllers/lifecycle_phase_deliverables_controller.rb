@@ -1,8 +1,12 @@
+# The lifecycle_phase_deliverables_controller manage LifecyclePhaseDeliverable.
+# Available actions include creation, modification, deletion and show.
+#
+
 class LifecyclePhaseDeliverablesController < ApplicationController
   before_filter :authenticate_user!
 
-  # GET /lifecycle_phase_deliverables
-  # GET /lifecycle_phase_deliverables.xml
+  # Triggered by "GET /lifecycle_phase_deliverables".
+  # Display all LifecyclePhaseDeliverable.
   def index
     @lifecycle_phase_deliverables = LifecyclePhaseDeliverable.all
 
@@ -12,8 +16,8 @@ class LifecyclePhaseDeliverablesController < ApplicationController
     end
   end
 
-  # GET /lifecycle_phase_deliverables/1
-  # GET /lifecycle_phase_deliverables/1.xml
+  # Triggered by "GET /lifecycle_phase_deliverables/:id".
+  # Show the LifecyclePhaseDeliverable specified by user.
   def show
     @lifecycle_phase_deliverable = LifecyclePhaseDeliverable.find(params[:id])
 
@@ -23,8 +27,8 @@ class LifecyclePhaseDeliverablesController < ApplicationController
     end
   end
 
-  # GET /lifecycle_phase_deliverables/new
-  # GET /lifecycle_phase_deliverables/new.xml
+  # Triggered by "GET /lifecycle_phase_deliverables/new".
+  # Display the creation form for users to create new LifecyclePhaseDeliverable.
   def new
     @lifecycle_phase_deliverable = LifecyclePhaseDeliverable.new
 
@@ -34,13 +38,14 @@ class LifecyclePhaseDeliverablesController < ApplicationController
     end
   end
 
-  # GET /lifecycle_phase_deliverables/1/edit
+  # Triggered by "GET /lifecycle_phase_deliverables/:id/edit".
+  # Display the edition form.
   def edit
     @lifecycle_phase_deliverable = LifecyclePhaseDeliverable.find(params[:id])
   end
 
-  # POST /lifecycle_phase_deliverables
-  # POST /lifecycle_phase_deliverables.xml
+  # Triggered by "POST /lifecycle_phase_deliverables".
+  # Receive the parameters from client side and create a new LifecyclePhaseDeliverable.
   def create
     @lifecycle_phase_deliverable = LifecyclePhaseDeliverable.new(params[:lifecycle_phase_deliverable])
 
@@ -55,8 +60,8 @@ class LifecyclePhaseDeliverablesController < ApplicationController
     end
   end
 
-  # PUT /lifecycle_phase_deliverables/1
-  # PUT /lifecycle_phase_deliverables/1.xml
+  # Triggered by "PUT /lifecycle_phase_deliverables/:id".
+  # Receive the parameters from client side and update the LifecyclePhaseDeliverable.
   def update
     @lifecycle_phase_deliverable = LifecyclePhaseDeliverable.find(params[:id])
 
@@ -71,8 +76,8 @@ class LifecyclePhaseDeliverablesController < ApplicationController
     end
   end
 
-  # DELETE /lifecycle_phase_deliverables/1
-  # DELETE /lifecycle_phase_deliverables/1.xml
+  # Triggered by "DELETE /lifecycle_phase_deliverables/:id".
+  # Delete a LifecyclePhaseDeliverable.
   def destroy
     @lifecycle_phase_deliverable = LifecyclePhaseDeliverable.find(params[:id])
     @lifecycle_phase_deliverable.destroy
