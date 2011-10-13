@@ -14,8 +14,15 @@
 #
 
 class ProjectPhase < ActiveRecord::Base
+
   belongs_to :project
-  has_many :project_phase_deliverables
+  has_many :project_phase_deliverables, :order => ":position"
+
+  validates_presence_of(:name)
+  validates_presence_of(:position)
+  validates_uniqueness_of(:position, :scope => :project_id)
+  validates_numericality_of(:position, :greater_than => 0)
+
 end
 
 # == Schema Information

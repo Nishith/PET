@@ -3,6 +3,7 @@
 #
 
 class LifecyclePhaseDeliverablesController < ApplicationController
+  authorize_resource :class => false
   before_filter :authenticate_user!
 
   # Triggered by "GET /lifecycle_phase_deliverables".

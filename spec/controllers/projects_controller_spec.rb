@@ -40,12 +40,14 @@ describe ProjectsController do
 
   def lifecycle_phase
     {:name => "Test phase",
-    :lifecycle_id => 1}
+    :lifecycle_id => 1,
+    :position => 1}
   end
 
   def lifecycle_phase_deliverable
     {:deliverable_type_id => 1,
-    :lifecycle_phase_id => 1}
+    :lifecycle_phase_id => 1,
+    :position => 1}
   end
     
   before(:each) do
@@ -72,7 +74,7 @@ describe ProjectsController do
   describe "GET new" do
     it "assigns a new project as @project" do
       get :new
-      assigns(:project).should be_a_new(Project)
+      assigns(:new_project).should be_a_new(Project)
     end
   end
 

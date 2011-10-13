@@ -24,6 +24,16 @@ FactoryGirl.define do
     name 'Test project'
   end
 
+  factory :project_phase, :class => ProjectPhase do
+    name 'Test project phase'
+    position 1
+  end
+
+  factory :project_phase_deliverable, :class => ProjectPhaseDeliverable do
+    name 'Test project phase'
+    position 1
+  end
+
   factory :lifecycle, :class => Lifecycle do
     id 1
     name 'Test lifecycle'
@@ -33,10 +43,12 @@ FactoryGirl.define do
     id 1
     name 'Test lifecycle phase'
     lifecycle_id 1
+    position 1
   end
 
   factory :lifecycle_phase_deliverable, :class => LifecyclePhaseDeliverable do
     deliverable_type_id '1'
     lifecycle_phase_id 1
+    position 1
   end
 end

@@ -1,7 +1,26 @@
 require 'spec_helper'
 
 describe LifecyclePhase do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  it "should not be valid without an position" do
+    subject.should_not be_valid
+    subject.errors[:position].should_not be_empty
+  end
+
+  it "should not be valid with a negative position" do
+    subject.position = -1
+    subject.should_not be_valid
+    subject.errors[:position].should_not be_empty
+  end
+
+  it "should not have an existing position number" do
+    @phase = Factory(:lifecycle_phase)
+
+    @phase2 = Factory.build(:lifecycle_phase)
+    @phase2.should_not be_valid
+
+    @phase2.errors[:position].should_not be_empty
+  end
 end
 
 # == Schema Information

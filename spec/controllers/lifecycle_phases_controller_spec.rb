@@ -24,7 +24,7 @@ describe LifecyclePhasesController do
   # LifecyclePhase. As you add validations to LifecyclePhase, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {:name => "Test phase"}
+    {:name => "Test phase", :position => 1}
   end
 
   before(:each) do

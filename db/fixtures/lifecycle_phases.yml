@@ -2,129 +2,155 @@ rup_inception:
   name: Inception
   description: |
     Inception Phase
+  position: 1
   lifecycle: rup
 rup_elaboration:
   name: Elaboration
   description: |
     Elaboration Phase
+  position: 2
   lifecycle: rup
 rup_construction:
   name: Construction
   description: |
     Construction Phase
+  position: 3
   lifecycle: rup
 rup_transition:
   name: Transition
   description: |
     Transition Phase
+  position: 4
   lifecycle: rup
 wf_initiation:
   name: Initiation
   description: |
     Initiation Phase
+  position: 1
   lifecycle: waterfall
 wf_concept:
   name: System Concept
   description: |
     System Concept Phase
+  position: 2
   lifecycle: waterfall
 wf_planning:
   name: Planning
   description: |
     Planning Phase
+  position: 3
   lifecycle: waterfall
 wf_requirements:
   name: Requirements Analysis
   description: |
     Requirements Analysis Phase
+  position: 4
   lifecycle: waterfall
 wf_design:
   name: Design
   description: |
     Design Phase
+  position: 5
   lifecycle: waterfall
 wf_development:
   name: Development
   description: |
     Development Phase
+  position: 6
   lifecycle: waterfall
 wf_integration:
   name: Integration and Test
   description: |
     Integration and Test Phase
+  position: 7
   lifecycle: waterfall
 wf_implementation:
   name: Implementation/Deployment
   description: |
     Implementation/Deployment Phase
+  position: 8
   lifecycle: waterfall
 wf_operation:
   name: Operation and Maintenance
   description: |
     Operation and Maintenance Phase
+  position: 9
   lifecycle: waterfall
 wf_disposition:
   name: Disposition
   description: |
     Disposition Phase
+  position: 10
   lifecycle: waterfall
 scrum_scoping:
   name: Scoping
   description: |
     Scoping Phase
+  position: 1
   lifecycle: scrum
 scrum_planning:
   name: Planning
   description: |
     Planning Phase
+  position: 2
   lifecycle: scrum
 scrum_launching:
   name: Launching
   description: |
     Launching Phase
+  position: 3
   lifecycle: scrum
 scrum_monitor:
   name: Monitor & Control
   description: |
     Monitor and Control Phase
+  position: 4
   lifecycle: scrum
 scrum_closing:
   name: Closing
   description: |
     Closing Phase
+  position: 5
   lifecycle: scrum
 xp_exploration:
   name: Exploration
   description: |
     Exploration Phase
+  position: 1
   lifecycle: xp
 xp_planning:
   name: Planning
   description: |
     Planning Phase
+  position: 2
   lifecycle: xp
 xp_iteration1:
   name: Iteration 1
   description: |
     Iteration 1
+  position: 3
   lifecycle: xp
 xp_iteration2:
   name: Iteration 2
   description: |
     Iteration 2
+  position: 4
   lifecycle: xp
 xp_release:
   name: Release
   description: |
     Release
+  position: 5
   lifecycle: xp
 xp_productionizing:
   name: Productionizing
   description: |
     Productionizing Phase
+  position: 6
   lifecycle: xp
 xp_maintenance:
   name: Maintenance
   description: |
     Maintenance Phase
+  position: 7
   lifecycle: xp

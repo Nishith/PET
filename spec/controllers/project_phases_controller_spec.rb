@@ -24,7 +24,8 @@ describe ProjectPhasesController do
   # ProjectPhase. As you add validations to ProjectPhase, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {:name => "Test ProjectPhase",
+    :position => 1}
   end
 
   before(:each) do

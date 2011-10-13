@@ -1,7 +1,26 @@
 require 'spec_helper'
 
 describe ProjectPhase do
-  pending "add some examples to (or delete) #{__FILE__}"
+  [:name, :position].each do |attr|
+    it "should not be valid without an #{attr}" do
+      subject.should_not be_valid
+      subject.errors[attr].should_not be_empty
+    end
+  end
+
+  it "should not be valid with a negative position" do
+    subject.position = -1
+    subject.should_not be_valid
+    subject.errors[:position].should_not be_empty
+  end
+
+  it "should not have an existing position number" do
+    @phase = Factory(:project_phase)
+
+    @phase2 = Factory.build(:project_phase)
+    @phase2.should_not be_valid
+    @phase2.errors[:position].should_not be_empty
+  end
 end
 
 # == Schema Information

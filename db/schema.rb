@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111008003306) do
+ActiveRecord::Schema.define(:version => 20111012221532) do
 
   create_table "deliverable_types", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20111008003306) do
     t.integer  "lifecycle_phase_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   create_table "lifecycle_phases", :force => true do |t|
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20111008003306) do
     t.integer  "lifecycle_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   create_table "lifecycles", :force => true do |t|
@@ -54,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20111008003306) do
     t.integer  "project_phase_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   create_table "project_phases", :force => true do |t|
@@ -62,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20111008003306) do
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   create_table "projects", :force => true do |t|

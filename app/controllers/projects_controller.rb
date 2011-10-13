@@ -1,4 +1,7 @@
 class ProjectsController < ApplicationController
+  authorize_resource :class => false
+  skip_authorize_resource :only => [:index,:show]
+
   before_filter :authenticate_user!
 
   # GET /projects
@@ -27,11 +30,11 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   # GET /projects/new.xml
   def new
-    @project = Project.new
+    @new_project = Project.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @project }
+      format.xml  { render :xml => @new_project }
     end
   end
 
@@ -60,14 +63,16 @@ class ProjectsController < ApplicationController
       #want to copy all data from the lifecycle to the project
       lf = Lifecycle.find_all_by_name(@new_project.lifecycle_name).last
       lf.lifecycle_phases.each do |lf_phase|
-        pf = ProjectPhase.new(:name => lf_phase.name, :description => lf_phase.description, :project_id => @new_project.id)
+        pf = ProjectPhase.new(:name => lf_phase.name, :description => lf_phase.description, :project_id => @new_project.id,
+          :position => lf_phase.position)
         pf.save
 
         lf_phase.lifecycle_phase_deliverables.each do |lf_ph_deliverable|
           deliverable = ProjectPhaseDeliverable.new(:description => lf_ph_deliverable.description,
                                                     :uom_id => lf_ph_deliverable.uom_id,
                                                     :deliverable_type_id => lf_ph_deliverable.deliverable_type_id,
-                                                    :project_phase_id => pf.id)
+                                                    :project_phase_id => pf.id,
+                                                    :position => lf_ph_deliverable.position)
           deliverable.save
         end
       end

@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe DeliverableType do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "should not be valid without a name" do
+    subject.should_not be_valid
+    subject.errors[:name].should_not be_empty
+  end
 end
 
 # == Schema Information

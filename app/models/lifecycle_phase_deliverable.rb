@@ -16,9 +16,14 @@
 #
 
 class LifecyclePhaseDeliverable < ActiveRecord::Base
+
   belongs_to :lifecycle_phase
   belongs_to :deliverable_type
   belongs_to :uom
+
+  validates_presence_of(:position)
+  validates_uniqueness_of(:position, :scope => :lifecycle_phase_id)
+  validates_numericality_of(:position, :greater_than => 0)
 
   # The constant is for converting complexity integer to real meaningful string
   COMPLEXITY = ["Low","Medium","High"]

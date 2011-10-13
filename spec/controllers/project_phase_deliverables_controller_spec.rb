@@ -24,7 +24,7 @@ describe ProjectPhaseDeliverablesController do
   # ProjectPhaseDeliverable. As you add validations to ProjectPhaseDeliverable, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {:position => 1}
   end
 
   before(:each) do

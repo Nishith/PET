@@ -1,4 +1,7 @@
 class ProjectPhaseDeliverablesController < ApplicationController
+  authorize_resource :class => false
+  skip_authorize_resource :only => [:index,:show]
+
   before_filter :authenticate_user!
 
   # GET /project_phase_deliverables

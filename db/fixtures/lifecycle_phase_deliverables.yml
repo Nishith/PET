@@ -2,71 +2,83 @@
 scrum_scoping_satisfaction_statement:
   description: |
     A Condition of Satisfaction Statement
+  position: 1
   lifecycle_phase: scrum_scoping
   deliverable_type: satisfaction_statement
   uom: pages
 scrum_scoping_requirements:
   deliverable_type: requirements_document
+  position: 2
   description: |
     Business requirements gathered utilizing tools and techniques
   lifecycle_phase: scrum_scoping
   uom: pages
 scrum_scoping_business_logic:
   deliverable_type: business_rules
+  position: 3
   description: |
     Business rules, logic, and acceptance criteria
   lifecycle_phase: scrum_scoping
   uom: pages
 scrum_scoping_rbs:
   deliverable_type: rbs
+  position: 4
   description: |
     A defined Requirements Breakdown Structure (RBS)
   lifecycle_phase: scrum_scoping
   uom: pages
 scrum_scoping_priority_list:
   deliverable_type: priority_list
+  position: 5
   description: |
     A prioritized list of customer-centric functions and features
   lifecycle_phase: scrum_scoping
   uom: hours
 scrum_planning_product_backlog:
   deliverable_type: product_backlog
+  position: 1
   description: |
     Product Backlog with prioritized functions and features (stories)
   lifecycle_phase: scrum_planning
   uom: hours
 scrum_planning_sprint_planning:
   deliverable_type: sprint_planning
+  position: 2
   description: |
     A high-level plan to complete the Sprint backlog items
   uom: hours
   lifecycle_phase: scrum_planning
 scrum_launching_product_backlog:
   deliverable_type: product_backlog
+  position: 1
   description: |
     Product backlog list
   lifecycle_phase: scrum_launching
   uom: hours
 scrum_launching_preliminary_plan:
   deliverable_type: preliminary_plan
+  position: 2
   description: |
     Preliminary plan for deliverables
   lifecycle_phase: scrum_launching
   uom: pages
 scrum_launching_rules_engagement:
   deliverable_type: rules_of_engagement
+  position: 3
   description: |
     Rules of engagement
   lifecycle_phase: scrum_launching
   uom: hours
 scrum_monitor_labor_parameters:
   deliverable_type: labor_parameters
+  position: 1
   description: |
     Labor or time parameters
   lifecycle_phase: scrum_monitor
   uom: pages
 scrum_monitor_efficiency_measures:
   deliverable_type: efficiency_measures
+  position: 2
   description: |
     Efficiency measures
     Estimated duration vs. Actual duration
@@ -77,30 +89,35 @@ scrum_monitor_efficiency_measures:
   uom: hours
 scrum_closing_demonstration:
   deliverable_type: demonstration
+  position: 1
   description: |
     A demonstration of the completed component that meets the established objectives
   lifecycle_phase: scrum_closing
   uom: hours
 scrum_closing_suggestions:
   deliverable_type: suggestions
+  position: 2
   description: |
      A list of suggestions for continuous process improvement
   lifecycle_phase: scrum_closing
   uom: hours
 scrum_closing_sprint_planning:
   deliverable_type: sprint_planning
+  position: 3
   description: |
     A preliminary plan for meeting deliverables for the upcoming Sprint Backlog
   lifecycle_phase: scrum_closing
   uom: hours
 scrum_closing_lessons_learned:
   deliverable_type: lessons_learned
+  position: 4
   description: |
     Project document of Sprint lessons learned
   lifecycle_phase: scrum_closing
   uom: hours
 srum_closing_system_code:
   deliverable_type: system_code
+  position: 5
   description: |
     Project system code
   lifecycle_phase: scrum_closing
@@ -108,216 +125,252 @@ srum_closing_system_code:
 #XP
 xp_exploration_stories:
   deliverable_type: stories
+  position: 1
   description: |
     Stories
   lifecycle_phase: xp_exploration
   uom: hours
 xp_exploration_story_cards:
   deliverable_type: story_cards
+  position: 2
   description: |
     Story cards
   lifecycle_phase: xp_exploration
   uom: hours
 xp_planning_iteration_plan:
   deliverable_type: iteration_plan
+  position: 1
   description: |
     Iteration Plan
   lifecycle_phase: xp_planning
   uom: pages
 xp_planning_release_plan:
   deliverable_type: release_plan
+  position: 2
   description: |
     Release Plan
   lifecycle_phase: xp_planning
   uom: hours
 xp_iteration1_acceptance_tests:
   deliverable_type: acceptance_tests
+  position: 1
   description: |
     Acceptance tests for Iteration 1 stories
   lifecycle_phase: xp_iteration1
   uom: hours
 xp_iteration1_unit_tests:
   deliverable_type: unit_tests
+  position: 2
   description: |
     Unit tests for Iteration 1 stories
   lifecycle_phase: xp_iteration1
   uom: hours
 xp_iteration1_system_code:
   deliverable_type: system_code
+  position: 3
   description: |
     Working code for every iteration
   lifecycle_phase: xp_iteration1
   uom: hours
 xp_iteration2_acceptance_tests:
   deliverable_type: acceptance_tests
+  position: 1
   description: |
     Acceptance tests for Iteration 2 stories
   lifecycle_phase: xp_iteration2
   uom: hours
 xp_iteration2_unit_tests:
   deliverable_type: unit_tests
+  position: 2
   description: |
     Unit tests for Iteration 2 stories
   lifecycle_phase: xp_iteration2
   uom: hours
 xp_iteration2_system_code:
   deliverable_type: system_code
+  position: 3
   description: |
     Working code for every iteration
   lifecycle_phase: xp_iteration2
   uom: hours
 xp_release_acceptance_tests:
   deliverable_type: acceptance_tests
+  position: 1
   description: |
     Acceptance tests for all stories
   lifecycle_phase: xp_release
   uom: hours
 xp_release_unit_tests:
   deliverable_type: unit_tests
+  position: 2
   description: |
     Unit tests for Iteration 1 stories
   lifecycle_phase: xp_release
   uom: hours
-xp_iteration1_system_code:
+xp_release_system_code:
   deliverable_type: system_code
+  position: 3
   description: |
     Working code for every iteration
   lifecycle_phase: xp_release
   uom: hours
 rup_inception_project_plan:
   deliverable_type: project_plan
+  position: 1
   description: |
     project plan deliverable
   lifecycle_phase: rup_inception
   uom: pages
 rup_inception_BRD:
   deliverable_type: BRD
+  position: 2
   description: |
     BRD deliverable
   lifecycle_phase: rup_inception
   uom: pages
 rup_inception_high_level_usecases:
   deliverable_type: high_level_use_cases
+  position: 3
   description: |
     High level use case deliverable
   lifecycle_phase: rup_inception
   uom: pages
 rup_elaboration_UML_diagram:
   deliverable_type: UML_diagram
+  position: 1
   description: |
     UML diagram deliverable
   lifecycle_phase: rup_elaboration
   uom: pages
 rup_construction_system_code:
   deliverable_type: system_code
+  position: 1
   description: |
     system code deliverable
   lifecycle_phase: rup_construction
   uom: hours
 rup_construction_QA_testing_cases:
   deliverable_type: QA_testing_cases
+  position: 2
   description: |
     QA testing cases deliverable
   lifecycle_phase: rup_construction
   uom: hours
 rup_construction_test_script:
   deliverable_type: test_script
+  position: 3
   description: |
     test script deliverable
   lifecycle_phase: rup_construction
   uom: hours
 rup_construction_test_plan:
   deliverable_type: test_plan
+  position: 4
   description: |
     test plan deliverable
   lifecycle_phase: rup_construction
   uom: hours
 rup_transition_product_delivery:
   deliverable_type: product_delivery
+  position: 1
   description: |
     product deliverable
   lifecycle_phase: rup_transition
   uom: hours
 rup_transition_project_document:
   deliverable_type: product_document
+  position: 2
   description: |
     project document deliverable
   lifecycle_phase: rup_transition
   uom: pages
 wf_initiation_concept_proposal:
   deliverable_type: concept_proposal
+  position: 1
   description: |
     concept proposal deliverable
   lifecycle_phase: wf_initiation
   uom: pages
 wf_concept_system_boundary_document:
   deliverable_type: system_boundary_document
+  position: 1
   description: |
     system boundary document deliverable
   lifecycle_phase: wf_concept
   uom: pages
 wf_concept_cost_benefit_analysis:
   deliverable_type: cost_benefit_analysis
+  position: 2
   description: |
     cost benefit analysis deliverable
   lifecycle_phase: wf_concept
   uom: pages
 wf_concept_risk_management_plan:
   deliverable_type: risk_management_plan
+  position: 3
   description: |
     risk management plan deliverable
   lifecycle_phase: wf_concept
   uom: pages
 wf_concept_feasibility_study:
   deliverable_type: feasibility_study_plan
+  position: 4
   description: |
     feasibility study deliverable
   lifecycle_phase: wf_concept
   uom: pages
 wf_planning_project_management_plan:
   deliverable_type: project_management_plan
+  position: 1
   description: |
     project management plan deliverable
   lifecycle_phase: wf_planning
   uom: pages
 wf_requirements_requirements_analysis:
   deliverable_type: requirements_analysis
+  position: 1
   description: |
     requirements analysis deliverable
   lifecycle_phase: wf_requirements
   uom: pages
 wf_design_product_architecture:
   deliverable_type: product_architecture
+  position: 1
   description: |
     product architecture deliverable
   lifecycle_phase: wf_design
   uom: pages
 wf_development_system_code:
   deliverable_type: system_code
+  position: 1
   description: |
     system code deliverable
   lifecycle_phase: wf_development
   uom: hours
 wf_integration_QA_testing_cases:
   deliverable_type: QA_testing_cases
+  position: 1
   description: |
     QA testing cases deliverable
   lifecycle_phase: wf_integration
   uom: hours
 wf_implementation_product_delivery:
   deliverable_type: product_delivery
+  position: 1
   description: |
     product deliverable
   lifecycle_phase: wf_implementation
   uom: hours
 wf_operation_in_process_review:
   deliverable_type: in_process_review
+  position: 1
   description: |
     in process review deliverable
   lifecycle_phase: wf_operation
   uom: hours
 wf_disposition_archived_data_analysis:
   deliverable_type: archived_data_analysis
+  position: 1
   description: |
     archived data analysis deliverable
   lifecycle_phase: wf_disposition

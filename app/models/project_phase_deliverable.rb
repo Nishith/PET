@@ -25,6 +25,10 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
   belongs_to :deliverable_type
   belongs_to :uom
 
+  validates_presence_of(:position)
+  validates_uniqueness_of(:position, :scope => :project_phase_id)
+  validates_numericality_of(:position, :greater_than => 0)
+
   # the methed converts the complexity integer of the deliverable to a real string
   # by consulting LifecylePhaseDeliverable::COMPLEXITY constant
   # return value: complexity string
