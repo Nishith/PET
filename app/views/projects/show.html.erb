@@ -1,74 +1,85 @@
-<a href="#" id="new-project">New Project</a>
+<div class="object-navigation">
+  Project: <%= collection_select :project, :id, @projects, :id, :name, {}, {:id => "project-select"} %>
+  &nbsp;&nbsp;<a href="#" id="new-project">New Project</a>
+</div>
 
-<p>
-  <b>Name:</b>
-  <%= @project.name %>
-</p>
+<hr/>
+<div class="object-actions">
+    <a href="#" id="edit-project">Edit</a>
+    <%= link_to 'Back', projects_path %>
+</div>
+<div class="object-info">
+    <p>
+      <b>Name:</b>
+      <%= @project.name %>
+    </p>
 
-<p>
-  <b>Description:</b>
-  <%= @project.description %>
-</p>
+    <p>
+      <b>Description:</b>
+      <%= @project.description %>
+    </p>
 
-<p>
-  <b>Lifecycle:</b>
-  <%= @project.lifecycle_name %>
-</p>
+    <p>
+      <b>Lifecycle:</b>
+      <%= @project.lifecycle_name %>
+    </p>
+</div>
 
+<b>Phases:</b>
+<div class="object-details" id="notaccordion">
+    <% if @project.project_phases.count > 0 %>
+        <% @project.project_phases.each do |phase| %>
+            <h3><a href="#"><%= phase.name %></a></h3>
+            <div>
 
-<a href="#" id="edit-project">Edit</a>
-<%= link_to 'Back', projects_path %>
-
-<div id="notaccordion">
-    <% @project.project_phases.each do |phase| %>
-        <h3><a href="#"><%= phase.name %></a></h3>
-        <div>
-
-          <table>
-            <tbody>
-                <tr>
-                  <th>
-                    Name
-                  </th>
-                  <th>
-                    Type
-                  </th>
-                  <th>
-                    Complexity
-                  </th>
-                  <th>
-                    Estimated Effort
-                  </th>
-                  <th>
-                    Actual Effort
-                  </th>
-                </tr>
-
-
-                <% phase.project_phase_deliverables.each do |deliverable| %>
+              <table>
+                <tbody>
                     <tr>
-                        <td>
-                          <%= deliverable.name %>
-                        </td>
-                        <td>
-                          <%= deliverable.deliverable_type.name %>
-                        </td>
-                        <td>
-                          <%= deliverable.complexity_str %>
-                        </td>
-                        <td>
-                          <% #deliverable.estimated_effort %>
-                        </td>
-                        <td>
-                          <% #deliverable.actual_effort %>
-                        </td>
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Type
+                      </th>
+                      <th>
+                        Complexity
+                      </th>
+                      <th>
+                        Estimated Effort
+                      </th>
+                      <th>
+                        Actual Effort
+                      </th>
                     </tr>
-                <% end %>
 
-            </tbody>
-          </table>
-        </div>
-    <% end %>
+
+                    <% phase.project_phase_deliverables.each do |deliverable| %>
+                        <tr>
+                            <td>
+                              <%= deliverable.name %>
+                            </td>
+                            <td>
+                              <%= deliverable.deliverable_type.name %>
+                            </td>
+                            <td>
+                              <%= deliverable.complexity_str %>
+                            </td>
+                            <td>
+                              <% #deliverable.estimated_effort %>
+                            </td>
+                            <td>
+                              <% #deliverable.actual_effort %>
+                            </td>
+                        </tr>
+                    <% end %>
+
+                </tbody>
+              </table>
+            </div>
+        <% end %>
+      <% else %>
+        No phases are defined for this project.
+      <% end %>
 </div>
 
 <div id="new-dialog">

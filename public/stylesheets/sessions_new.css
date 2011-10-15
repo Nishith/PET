@@ -1,0 +1,13 @@
+.devise label{
+    margin-right: 5px;
+    padding-top: 20px;
+}
+.devise .remember_me{
+    float:left;
+}
+.devise .remember_me label{
+    float:none;
+}
+.devise .devise-actions{
+    margin-left: 134px;
+}

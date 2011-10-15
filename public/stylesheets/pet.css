@@ -4,6 +4,7 @@ html{
 body{
     background: #fff;
 }
+
 #header{
     height: 90px;
     background: #000;
@@ -21,11 +22,18 @@ body{
 }
 
 ul.tabs > li{
-    float:none;    
+    float:none;
+    position:relative;
+    left:3px;
 }
 
 ul.tabs > li > a{
     border-radius: 4px 0px 0px 4px;
+}
+
+ul.tabs > li > a:hover{
+    border: 1px solid transparent;
+    border-right: 0;
 }
 
 #sidebar ul.tabs > li.active > a{
@@ -37,7 +45,7 @@ ul.tabs > li > a{
 }
 
 #sidebar{
-    margin-left: 24px;
+    margin-left: 20px;
     padding-top: 20px;
 }
 
@@ -53,4 +61,39 @@ ul.tabs {
     height: 40px;
     padding-top: 20px;
     text-align: center;
+}
+.object-navigation a{
+    text-decoration: underline
+}
+
+.object-actions{
+    float:right;
+    margin-right: 30px;
+}
+
+.object-actions a{
+    text-decoration: underline;
+}
+
+.object-details.ui-widget{
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.object-details.ui-accordion{
+    font-size: 13px;
+}
+
+.object-details h3{
+    border: 0;
+    background: none;
+}
+.object-details .ui-widget-content{
+    border: 0;
+}
+
+#login-box{
+    text-align: right;
+}
+#login-box a{
+    color:grey;
 }

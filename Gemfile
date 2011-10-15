@@ -40,12 +40,14 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'tlsmail'
 
-gem 'ruby-debug19' 
-gem 'ruby-debug-base19x' 
-gem 'ruby-debug-ide' #'0.4.6'
+group :development do
+   gem 'ruby-debug19' 
+   gem 'ruby-debug-base19x' 
+   gem 'ruby-debug-ide' #'0.4.6'
+end
 
 gem 'annotate'
 
-gem "cancan"
-
+gem 'cancan', '1.6.4'
+gem 'heroku'
 

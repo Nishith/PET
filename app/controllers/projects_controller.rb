@@ -18,6 +18,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.xml
   def show
+    @projects = Project.all
     @project = Project.find(params[:id])
     @new_project = Project.new
 

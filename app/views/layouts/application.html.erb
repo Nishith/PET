@@ -9,8 +9,10 @@
 <body>
     <div id="header" class="container-fluid">
         <%= link_to image_tag("logo.png"), root_path %>
-        <%= user_signed_in?? "Welcome, "+current_user.email: link_to('Sign In', new_user_session_path) %>
-        <%= user_signed_in?? link_to('Logout', destroy_user_session_path, :method => :delete):"" %>
+        <div id="login-box">
+            <%= user_signed_in?? "Welcome, "+current_user.email: link_to('Sign In', new_user_session_path) %>
+            <%= user_signed_in?? link_to('Logout', destroy_user_session_path, :method => :delete):"" %>
+        </div>
     </div>
     <div id="container" class="container-fluid">
       <div id="sidebar" class="sidebar">

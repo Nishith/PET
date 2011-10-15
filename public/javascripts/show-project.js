@@ -41,3 +41,7 @@ $("#edit-project").click(function() {
     $("#edit-dialog").dialog("open");
     return false;
 });
+
+$("#project-select").change(function(obj){
+    window.location = "/projects/"+$(obj.srcElement).val();
+});
