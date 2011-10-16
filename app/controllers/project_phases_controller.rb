@@ -1,11 +1,16 @@
+# The project_phases_controller manages individual project phases
+# Available actions include creation, modification, deletion and show.
+# All actions except listing all project phase and viewing a
+# single project phase require the user to be logged in.
+
 class ProjectPhasesController < ApplicationController
   authorize_resource :class => false
   skip_authorize_resource :only => [:index,:show]
 
   before_filter :authenticate_user!
 
-  # GET /project_phases
-  # GET /project_phases.xml
+  # Triggered by GET /project_phases and GET /project_phases.xml
+  #Displays all project phases
   def index
     @project_phases = ProjectPhase.all
 
@@ -15,8 +20,8 @@ class ProjectPhasesController < ApplicationController
     end
   end
 
-  # GET /project_phases/1
-  # GET /project_phases/1.xml
+  # Triggered by GET /project_phases/1 and GET /project_phases/1.xml
+  # Show the project phase specified by the user
   def show
     @project_phase = ProjectPhase.find(params[:id])
 
@@ -26,8 +31,8 @@ class ProjectPhasesController < ApplicationController
     end
   end
 
-  # GET /project_phases/new
-  # GET /project_phases/new.xml
+  # Triggered by GET /project_phases/new and GET /project_phases/new.xml
+  # Display the project creation form to the user.
   def new
     @project_phase = ProjectPhase.new
 
@@ -37,13 +42,14 @@ class ProjectPhasesController < ApplicationController
     end
   end
 
-  # GET /project_phases/1/edit
+  # Triggered by GET /project_phases/1/edit
+  # Display the project edit form
   def edit
     @project_phase = ProjectPhase.find(params[:id])
   end
 
-  # POST /project_phases
-  # POST /project_phases.xml
+  # Triggered by POST /project_phases and POST /project_phases.xml
+  # Receive the parameters from client side and create a new Project phase.
   def create
     @project_phase = ProjectPhase.new(params[:project_phase])
 
@@ -58,8 +64,8 @@ class ProjectPhasesController < ApplicationController
     end
   end
 
-  # PUT /project_phases/1
-  # PUT /project_phases/1.xml
+  # Triggered by PUT /project_phases/1 and PUT /project_phases/1.xml
+  # Receive the parameters from client side and update a Project Phase.
   def update
     @project_phase = ProjectPhase.find(params[:id])
 
@@ -74,8 +80,8 @@ class ProjectPhasesController < ApplicationController
     end
   end
 
-  # DELETE /project_phases/1
-  # DELETE /project_phases/1.xml
+  # Triggered by DELETE /project_phases/1 and DELETE /project_phases/1.xml
+  # Delete a project phase
   def destroy
     @project_phase = ProjectPhase.find(params[:id])
     @project_phase.destroy

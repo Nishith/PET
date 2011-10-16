@@ -1,11 +1,16 @@
+# The project_phase_deliverables_controller manages Project Phase Deliverables.
+# Available actions include creation, modification, deletion and show.
+# All actions except listing all project phase deliverables and viewing a
+# single project phase deliverable require the user to be logged in.
+
 class ProjectPhaseDeliverablesController < ApplicationController
   authorize_resource :class => false
   skip_authorize_resource :only => [:index,:show]
 
   before_filter :authenticate_user!
 
-  # GET /project_phase_deliverables
-  # GET /project_phase_deliverables.xml
+  # Triggered by GET /project_phase_deliverables and GET /project_phase_deliverables.xml
+  # Display all project phase deliverables
   def index
     @project_phase_deliverables = ProjectPhaseDeliverable.all
 
@@ -15,8 +20,8 @@ class ProjectPhaseDeliverablesController < ApplicationController
     end
   end
 
-  # GET /project_phase_deliverables/1
-  # GET /project_phase_deliverables/1.xml
+  # Triggered by GET /project_phase_deliverables/1 and GET /project_phase_deliverables/1.xml
+  # Show the project phase deliverable chosen by the user
   def show
     @project_phase_deliverable = ProjectPhaseDeliverable.find(params[:id])
 
@@ -26,8 +31,8 @@ class ProjectPhaseDeliverablesController < ApplicationController
     end
   end
 
-  # GET /project_phase_deliverables/new
-  # GET /project_phase_deliverables/new.xml
+  # Triggered by GET /project_phase_deliverables/new and GET /project_phase_deliverables/new.xml
+  # Display the creation form for a new project phase deliverable
   def new
     @project_phase_deliverable = ProjectPhaseDeliverable.new
 
@@ -37,13 +42,14 @@ class ProjectPhaseDeliverablesController < ApplicationController
     end
   end
 
-  # GET /project_phase_deliverables/1/edit
+  # Triggered by GET /project_phase_deliverables/1/edit
+  # Display the edit form
   def edit
     @project_phase_deliverable = ProjectPhaseDeliverable.find(params[:id])
   end
 
-  # POST /project_phase_deliverables
-  # POST /project_phase_deliverables.xml
+  # Triggered by POST /project_phase_deliverables and POST /project_phase_deliverables.xml
+  # Receive the parameters from client side and create a new project phase deliverable
   def create
     @project_phase_deliverable = ProjectPhaseDeliverable.new(params[:project_phase_deliverable])
 
@@ -58,8 +64,8 @@ class ProjectPhaseDeliverablesController < ApplicationController
     end
   end
 
-  # PUT /project_phase_deliverables/1
-  # PUT /project_phase_deliverables/1.xml
+  # Triggered by PUT /project_phase_deliverables/1 and PUT /project_phase_deliverables/1.xml
+  # Receive the parameters from client side and update the project phase deliverable.
   def update
     @project_phase_deliverable = ProjectPhaseDeliverable.find(params[:id])
 
@@ -74,8 +80,8 @@ class ProjectPhaseDeliverablesController < ApplicationController
     end
   end
 
-  # DELETE /project_phase_deliverables/1
-  # DELETE /project_phase_deliverables/1.xml
+  # Triggered by DELETE /project_phase_deliverables/1 and DELETE /project_phase_deliverables/1.xml
+  # Delete the project phase deliverable
   def destroy
     @project_phase_deliverable = ProjectPhaseDeliverable.find(params[:id])
     @project_phase_deliverable.destroy

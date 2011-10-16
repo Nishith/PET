@@ -1,4 +1,4 @@
-# The lifecycle_phases_controller manage LifecyclePhase.
+# The lifecycle_phases_controller manages LifecyclePhase.
 # Available actions include creation, modification, deletion and show.
 #
 
@@ -40,7 +40,7 @@ class LifecyclePhasesController < ApplicationController
   end
 
   # Triggered by "GET /lifecycle_phases/:id/edit".
-  # Display the edition form.
+  # Display the edit form.
   def edit
     @lifecycle_phase = LifecyclePhase.find(params[:id])
   end

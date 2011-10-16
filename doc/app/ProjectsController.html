@@ -185,6 +185,10 @@
 
     <div id="description" class="description">
       
+<p>The projects controller manages Projects. Available actions include
+creation, modification, deletion and show. All actions except listing all
+projects and viewing a single project require the user to be logged in.</p>
+
     </div><!-- description -->
 
     
@@ -218,13 +222,14 @@
 
           <div class="method-description">
             
-            <p>POST /projects POST /projects.xml</p>
+            <p>Triggered by POST /projects and POST /projects.xml Receive the parameters
+from client side and create a new <a href="Project.html">Project</a>.</p>
             
 
             
             <div class="method-source-code" id="create-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 49</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@new_project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:project</span>])
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@new_project</span>.<span class="ruby-identifier">lifecycle_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-keyword">then</span>
@@ -293,13 +298,13 @@
 
           <div class="method-description">
             
-            <p>DELETE /projects/1 DELETE /projects/1.xml</p>
+            <p>Triggered by DELETE /projects/1 and DELETE /projects/1.xml Delete a project</p>
             
 
             
             <div class="method-source-code" id="destroy-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 113</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 119</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">destroy</span>
@@ -332,13 +337,13 @@
 
           <div class="method-description">
             
-            <p>GET /projects/1/edit</p>
+            <p>Triggered by GET /projects/1/edit Display the editing form</p>
             
 
             
             <div class="method-source-code" id="edit-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 43</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 <span class="ruby-keyword">end</span></pre>
@@ -365,13 +370,13 @@
 
           <div class="method-description">
             
-            <p>GET /projects GET /projects.xml</p>
+            <p>Triggered by GET /projects and GET /projects.xml Display all projects</p>
             
 
             
             <div class="method-source-code" id="index-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 9</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">all</span>
 
@@ -403,13 +408,14 @@
 
           <div class="method-description">
             
-            <p>GET /projects/new GET /projects/new.xml</p>
+            <p>Triggered by GET /projects/new and GET /projects/new.xml Display the
+creation form for the users to create a new project</p>
             
 
             
             <div class="method-source-code" id="new-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 33</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@new_project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">new</span>
 
@@ -441,13 +447,14 @@
 
           <div class="method-description">
             
-            <p>GET /projects/1 GET /projects/1.xml</p>
+            <p>Triggered by GET /projects/1 and GET /projects/1.xml Show the project
+specified by the user</p>
             
 
             
             <div class="method-source-code" id="show-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 20</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">all</span>
   <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
@@ -481,13 +488,14 @@
 
           <div class="method-description">
             
-            <p>PUT /projects/1 PUT /projects/1.xml</p>
+            <p>Triggered by PUT /projects/1 and PUT /projects/1.xml Receive the parameters
+from client side and update the <a href="Project.html">Project</a>.</p>
             
 
             
             <div class="method-source-code" id="update-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 97</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 

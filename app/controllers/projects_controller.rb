@@ -1,11 +1,16 @@
+# The projects controller manages Projects.
+# Available actions include creation, modification, deletion and show.
+# All actions except listing all projects and viewing a single project
+# require the user to be logged in.
+
 class ProjectsController < ApplicationController
   authorize_resource :class => false
   skip_authorize_resource :only => [:index,:show]
 
   before_filter :authenticate_user!
 
-  # GET /projects
-  # GET /projects.xml
+  # Triggered by GET /projects and GET /projects.xml
+  # Display all projects
   def index
     @projects = Project.all
 
@@ -15,8 +20,8 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/1
-  # GET /projects/1.xml
+  # Triggered by GET /projects/1 and GET /projects/1.xml
+  # Show the project specified by the user
   def show
     @projects = Project.all
     @project = Project.find(params[:id])
@@ -28,8 +33,8 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/new
-  # GET /projects/new.xml
+  # Triggered by GET /projects/new and GET /projects/new.xml
+  # Display the creation form for the users to create a new project
   def new
     @new_project = Project.new
 
@@ -39,13 +44,14 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/1/edit
+  # Triggered by GET /projects/1/edit
+  # Display the editing form
   def edit
     @project = Project.find(params[:id])
   end
 
-  # POST /projects
-  # POST /projects.xml
+  # Triggered by POST /projects and POST /projects.xml
+  # Receive the parameters from client side and create a new Project.
   def create
     @new_project = Project.new(params[:project])
     if @new_project.lifecycle_name == "" then
@@ -92,8 +98,8 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # PUT /projects/1
-  # PUT /projects/1.xml
+  # Triggered by PUT /projects/1 and PUT /projects/1.xml
+  # Receive the parameters from client side and update the Project.
   def update
     @project = Project.find(params[:id])
 
@@ -108,8 +114,8 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.xml
+  # Triggered by DELETE /projects/1 and DELETE /projects/1.xml
+  # Delete a project
   def destroy
     @project = Project.find(params[:id])
     @project.destroy

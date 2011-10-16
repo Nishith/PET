@@ -1,4 +1,4 @@
-# The lifecycle_phase_deliverables_controller manage LifecyclePhaseDeliverable.
+# The lifecycle_phase_deliverables_controller manages LifecyclePhaseDeliverable.
 # Available actions include creation, modification, deletion and show.
 #
 
@@ -40,7 +40,7 @@ class LifecyclePhaseDeliverablesController < ApplicationController
   end
 
   # Triggered by "GET /lifecycle_phase_deliverables/:id/edit".
-  # Display the edition form.
+  # Display the edit form.
   def edit
     @lifecycle_phase_deliverable = LifecyclePhaseDeliverable.find(params[:id])
   end

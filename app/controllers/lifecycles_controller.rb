@@ -1,4 +1,4 @@
-# The lifecycles_controller manage Lifecycle.
+# The lifecycles_controller manages Lifecycle.
 # Available actions include creation, modification, deletion and show.
 #
 
@@ -7,7 +7,7 @@ class LifecyclesController < ApplicationController
   before_filter :authenticate_user!
 
   # Triggered by "GET /lifecycles".
-  # Display all Lifecycle.
+  # Display all Lifecycles.
   def index
     @lifecycles = Lifecycle.all
 
@@ -40,7 +40,7 @@ class LifecyclesController < ApplicationController
   end
 
   # Triggered by "GET /lifecycles/:id/edit".
-  # Display the edition form.
+  # Display the editing form.
   def edit
     @lifecycle = Lifecycle.find(params[:id])
   end

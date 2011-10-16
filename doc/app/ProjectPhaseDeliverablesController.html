@@ -185,6 +185,12 @@
 
     <div id="description" class="description">
       
+<p>The project_phase_deliverables_controller manages <a
+href="Project.html">Project</a> Phase Deliverables. Available actions
+include creation, modification, deletion and show. All actions except
+listing all project phase deliverables and viewing a single project phase
+deliverable require the user to be logged in.</p>
+
     </div><!-- description -->
 
     
@@ -218,13 +224,15 @@
 
           <div class="method-description">
             
-            <p>POST /project_phase_deliverables POST /project_phase_deliverables.xml</p>
+            <p>Triggered by POST /project_phase_deliverables and POST
+/project_phase_deliverables.xml Receive the parameters from client side and
+create a new project phase deliverable</p>
             
 
             
             <div class="method-source-code" id="create-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 47</span>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:project_phase_deliverable</span>])
 
@@ -261,14 +269,14 @@
 
           <div class="method-description">
             
-            <p>DELETE /project_phase_deliverables/1 DELETE
-/project_phase_deliverables/1.xml</p>
+            <p>Triggered by DELETE /project_phase_deliverables/1 and DELETE
+/project_phase_deliverables/1.xml Delete the project phase deliverable</p>
             
 
             
             <div class="method-source-code" id="destroy-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 79</span>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 85</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">destroy</span>
@@ -301,13 +309,13 @@
 
           <div class="method-description">
             
-            <p>GET /project_phase_deliverables/1/edit</p>
+            <p>Triggered by GET /project_phase_deliverables/1/edit Display the edit form</p>
             
 
             
             <div class="method-source-code" id="edit-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 41</span>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 <span class="ruby-keyword">end</span></pre>
@@ -334,13 +342,14 @@
 
           <div class="method-description">
             
-            <p>GET /project_phase_deliverables GET /project_phase_deliverables.xml</p>
+            <p>Triggered by GET /project_phase_deliverables and GET
+/project_phase_deliverables.xml Display all project phase deliverables</p>
             
 
             
             <div class="method-source-code" id="index-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 9</span>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@project_phase_deliverables</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">all</span>
 
@@ -372,13 +381,15 @@
 
           <div class="method-description">
             
-            <p>GET /project_phase_deliverables/new GET /project_phase_deliverables/new.xml</p>
+            <p>Triggered by GET /project_phase_deliverables/new and GET
+/project_phase_deliverables/new.xml Display the creation form for a new
+project phase deliverable</p>
             
 
             
             <div class="method-source-code" id="new-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 31</span>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">new</span>
 
@@ -410,13 +421,15 @@
 
           <div class="method-description">
             
-            <p>GET /project_phase_deliverables/1 GET /project_phase_deliverables/1.xml</p>
+            <p>Triggered by GET /project_phase_deliverables/1 and GET
+/project_phase_deliverables/1.xml Show the project phase deliverable chosen
+by the user</p>
             
 
             
             <div class="method-source-code" id="show-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 20</span>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
@@ -448,13 +461,15 @@
 
           <div class="method-description">
             
-            <p>PUT /project_phase_deliverables/1 PUT /project_phase_deliverables/1.xml</p>
+            <p>Triggered by PUT /project_phase_deliverables/1 and PUT
+/project_phase_deliverables/1.xml Receive the parameters from client side
+and update the project phase deliverable.</p>
             
 
             
             <div class="method-source-code" id="update-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 63</span>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 

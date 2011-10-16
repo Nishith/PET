@@ -185,6 +185,11 @@
 
     <div id="description" class="description">
       
+<p>The project_phases_controller manages individual project phases Available
+actions include creation, modification, deletion and show. All actions
+except listing all project phase and viewing a single project phase require
+the user to be logged in.</p>
+
     </div><!-- description -->
 
     
@@ -218,13 +223,15 @@
 
           <div class="method-description">
             
-            <p>POST /project_phases POST /project_phases.xml</p>
+            <p>Triggered by POST /project_phases and POST /project_phases.xml Receive the
+parameters from client side and create a new <a
+href="Project.html">Project</a> phase.</p>
             
 
             
             <div class="method-source-code" id="create-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 47</span>
+<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@project_phase</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:project_phase</span>])
 
@@ -261,13 +268,14 @@
 
           <div class="method-description">
             
-            <p>DELETE /project_phases/1 DELETE /project_phases/1.xml</p>
+            <p>Triggered by DELETE /project_phases/1 and DELETE /project_phases/1.xml
+Delete a project phase</p>
             
 
             
             <div class="method-source-code" id="destroy-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 79</span>
+<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 85</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@project_phase</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@project_phase</span>.<span class="ruby-identifier">destroy</span>
@@ -300,13 +308,13 @@
 
           <div class="method-description">
             
-            <p>GET /project_phases/1/edit</p>
+            <p>Triggered by GET /project_phases/1/edit Display the project edit form</p>
             
 
             
             <div class="method-source-code" id="edit-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 41</span>
+<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@project_phase</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 <span class="ruby-keyword">end</span></pre>
@@ -333,13 +341,15 @@
 
           <div class="method-description">
             
-            <p>GET /project_phases GET /project_phases.xml</p>
+            <pre>Triggered by GET /project_phases and GET /project_phases.xml</pre>
+
+<p>Displays all project phases</p>
             
 
             
             <div class="method-source-code" id="index-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 9</span>
+<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@project_phases</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">all</span>
 
@@ -371,13 +381,14 @@
 
           <div class="method-description">
             
-            <p>GET /project_phases/new GET /project_phases/new.xml</p>
+            <p>Triggered by GET /project_phases/new and GET /project_phases/new.xml
+Display the project creation form to the user.</p>
             
 
             
             <div class="method-source-code" id="new-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 31</span>
+<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@project_phase</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">new</span>
 
@@ -409,13 +420,14 @@
 
           <div class="method-description">
             
-            <p>GET /project_phases/1 GET /project_phases/1.xml</p>
+            <p>Triggered by GET /project_phases/1 and GET /project_phases/1.xml Show the
+project phase specified by the user</p>
             
 
             
             <div class="method-source-code" id="show-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 20</span>
+<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@project_phase</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
@@ -447,13 +459,15 @@
 
           <div class="method-description">
             
-            <p>PUT /project_phases/1 PUT /project_phases/1.xml</p>
+            <p>Triggered by PUT /project_phases/1 and PUT /project_phases/1.xml Receive
+the parameters from client side and update a <a
+href="Project.html">Project</a> Phase.</p>
             
 
             
             <div class="method-source-code" id="update-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 63</span>
+<span class="ruby-comment"># File app/controllers/project_phases_controller.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@project_phase</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
