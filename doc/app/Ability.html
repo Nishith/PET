@@ -185,6 +185,20 @@
 
     <div id="description" class="description">
       
+<p>Class created by the CanCan gem to define the abilities given to each user
+role. Three roles are defined and given specific permissions:</p>
+<ul><li>
+<p>Admin</p>
+</li><li>
+<p>Manager</p>
+</li><li>
+<p>Developer</p>
+</li></ul>
+
+<p>Currently the permissions granted to Admins and Managers are the same
+except for the creation of other Admin users. Developers are limited to
+listing and viewing projects and lifecycles.</p>
+
     </div><!-- description -->
 
     
@@ -218,24 +232,28 @@
 
           <div class="method-description">
             
-            
+            <p>Method that defines the possible actions a user with a certain role can do.</p>
             
 
             
             <div class="method-source-code" id="new-source">
 <pre>
-<span class="ruby-comment"># File app/models/ability.rb, line 4</span>
+<span class="ruby-comment"># File app/models/ability.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">user</span>)
-  <span class="ruby-comment"># Define abilities for the passed in user here. For example:</span>
-  <span class="ruby-comment">#</span>
-  <span class="ruby-comment">#   user ||= User.new # guest user (not logged in)</span>
+  <span class="ruby-identifier">user</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span> <span class="ruby-comment"># guest user (not logged in)</span>
+
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">role?</span> <span class="ruby-string">&quot;admin&quot;</span>
     <span class="ruby-identifier">can</span> <span class="ruby-value">:manage</span>, <span class="ruby-value">:all</span>
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">role?</span> <span class="ruby-string">&quot;manager&quot;</span>
     <span class="ruby-identifier">can</span> <span class="ruby-value">:manage</span>, <span class="ruby-value">:all</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">can</span> <span class="ruby-value">:manage</span>, <span class="ruby-value">:all</span> <span class="ruby-comment">#developer</span>
+    <span class="ruby-identifier">cannot</span> <span class="ruby-value">:manage</span>, <span class="ruby-value">:lifecycle</span>
+    <span class="ruby-identifier">cannot</span> <span class="ruby-value">:manage</span>, <span class="ruby-value">:lifecycle_phase</span>
+    <span class="ruby-identifier">cannot</span> <span class="ruby-value">:manage</span>, <span class="ruby-value">:lifecycle_phase_deliverable</span>
     <span class="ruby-identifier">cannot</span> <span class="ruby-value">:manage</span>, <span class="ruby-value">:project</span>
+    <span class="ruby-identifier">cannot</span> <span class="ruby-value">:manage</span>, <span class="ruby-value">:project_phase</span>
+    <span class="ruby-identifier">cannot</span> <span class="ruby-value">:manage</span>, <span class="ruby-value">:project_phase_deliverable</span>
     <span class="ruby-identifier">cannot</span> <span class="ruby-value">:manage</span>, <span class="ruby-value">:invitation</span>
     <span class="ruby-identifier">can</span> <span class="ruby-value">:edit</span>, <span class="ruby-value">:invitation</span>
   <span class="ruby-keyword">end</span>

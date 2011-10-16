@@ -224,14 +224,14 @@
             
             <div class="method-source-code" id="create-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 45</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-  <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:project</span>])
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">lifecycle_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-keyword">then</span>
-    <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">lifecycle_name</span> = <span class="ruby-string">&quot;None&quot;</span>
+  <span class="ruby-ivar">@new_project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:project</span>])
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@new_project</span>.<span class="ruby-identifier">lifecycle_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-keyword">then</span>
+    <span class="ruby-ivar">@new_project</span>.<span class="ruby-identifier">lifecycle_name</span> = <span class="ruby-string">&quot;None&quot;</span>
   <span class="ruby-keyword">end</span>
   
-  <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-ivar">@new_project</span>.<span class="ruby-identifier">save</span>
 
   <span class="ruby-identifier">lf_names</span> = <span class="ruby-constant">Lifecycle</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-value">:select</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;name&quot;</span>)
   <span class="ruby-identifier">lf_name_array</span> = []
@@ -239,18 +239,20 @@
     <span class="ruby-identifier">lf_name_array</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">lfn</span>.<span class="ruby-identifier">name</span>
   <span class="ruby-keyword">end</span>
   
-  <span class="ruby-keyword">if</span>(<span class="ruby-identifier">lf_name_array</span>.<span class="ruby-identifier">include?</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">lifecycle_name</span>) <span class="ruby-keyword">then</span>
+  <span class="ruby-keyword">if</span>(<span class="ruby-identifier">lf_name_array</span>.<span class="ruby-identifier">include?</span> <span class="ruby-ivar">@new_project</span>.<span class="ruby-identifier">lifecycle_name</span>) <span class="ruby-keyword">then</span>
     <span class="ruby-comment">#want to copy all data from the lifecycle to the project</span>
-    <span class="ruby-identifier">lf</span> = <span class="ruby-constant">Lifecycle</span>.<span class="ruby-identifier">find_all_by_name</span>(<span class="ruby-ivar">@project</span>.<span class="ruby-identifier">lifecycle_name</span>).<span class="ruby-identifier">last</span>
+    <span class="ruby-identifier">lf</span> = <span class="ruby-constant">Lifecycle</span>.<span class="ruby-identifier">find_all_by_name</span>(<span class="ruby-ivar">@new_project</span>.<span class="ruby-identifier">lifecycle_name</span>).<span class="ruby-identifier">last</span>
     <span class="ruby-identifier">lf</span>.<span class="ruby-identifier">lifecycle_phases</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">lf_phase</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">pf</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lf_phase</span>.<span class="ruby-identifier">name</span>, <span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lf_phase</span>.<span class="ruby-identifier">description</span>, <span class="ruby-value">:project_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">id</span>)
+      <span class="ruby-identifier">pf</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lf_phase</span>.<span class="ruby-identifier">name</span>, <span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lf_phase</span>.<span class="ruby-identifier">description</span>, <span class="ruby-value">:project_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@new_project</span>.<span class="ruby-identifier">id</span>,
+        <span class="ruby-value">:position</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lf_phase</span>.<span class="ruby-identifier">position</span>)
       <span class="ruby-identifier">pf</span>.<span class="ruby-identifier">save</span>
 
       <span class="ruby-identifier">lf_phase</span>.<span class="ruby-identifier">lifecycle_phase_deliverables</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">lf_ph_deliverable</span><span class="ruby-operator">|</span>
         <span class="ruby-identifier">deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lf_ph_deliverable</span>.<span class="ruby-identifier">description</span>,
                                                   <span class="ruby-value">:uom_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lf_ph_deliverable</span>.<span class="ruby-identifier">uom_id</span>,
                                                   <span class="ruby-value">:deliverable_type_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lf_ph_deliverable</span>.<span class="ruby-identifier">deliverable_type_id</span>,
-                                                  <span class="ruby-value">:project_phase_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">pf</span>.<span class="ruby-identifier">id</span>)
+                                                  <span class="ruby-value">:project_phase_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">pf</span>.<span class="ruby-identifier">id</span>,
+                                                  <span class="ruby-value">:position</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lf_ph_deliverable</span>.<span class="ruby-identifier">position</span>)
         <span class="ruby-identifier">deliverable</span>.<span class="ruby-identifier">save</span>
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
@@ -259,12 +261,12 @@
 
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">save</span>
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@project</span>, <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Project was successfully created.'</span>) }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:created</span>, <span class="ruby-value">:location</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span> }
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@new_project</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@new_project</span>, <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Project was successfully created.'</span>) }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@new_project</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:created</span>, <span class="ruby-value">:location</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@new_project</span> }
     <span class="ruby-keyword">else</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;new&quot;</span>}
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:unprocessable_entity</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@new_project</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:unprocessable_entity</span> }
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -297,7 +299,7 @@
             
             <div class="method-source-code" id="destroy-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 107</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 113</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">destroy</span>
@@ -336,7 +338,7 @@
             
             <div class="method-source-code" id="edit-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 39</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 <span class="ruby-keyword">end</span></pre>
@@ -369,7 +371,7 @@
             
             <div class="method-source-code" id="index-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 6</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">all</span>
 
@@ -407,13 +409,13 @@
             
             <div class="method-source-code" id="new-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 29</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
-  <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@new_project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">new</span>
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># new.html.erb</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@new_project</span> }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
             </div><!-- new-source -->
@@ -445,8 +447,9 @@
             
             <div class="method-source-code" id="show-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 17</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
+  <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">all</span>
   <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@new_project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">new</span>
 
@@ -484,7 +487,7 @@
             
             <div class="method-source-code" id="update-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 91</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 97</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 

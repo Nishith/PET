@@ -183,6 +183,46 @@
 
     <div id="description" class="description">
       
+<p>Represents the system’s users</p>
+
+<p>Required attributes:</p>
+<ul><li>
+<p>Email</p>
+</li><li>
+<p>Role</p>
+</li><li>
+<p>Name</p>
+</li></ul>
+
+<h2>Schema Information</h2>
+
+<p>Table name: users</p>
+
+<pre>id                     :integer         not null, primary key
+email                  :string(255)     default(&quot;&quot;), not null
+encrypted_password     :string(128)     default(&quot;&quot;)
+reset_password_token   :string(255)
+reset_password_sent_at :datetime
+remember_created_at    :datetime
+sign_in_count          :integer         default(0)
+current_sign_in_at     :datetime
+last_sign_in_at        :datetime
+current_sign_in_ip     :string(255)
+last_sign_in_ip        :string(255)
+name                   :string(255)
+role                   :string(255)
+confirmation_token     :string(255)
+confirmed_at           :datetime
+confirmation_sent_at   :datetime
+created_at             :datetime
+updated_at             :datetime
+invitation_token       :string(60)
+invitation_sent_at     :datetime
+invitation_accepted_at :datetime
+invitation_limit       :integer
+invited_by_id          :integer
+invited_by_type        :string(255)</pre>
+
     </div><!-- description -->
 
     
@@ -216,13 +256,24 @@
 
           <div class="method-description">
             
-            
+            <p>Validates if the role for the user is the same as the string parameter
+being passed.</p>
+
+<h2>Parameters</h2>
+<ul><li>
+<p>role: A string parameter that represents the role that is being queried.</p>
+</li></ul>
+
+<h2>Return Values</h2>
+
+<p>Returns true if the user has a role that matches the ‘role’ parameter,
+false otherwise.</p>
             
 
             
             <div class="method-source-code" id="role-3F-source">
 <pre>
-<span class="ruby-comment"># File app/models/user.rb, line 15</span>
+<span class="ruby-comment"># File app/models/user.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">role?</span>(<span class="ruby-identifier">role</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">role</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>

@@ -9,7 +9,7 @@ class User::InvitationsController < Devise::InvitationsController
   # Returns the path to which the user is redirected to after sending an invitation
   #
   # === Parameters
-  # * _resource_ : The object that has been invited.
+  # * resource : The object that has been invited.
 
   def after_invite_path_for(resource)
     users_path
@@ -20,7 +20,7 @@ class User::InvitationsController < Devise::InvitationsController
   # user is redirected to the path returned by _after_invite_path_for_
   #
   # === Parameters
-  # * _@user_ : The user object that wants to be created and invited.
+  # * @user : The user object that wants to be created and invited.
 
   def create
     @user = User.invite!(params[:user], current_inviter)

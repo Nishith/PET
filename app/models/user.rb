@@ -1,26 +1,10 @@
-class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable,
-         :recoverable, :rememberable, :trackable, :validatable
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :role, :name
-
-  validates_presence_of :email, :role, :name
-
-  ROLES = {"Admin" => "admin", "Project Manager" => "manager", "Developer" => "developer"}
-  REDUCED_ROLES = {"Project Manager" => "manager", "Developer" => "developer"}
-
-  def role?(role)
-    if self.role.nil?
-      return false
-    else
-      return self.role.downcase == role.downcase
-    end
-  end
-end
-
+# Represents the system's users
+#
+# Required attributes:
+# * Email
+# * Role
+# * Name
+#
 # == Schema Information
 #
 # Table name: users
@@ -50,4 +34,37 @@ end
 #  invited_by_id          :integer
 #  invited_by_type        :string(255)
 #
+
+class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :invitable, :database_authenticatable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :role, :name
+
+  validates_presence_of :email, :role, :name
+
+  # Constant that defines the name-value pairs for the role select options when inviting a user
+  ROLES = {"Admin" => "admin", "Project Manager" => "manager", "Developer" => "developer"}
+
+  # Constant that defines the reduced name-value pairs for the reduced role select options when a manager invites a user
+  REDUCED_ROLES = {"Project Manager" => "manager", "Developer" => "developer"}
+
+  # Validates if the role for the user is the same as the string parameter being passed.
+  # == Parameters
+  # * role: A string parameter that represents the role that is being queried.
+  #
+  # == Return Values
+  # Returns true if the user has a role that matches the 'role' parameter, false otherwise.
+  def role?(role)
+    if self.role.nil?
+      return false
+    else
+      return self.role.downcase == role.downcase
+    end
+  end
+end
+
 

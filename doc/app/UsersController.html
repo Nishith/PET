@@ -173,6 +173,9 @@
 
     <div id="description" class="description">
       
+<p>This controller overrides the default user actions that are set by the
+Devise gem.</p>
+
     </div><!-- description -->
 
     
@@ -206,15 +209,19 @@
 
           <div class="method-description">
             
-            
+            <p>Presents a list of all users, assigns the list to the @users variable</p>
             
 
             
             <div class="method-source-code" id="index-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/users_controller.rb, line 4</span>
+<span class="ruby-comment"># File app/controllers/users_controller.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-identifier">render</span> <span class="ruby-string">'user/index'</span>
+  <span class="ruby-ivar">@users</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-string">&quot;user/index&quot;</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@projects</span> }
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
             </div><!-- index-source -->
             

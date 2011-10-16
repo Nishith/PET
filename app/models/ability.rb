@@ -1,9 +1,18 @@
+#Class created by the CanCan gem to define the abilities given to each user role.
+#Three roles are defined and given specific permissions:
+#* Admin
+#* Manager
+#* Developer
+#
+#Currently the permissions granted to Admins and Managers are the same except
+#for the creation of other Admin users. Developers are limited to listing and viewing projects
+#and lifecycles.
+
 class Ability
   include CanCan::Ability
 
+  #Method that defines the possible actions a user with a certain role can do.
   def initialize(user)
-    # Define abilities for the passed in user here. For example:
-    #
     user ||= User.new # guest user (not logged in)
 
     if user.role? "admin"

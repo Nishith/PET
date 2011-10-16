@@ -175,6 +175,10 @@
 
     <div id="description" class="description">
       
+<p>This controller overrides the default methods for the Devise_Invitable gem
+so that the custom attributes not normally assigned to the user model can
+be taken into account.</p>
+
     </div><!-- description -->
 
     
@@ -208,13 +212,19 @@
 
           <div class="method-description">
             
-            
+            <p>Returns the path to which the user is redirected to after sending an
+invitation</p>
+
+<h3>Parameters</h3>
+<ul><li>
+<p>resource : The object that has been invited.</p>
+</li></ul>
             
 
             
             <div class="method-source-code" id="after_invite_path_for-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/user/invitations_controller.rb, line 5</span>
+<span class="ruby-comment"># File app/controllers/user/invitations_controller.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">after_invite_path_for</span>(<span class="ruby-identifier">resource</span>)
   <span class="ruby-identifier">users_path</span>
 <span class="ruby-keyword">end</span></pre>
@@ -241,13 +251,21 @@
 
           <div class="method-description">
             
-            
+            <p>Handles the POST request for a new invitation, if it contains some errors,
+the user is redirected back to the form. If the save is successful, the
+user is redirected to the path returned by <em><a
+href="InvitationsController.html#method-i-after_invite_path_for">after_invite_path_for</a></em></p>
+
+<h3>Parameters</h3>
+<ul><li>
+<p>@user : The user object that wants to be created and invited.</p>
+</li></ul>
             
 
             
             <div class="method-source-code" id="create-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/user/invitations_controller.rb, line 9</span>
+<span class="ruby-comment"># File app/controllers/user/invitations_controller.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">invite!</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>], <span class="ruby-identifier">current_inviter</span>)
 
