@@ -1,2 +1,10 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+P.E.T. stands for Project Enactment Tool. It helps project managers create estimation of projects based on historical
+data and then monitor progress during the development process.
+
+Three different roles are involved in our system: project manager, developer and admin. Firstly, project managers (PM)
+can create a new project, specifying project phases to the project and deliverables to each phase. PET also provides
+a set of predefined lifecycles containing certain phases and deliverables that PM can take advantage of. For each
+deliverable, PM can utilize historical data to estimate the size, productivity and total effort. When the implementation
+takes place, developers can log effort against a deliverable. PM then track the total effort of deliverables to monitor
+progress. Besides project management, PM can also create, edit or delete lifecycles to produce desired project
+templates.
