@@ -43,5 +43,5 @@ $("#edit-project").click(function() {
 });
 
 $("#project-select").change(function(obj){
-    window.location = "/projects/"+$(obj.srcElement).val();
+    window.location = "/projects/"+$("#project-select").val();
 });
