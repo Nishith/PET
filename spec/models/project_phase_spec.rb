@@ -21,6 +21,22 @@ describe ProjectPhase do
     @phase2.should_not be_valid
     @phase2.errors[:position].should_not be_empty
   end
+
+  it "should not be valid without a name" do
+    subject.should_not be_valid
+    subject.errors[:name].should_not be_empty
+  end
+
+  it "should not be valid without a project_id" do
+    subject.should_not be_valid
+    subject.errors[:project_id].should_not be_empty
+  end
+
+  it "name should be unique" do
+    @phase1 = Factory.create(:project_phase)
+
+    Factory.build(:project_phase).should_not be_valid
+  end
 end
 
 # == Schema Information

@@ -27,6 +27,7 @@ FactoryGirl.define do
   factory :project_phase, :class => ProjectPhase do
     name 'Test project phase'
     position 1
+    project_id 1
   end
 
   factory :project_phase_deliverable, :class => ProjectPhaseDeliverable do

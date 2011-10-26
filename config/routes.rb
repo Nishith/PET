@@ -9,7 +9,9 @@ PET::Application.routes.draw do
 
   resources :lifecycles
 
-  resources :projects
+  resources :projects do
+    post :sort, :on => :collection
+  end
 
   get "user/index"
 
@@ -18,6 +20,11 @@ PET::Application.routes.draw do
   end
 
   resources :users
+
+  #match 'project_phases/sort' => 'project_phases#sort'
+
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

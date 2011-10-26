@@ -45,3 +45,15 @@ $("#edit-project").click(function() {
 $("#project-select").change(function(obj){
     window.location = "/projects/"+$("#project-select").val();
 });
+
+$("#new-phase-dialog").dialog({
+    autoOpen:false,
+    title: "New Project Phase",
+    modal: true,
+    width: '500px'
+
+});
+$("#new-phase").click(function() {
+    $("#new-phase-dialog").dialog("open");
+    return false;
+});
