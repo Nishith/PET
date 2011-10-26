@@ -25,14 +25,16 @@ describe ProjectPhasesController do
   # update the return value of this method accordingly.
   def valid_attributes
     {:name => "Test ProjectPhase",
-    :position => 1}
+    :position => 1,
+    :project_id => 1}
   end
 
   before(:each) do
     @admin = Factory(:admin)
     sign_in @admin
+    @project = Factory(:project)
+    valid_attributes[:project_id] = @project.id
   end
-
 
   describe "GET index" do
     it "assigns all project_phases as @project_phases" do
@@ -79,9 +81,10 @@ describe ProjectPhasesController do
         assigns(:project_phase).should be_persisted
       end
 
-      it "redirects to the created project_phase" do
-        post :create, :project_phase => valid_attributes
-        response.should redirect_to(ProjectPhase.last)
+      it "redirects to the project" do
+        projectPhase = ProjectPhase.create! valid_attributes
+        put :update, :id => projectPhase.id, :projectPhase => valid_attributes
+        response.should redirect_to(@project)
       end
     end
 
@@ -118,12 +121,6 @@ describe ProjectPhasesController do
         project_phase = ProjectPhase.create! valid_attributes
         put :update, :id => project_phase.id, :project_phase => valid_attributes
         assigns(:project_phase).should eq(project_phase)
-      end
-
-      it "redirects to the project_phase" do
-        project_phase = ProjectPhase.create! valid_attributes
-        put :update, :id => project_phase.id, :project_phase => valid_attributes
-        response.should redirect_to(project_phase)
       end
     end
 

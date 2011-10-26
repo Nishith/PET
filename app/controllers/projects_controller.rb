@@ -4,8 +4,8 @@
 # require the user to be logged in.
 
 class ProjectsController < ApplicationController
-  authorize_resource :class => false
-  skip_authorize_resource :only => [:index,:show]
+#  authorize_resource :class => false
+#  skip_authorize_resource :only => [:index,:show]
 
   before_filter :authenticate_user!
 
@@ -26,6 +26,11 @@ class ProjectsController < ApplicationController
     @projects = Project.all
     @project = Project.find(params[:id])
     @new_project = Project.new
+
+    @project_phase = ProjectPhase.new
+    @project_phase.project_id = @project.id
+    number_of_phases = ProjectPhase.find_all_by_project_id(@project.id).size
+    @project_phase.position = number_of_phases + 1
 
     respond_to do |format|
       format.html # show.html.erb
@@ -123,6 +128,15 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(projects_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  def sort
+    params['phase'].each do |phase|
+      @phase = ProjectPhase.find(phase)
+     # @phase.position = params['phase'].index(@phase.id.to_s) + 1
+      #@phase.save
+      @phase.update_attribute("position",params['phase'].index(@phase.id.to_s) + 1)
     end
   end
 end

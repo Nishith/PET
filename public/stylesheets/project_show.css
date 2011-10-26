@@ -2,3 +2,12 @@ div#notaccordion h3{
     padding-left: 15px;
 
 }
+
+ul#phases {
+    list-style: none;
+    margin-left: 0;
+}
+
+ul#phases li {
+    padding: 10px;
+}

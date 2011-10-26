@@ -4,8 +4,8 @@
 # single project phase require the user to be logged in.
 
 class ProjectPhasesController < ApplicationController
-  authorize_resource :class => false
-  skip_authorize_resource :only => [:index,:show]
+  authorize_resource :class => true
+  skip_authorize_resource :only => [:index,:show, :sort]
 
   before_filter :authenticate_user!
 
@@ -55,8 +55,9 @@ class ProjectPhasesController < ApplicationController
 
     respond_to do |format|
       if @project_phase.save
-        format.html { redirect_to(@project_phase, :notice => 'Project phase was successfully created.') }
-        format.xml  { render :xml => @project_phase, :status => :created, :location => @project_phase }
+        @project = Project.find(@project_phase.project_id)
+        format.html { redirect_to(@project, :notice => 'Project phase was successfully created.') }
+        format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @project_phase.errors, :status => :unprocessable_entity }
@@ -68,10 +69,10 @@ class ProjectPhasesController < ApplicationController
   # Receive the parameters from client side and update a Project Phase.
   def update
     @project_phase = ProjectPhase.find(params[:id])
-
+    @project = Project.find(@project_phase.project_id)
     respond_to do |format|
       if @project_phase.update_attributes(params[:project_phase])
-        format.html { redirect_to(@project_phase, :notice => 'Project phase was successfully updated.') }
+        format.html { redirect_to(@project, :notice => 'Project phase was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -91,4 +92,8 @@ class ProjectPhasesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  # receive the ajax query from project#show page and remember the order of phases in database
+
+
 end
