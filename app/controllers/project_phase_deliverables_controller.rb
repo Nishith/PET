@@ -55,7 +55,7 @@ class ProjectPhaseDeliverablesController < ApplicationController
 
     respond_to do |format|
       if @project_phase_deliverable.save
-        format.html { redirect_to(@project_phase_deliverable, :notice => 'Project phase deliverable was successfully created.') }
+        format.html { redirect_to(@project_phase_deliverable.project_phase.project, :notice => 'Project phase deliverable was successfully created.') }
         format.xml  { render :xml => @project_phase_deliverable, :status => :created, :location => @project_phase_deliverable }
       else
         format.html { render :action => "new" }
@@ -89,6 +89,16 @@ class ProjectPhaseDeliverablesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(project_phase_deliverables_url) }
       format.xml  { head :ok }
+    end
+  end
+
+
+  # Return the corresponding UoM for a specified DeliverableType
+
+  def getuom
+    @deliverable_type = DeliverableType.find(params[:id])
+    respond_to do |format|
+      format.json { render :json => @deliverable_type.uom}
     end
   end
 end

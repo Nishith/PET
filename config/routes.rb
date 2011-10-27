@@ -1,7 +1,11 @@
 PET::Application.routes.draw do
-  resources :project_phase_deliverables
+  resources :project_phase_deliverables do
+    post :getuom, :on => :collection
+  end
 
-  resources :project_phases
+  resources :project_phases do
+    post :sort, :on => :collection
+  end
 
   resources :lifecycle_phase_deliverables
 

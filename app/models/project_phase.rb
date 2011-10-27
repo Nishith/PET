@@ -16,7 +16,7 @@
 class ProjectPhase < ActiveRecord::Base
 
   belongs_to :project
-  has_many :project_phase_deliverables, :order => ":position"
+  has_many :project_phase_deliverables, :order => "position"
 
   validates_presence_of(:name)
   validates_presence_of(:project_id)

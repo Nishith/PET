@@ -13,9 +13,9 @@ describe ProjectPhaseDeliverable do
   end
 
   it "should not have an existing position number" do
-    @phase = Factory(:project_phase_deliverable)
+    @phase = Factory(:project_phase_deliverable, :position => 1)
 
-    @phase2 = Factory.build(:project_phase_deliverable)
+    @phase2 = Factory.build(:project_phase_deliverable, :position => 1)
     @phase2.should_not be_valid
     @phase2.errors[:position].should_not be_empty
   end

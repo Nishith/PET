@@ -201,4 +201,14 @@ describe ProjectsController do
     end
   end
 
+  describe "POST sort" do
+    it "assigns the position to the phases sent" do
+      project = Factory(:full_project)
+      original_phases = project.project_phases.collect{|x| x.id.to_s}
+      post :sort, :phase => original_phases.reverse
+      project = Project.find(project.id)
+      original_phases.should eq project.project_phases.reverse.collect{|x| x.id.to_s}
+    end
+  end
+
 end

@@ -24,15 +24,32 @@ FactoryGirl.define do
     name 'Test project'
   end
 
-  factory :project_phase, :class => ProjectPhase do
-    name 'Test project phase'
-    position 1
+  factory :full_project, :class => Project do |project|
+    project.name 'Test Full Project'
+    project.project_phases {|phases| [phases.association(:project_phase),
+                                      phases.association(:project_phase),
+                                      phases.association(:project_phase)]}
+  end
+
+  factory :project_phase, :class => ProjectPhase do |phase|
+    phase.sequence(:name){|n| "Test project phase #{n}" }
+    phase.sequence(:position){|n| n}
     project_id 1
   end
 
-  factory :project_phase_deliverable, :class => ProjectPhaseDeliverable do
-    name 'Test project phase'
-    position 1
+  factory :full_phase, :class => ProjectPhase do |phase|
+    phase.name "Test Project Phase"
+    phase.position 1
+    project_id 1
+    phase.project_phase_deliverables {|deliverables| [deliverables.association(:project_phase_deliverable),
+                                                      deliverables.association(:project_phase_deliverable),
+                                                      deliverables.association(:project_phase_deliverable)]}
+  end
+
+  factory :project_phase_deliverable, :class => ProjectPhaseDeliverable do |deliverable|
+    deliverable.sequence(:name){|n| "Test project deliverable #{n}" }
+    deliverable.sequence(:position){|n| n}
+    project_phase_id 1
   end
 
   factory :lifecycle, :class => Lifecycle do

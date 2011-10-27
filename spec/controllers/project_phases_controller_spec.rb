@@ -75,17 +75,17 @@ describe ProjectPhasesController do
         }.to change(ProjectPhase, :count).by(1)
       end
 
+      it "redirects to the project after creation" do
+        post :create, :project_phase => valid_attributes
+        response.should redirect_to(@project)
+      end
+
       it "assigns a newly created project_phase as @project_phase" do
         post :create, :project_phase => valid_attributes
         assigns(:project_phase).should be_a(ProjectPhase)
         assigns(:project_phase).should be_persisted
       end
 
-      it "redirects to the project" do
-        projectPhase = ProjectPhase.create! valid_attributes
-        put :update, :id => projectPhase.id, :projectPhase => valid_attributes
-        response.should redirect_to(@project)
-      end
     end
 
     describe "with invalid params" do
@@ -122,6 +122,12 @@ describe ProjectPhasesController do
         put :update, :id => project_phase.id, :project_phase => valid_attributes
         assigns(:project_phase).should eq(project_phase)
       end
+
+      it "redirects to the project" do
+        projectPhase = ProjectPhase.create! valid_attributes
+        put :update, :id => projectPhase.id, :projectPhase => valid_attributes
+        response.should redirect_to(@project)
+      end
     end
 
     describe "with invalid params" do
@@ -155,6 +161,16 @@ describe ProjectPhasesController do
       project_phase = ProjectPhase.create! valid_attributes
       delete :destroy, :id => project_phase.id.to_s
       response.should redirect_to(project_phases_url)
+    end
+  end
+
+  describe "POST sort" do
+    it "assigns the position to the deliverables sent" do
+      phase = Factory(:full_phase)
+      original_deliverables = phase.project_phase_deliverables.collect{|x| x.id.to_s}
+      post :sort, :deliverable => original_deliverables.reverse
+      phase = ProjectPhase.find(phase.id)
+      original_deliverables.should eq phase.project_phase_deliverables.reverse.collect{|x| x.id.to_s}
     end
   end
 

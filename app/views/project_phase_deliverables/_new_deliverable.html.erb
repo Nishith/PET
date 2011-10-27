@@ -1,0 +1,61 @@
+<%= form_for(@project_phase_deliverable) do |f| %>
+  <% if @project_phase_deliverable.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project_phase_deliverable.errors.count, "error") %> prohibited this project_phase_deliverable from being saved:</h2>
+
+      <ul>
+      <% @project_phase_deliverable.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :deliverable_type_id %><br/>
+    <%= select(:project_phase_deliverable, :deliverable_type_id, DeliverableType.all.collect {|dt| [ dt.name, dt.id ] }, {:include_blank => "Ad-Hoc"}) %>
+  </div>
+  <div class="field">
+    <%= f.label :uom_id %><br />
+    <%= select(:project_phase_deliverable, :uom_id, Uom.all.collect {|u| [ u.name, u.id ] }) %>
+  </div>
+  <div class="field">
+    <%= f.label :complexity %><br />
+    <%= select(:project_phase_deliverable, :complexity, LifecyclePhaseDeliverable::COMPLEXITY.collect.with_index {|c,i| [c, i+1]}) %>
+  </div>
+  <div class="field">
+    <%= f.label :estimated_size %><br />
+    <%= f.text_field :estimated_size %>
+  </div>
+  <div class="field">
+    <%= f.label :production_rate %><br />
+    <%= f.text_field :production_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :total_effort %><br />
+    <%= f.text_field :total_effort %>
+  </div>
+  <div class="field">
+    <%= f.label :project_phase %><br />
+    <%= f.text_field :project_phase, :id=> "phase_name", :disabled => true %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :project_phase_id %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :position, :id => "deliverable_position" %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= javascript_include_tag 'project_phase_deliverables/_new_deliverable' %>

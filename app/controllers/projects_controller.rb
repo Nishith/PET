@@ -4,8 +4,8 @@
 # require the user to be logged in.
 
 class ProjectsController < ApplicationController
-#  authorize_resource :class => false
-#  skip_authorize_resource :only => [:index,:show]
+  authorize_resource :class => false
+  skip_authorize_resource :only => [:index,:show]
 
   before_filter :authenticate_user!
 
@@ -31,6 +31,8 @@ class ProjectsController < ApplicationController
     @project_phase.project_id = @project.id
     number_of_phases = ProjectPhase.find_all_by_project_id(@project.id).size
     @project_phase.position = number_of_phases + 1
+
+    @project_phase_deliverable = ProjectPhaseDeliverable.new
 
     respond_to do |format|
       format.html # show.html.erb
@@ -131,12 +133,20 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # receive the ajax query from project#show page and remember the order of phases in database
+  # Note: If at some point there are restrictions to the projects that a manager can view,
+  # this validation has to be added to this method so that the phases all belong to the
+  # same project and that the user has edit permissions on that project.
+
   def sort
-    params['phase'].each do |phase|
-      @phase = ProjectPhase.find(phase)
-     # @phase.position = params['phase'].index(@phase.id.to_s) + 1
-      #@phase.save
-      @phase.update_attribute("position",params['phase'].index(@phase.id.to_s) + 1)
+    if params['phase'].is_a? Array
+      params['phase'].each do |phase|
+        @phase = ProjectPhase.find(phase)
+        @phase.update_attribute("position",params['phase'].index(@phase.id.to_s) + 1)
+      end
+      respond_to do |format|
+        format.json { head :ok }
+      end
     end
   end
 end

@@ -14,6 +14,7 @@
 class Uom < ActiveRecord::Base
   has_many :lifecycle_phase_deliverables
   has_many :project_phase_deliverables
+  has_one :deliverable_type
 end
 
 # == Schema Information

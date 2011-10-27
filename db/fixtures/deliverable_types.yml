@@ -1,83 +1,123 @@
 satisfaction_statement:
   name: Condition of Satisfaction
+  uom: page
 requirements_document:
   name: Requirements Document
+  uom: page
 business_rules:
   name: Business Logic Document
+  uom: page
 story_cards:
   name: Story Cards
+  uom: page
 rbs:
   name: Requirements Breakdown
+  uom: page
 priority_list:
   name: Requirements Priority List
+  uom: hour
 sprint_planning:
   name: Sprint Planning
+  uom: hour
 product_backlog:
   name: Product backlog
+  uom: hour
 sprint_backlog:
   name: Sprint backlog
+  uom: hour
 preliminary_plan:
   name: Preliminary Plan
+  uom: page
 rules_of_engagement:
   name: Rules of engagement
+  uom: hour
 labor_parameters:
   name: Labor or time parameters
+  uom: page
 efficiency_measures:
   name: Efficiency Measures
+  uom: hour
 demonstration:
   name: Demonstration
+  uom: hour
 suggestions:
   name: Suggestions
+  uom: hour
 lessons_learned:
   name: Lessons Learned
+  uom: hour
 system_code:
   name: System Code
+  uom: hour
 stories:
   name: Stories
+  uom: hour
 iteration_plan:
   name: Iteration Plan
+  uom: page
 release_plan:
   name: Release Plan
+  uom: hour
 unit_tests:
   name: Unit Tests
+  uom: hour
 acceptance_tests:
   name: Acceptance Tests
-
+  uom: hour
 project_plan:
   name: Project Plan
+  uom: page
 BRD:
   name: BRD
+  uom: page
 high_level_use_cases:
   name: High Level Use Cases
+  uom: page
 UML_diagram:
   name: UML diagram
+  uom: page
 QA_testing_cases:
   name: QA testing cases
+  uom: hour
 test_script:
   name: Test Script
+  uom: hour
 test_plan:
   name: Test Plan
+  uom: hour
 product_delivery:
   name: Product Delivery
+  uom: hour
 product_document:
   name: Product Document
+  uom: page
 concept_proposal:
   name: Concept Proposal
+  uom: page
 system_boundary_document:
   name: System Boundary Document
+  uom: page
 cost_benefit_analysis:
   name: Cost Benefit Analysis
+  uom: page
 risk_management_plan:
   name: Risk Management Plan
+  uom: page
 feasibility_study:
   name: Feasibility Study
+  uom: page
 project_management_plan:
   name: Project Management Plan
+  uom: page
 requirements_analysis:
   name: Requirement Analysis
+  uom: page
 product_architecture:
   name: Product Architecture
+  uom: page
 in_process_review:
   name: In Process Review
+  uom: page
 archived_data_analysis:
   name: Archived Data Analysis
+  uom: page

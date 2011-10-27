@@ -93,7 +93,21 @@ class ProjectPhasesController < ApplicationController
     end
   end
 
-  # receive the ajax query from project#show page and remember the order of phases in database
+  # receive the ajax query from project#show page and remember the order of deliverables in database
+  # If at some point there are restrictions to the projects that a manager can view,
+  # this validation has to be added to this method so that the deliverables all belong to the
+  # same project and that the user has edit permissions on that project.
+
+
+  def sort
+    params['deliverable'].each do |deliverable|
+      @deliverable = ProjectPhaseDeliverable.find(deliverable)
+      @deliverable.update_attribute("position",params['deliverable'].index(@deliverable.id.to_s) + 1)
+    end
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
 
 
 end

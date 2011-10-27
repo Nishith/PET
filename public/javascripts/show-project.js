@@ -57,3 +57,67 @@ $("#new-phase").click(function() {
     $("#new-phase-dialog").dialog("open");
     return false;
 });
+
+$("#new-deliverable-dialog").dialog({
+    autoOpen:false,
+    title: "New Deliverable",
+    modal: true,
+    width: '500px'
+
+});
+$(".new-deliverable").click(function() {
+    $("#deliverable_position").val($(this).parent().find('tr').length);
+    $("#phase_name").val($(this).parent().parent().find('a').get(0).text);
+    $("#project_phase_deliverable_project_phase_id").val($(this).parent().parent().attr('id').substr(6));
+    $("#new-deliverable-dialog").dialog("open");
+    return false;
+});
+
+$('#phases').sortable({
+    axis: 'y',
+    dropOnEmpty: false,
+    items: 'li',
+    opacity: 0.6,
+    scroll: true,
+    update: function(){
+
+        $.ajax({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            },
+            type: 'post',
+            data: $('#phases').sortable('serialize'),
+            dataType: 'script',
+            /*
+            complete: function(request){
+                $('#phases').effect('highlight');
+            },*/
+            url: '/projects/sort'})
+
+    }
+});
+
+var fixHelper = function(e, ui) {
+    ui.children().each(function() {
+        $(this).width($(this).width());
+    });
+    return ui;
+};
+
+$(".deliverables tbody").sortable({
+    helper: fixHelper,
+    dropOnEmpty:false,
+    opacity: 0.6,
+    scroll: false,
+    update: function(event, ui){
+        $.ajax({
+           beforeSend: function(xhr){
+               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+           },
+           type: 'post',
+           data: $(this).sortable('serialize'),
+           dataType: 'script',
+           url: '/project_phases/sort'
+        });
+    }
+}).disableSelection();
