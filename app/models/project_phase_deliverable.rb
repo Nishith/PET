@@ -28,6 +28,7 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
   validates_presence_of(:position)
   validates_uniqueness_of(:position, :scope => :project_phase_id)
   validates_numericality_of(:position, :greater_than => 0)
+  validate :total_effort_calculation_should_be_valid, :if => :validate_total_effort?
 
   # the methed converts the complexity integer of the deliverable to a real string
   # by consulting LifecylePhaseDeliverable::COMPLEXITY constant
@@ -39,6 +40,16 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
       LifecyclePhaseDeliverable::COMPLEXITY[self.complexity]
     else
       ""
+    end
+  end
+
+  def validate_total_effort?
+    self.production_rate? && self.estimated_size? && self.total_effort?
+  end
+
+  def total_effort_calculation_should_be_valid
+    if self.estimated_size * self.production_rate != self.total_effort
+      errors.add(:total_effort, "Total Effort should be Estimated Size * Production Rate")
     end
   end
 
