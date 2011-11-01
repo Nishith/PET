@@ -42,5 +42,12 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
     end
   end
 
+  def has_effort_log?
+    if EffortLog.find_by_project_phase_deliverable_id(self.id) then
+      return true
+    end
+    return false
+  end
+
 end
 
