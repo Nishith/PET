@@ -19,6 +19,23 @@ describe ProjectPhaseDeliverable do
     @phase2.should_not be_valid
     @phase2.errors[:position].should_not be_empty
   end
+
+  it "should invalidate an incorrect total effort calculation" do
+    @phase = Factory(:project_phase_deliverable, :position => 1)
+    @phase.estimated_size = 10
+    @phase.production_rate = 5
+    @phase.total_effort = 10
+    @phase.should_not be_valid
+    @phase.errors[:total_effort].should_not be_empty
+  end
+
+   it "should validate  a correct total effort calculation" do
+    @phase = Factory(:project_phase_deliverable, :position => 1)
+    @phase.estimated_size = 10
+    @phase.production_rate = 5
+    @phase.total_effort = 50
+    @phase.should be_valid
+  end
 end
 
 # == Schema Information

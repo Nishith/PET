@@ -18,6 +18,13 @@ $("#project_phase_deliverable_deliverable_type_id").change(function(obj){
        success: function(data){
            $("#project_phase_deliverable_uom_id").val(data.uom.id);
            $("#project_phase_deliverable_uom_id").attr("disabled","disabled");
+           $("#project_phase_deliverable_uom_id").change();
        }
     });
+});
+
+$("#project_phase_deliverable_uom_id").change(function(obj){
+    var uom = $("#project_phase_deliverable_uom_id option:selected").text();
+    $("#size_uom").text(uom.toLowerCase());
+    $("#size_uom_singular").text((uom.toLowerCase()).singularize());
 });
