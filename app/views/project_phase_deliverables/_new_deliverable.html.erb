@@ -1,4 +1,4 @@
-<%= form_for(@new_project_phase_deliverable) do |f| %>
+<%= form_for(@new_project_phase_deliverable,:html => {:class => "deliverable_form"}) do |f| %>
   <% if @new_project_phase_deliverable.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@new_project_phase_deliverable.errors.count, "error") %> prohibited this project_phase_deliverable from being saved:</h2>

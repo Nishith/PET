@@ -32,7 +32,14 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
   validates_numericality_of(:position, :greater_than => 0)
   validate :total_effort_calculation_should_be_valid, :if => :validate_total_effort?
 
-  before_update { |record| return !record.has_effort_log? }
+  before_update { |record|
+    if(record.has_effort_log?)
+      record.errors[:total_effort] = "You cannot update a deliverable that has logged effort"
+      false
+    else
+      true
+    end
+  }
 
   # the methed converts the complexity integer of the deliverable to a real string
   # by consulting LifecylePhaseDeliverable::COMPLEXITY constant
@@ -61,7 +68,7 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
 
   def total_effort_calculation_should_be_valid
     if self.estimated_size * self.production_rate != self.total_effort
-      errors.add(:total_effort, "Total Effort should be Estimated Size * Production Rate")
+      errors.add(:total_effort, "should be Estimated Size times Production Rate")
     end
   end
 

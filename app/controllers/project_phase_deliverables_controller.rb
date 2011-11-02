@@ -52,10 +52,14 @@ class ProjectPhaseDeliverablesController < ApplicationController
     @project_phase_deliverable = ProjectPhaseDeliverable.find(params[:id])
 
     respond_to do |format|
-      if(params[:no_layout] == "true")
-        format.html { render :layout => false}
+      if(!@project_phase_deliverable.has_effort_log?)
+        if(params[:no_layout] == "true")
+          format.html { render :layout => false}
+        else
+          format.html # show.html.erb
+        end
       else
-        format.html # show.html.erb
+        format.html { redirect_to(@project_phase_deliverable.project_phase.project, :error => 'You cannot update a deliverable that has logged effort.') }
       end
     end
   end
@@ -83,7 +87,7 @@ class ProjectPhaseDeliverablesController < ApplicationController
 
     respond_to do |format|
       if @project_phase_deliverable.update_attributes(params[:project_phase_deliverable])
-        format.html { redirect_to(@project_phase_deliverable, :notice => 'Project phase deliverable was successfully updated.') }
+        format.html { redirect_to(@project_phase_deliverable.project_phase.project, :notice => 'Project phase deliverable was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -99,7 +103,7 @@ class ProjectPhaseDeliverablesController < ApplicationController
     @project_phase_deliverable.destroy
 
     respond_to do |format|
-      format.html { redirect_to(project_phase_deliverables_url) }
+      format.html { redirect_to(@project_phase_deliverable.project_phase.project) }
       format.xml  { head :ok }
     end
   end

@@ -28,3 +28,7 @@ $("#project_phase_deliverable_uom_id").change(function(obj){
     $("#size_uom").text(uom.toLowerCase());
     $("#size_uom_singular").text((uom.toLowerCase()).singularize());
 });
+
+$(".deliverable_form").submit(function(){
+    $("#project_phase_deliverable_uom_id").removeAttr("disabled");
+});

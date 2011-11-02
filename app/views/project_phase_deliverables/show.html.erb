@@ -12,17 +12,17 @@
 
 <p>
   <b>Deliverable type:</b>
-  <%= @project_phase_deliverable.deliverable_type_id %>
+  <%= @project_phase_deliverable.deliverable_type.name unless @project_phase_deliverable.deliverable_type.blank? %>
 </p>
 
 <p>
   <b>Uom:</b>
-  <%= @project_phase_deliverable.uom_id %>
+  <%= @project_phase_deliverable.uom.name unless @project_phase_deliverable.uom.blank? %>
 </p>
 
 <p>
   <b>Complexity:</b>
-  <%= @project_phase_deliverable.complexity %>
+  <%= LifecyclePhaseDeliverable::COMPLEXITY[@project_phase_deliverable.complexity] unless @project_phase_deliverable.complexity.blank? %>
 </p>
 
 <p>
@@ -42,9 +42,10 @@
 
 <p>
   <b>Project phase:</b>
-  <%= @project_phase_deliverable.project_phase_id %>
+  <%= @project_phase_deliverable.project_phase.name unless @project_phase_deliverable.project_phase.blank? %>
 </p>
 
-
+<% if (!@project_phase_deliverable.has_effort_log?) %>
 <%= link_to 'Edit', edit_project_phase_deliverable_path(@project_phase_deliverable), :id => "edit-deliverable-link" %> |
-<%= link_to 'Back', project_phase_deliverables_path %>
+<%= link_to 'Destroy', @project_phase_deliverable, :confirm => 'Are you sure?', :method => :delete %>
+<% end %>

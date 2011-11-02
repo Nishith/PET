@@ -157,7 +157,7 @@ describe ProjectPhaseDeliverablesController do
     it "redirects to the project_phase_deliverables list" do
       project_phase_deliverable = ProjectPhaseDeliverable.create! valid_attributes
       delete :destroy, :id => project_phase_deliverable.id.to_s
-      response.should redirect_to(project_phase_deliverables_url)
+      response.should redirect_to(project_phase_deliverable.project_phase.project)
     end
   end
 

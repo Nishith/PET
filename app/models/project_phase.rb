@@ -25,6 +25,10 @@ class ProjectPhase < ActiveRecord::Base
   validates_uniqueness_of(:name, :scope => :project_id)
   validates_numericality_of(:position, :greater_than => 0)
 
+  def to_s
+    name
+  end
+
 end
 
 
