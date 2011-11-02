@@ -34,13 +34,13 @@
   <div class="field">
     <%= f.label :estimated_size %><br />
     <%= f.text_field :estimated_size %>
-    <%= content_tag(:span, Uom.all.first.name.downcase, :id => "edit_size_uom") %>
+    <%= content_tag(:span, Uom.all.first.blank?? "nil": Uom.all.first.name.downcase, :id => "edit_size_uom") %>
   </div>
   <div class="field">
     <%= f.label :production_rate %><br />
     <%= f.text_field :production_rate %>
     hours /
-    <%= content_tag(:span, Uom.all.first.name.singularize.downcase, :id => "edit_size_uom_singular")  %>
+    <%= content_tag(:span, Uom.all.first.blank?? "nil": Uom.all.first.name.singularize.downcase, :id => "edit_size_uom_singular")  %>
   </div>
   <div class="field">
     <%= f.label :total_effort %><br />
