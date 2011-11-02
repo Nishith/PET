@@ -52,6 +52,14 @@ FactoryGirl.define do
     project_phase_id 1
   end
 
+  factory :effort_log, :class => EffortLog do |effort_log|
+    effort_log.date Date.today
+    effort_log.effort 3.0
+    effort_log.interrupt_time 0.5
+    effort_log.comments "abcd"
+    effort_log.project_phase_deliverable {|deliverable| deliverable.association(:project_phase_deliverable)}
+  end
+
   factory :lifecycle, :class => Lifecycle do
     id 1
     name 'Test lifecycle'

@@ -1,0 +1,41 @@
+<%= form_for(@effort_log) do |f| %>
+  <% if @effort_log.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@effort_log.errors.count, "error") %> prohibited this effort_log from being saved:</h2>
+
+      <ul>
+      <% @effort_log.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :effort %><br />
+    <%= f.text_field :effort %>
+  </div>
+  <div class="field">
+    <%= f.label :interrupt_time %><br />
+    <%= f.text_field :interrupt_time %>
+  </div>
+  <div class="field">
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments %>
+  </div>
+  <div class="field">
+    <%= f.label :project_phase_deliverable_id %><br />
+    <%= f.text_field :project_phase_deliverable_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

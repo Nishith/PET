@@ -1,4 +1,6 @@
 PET::Application.routes.draw do
+  resources :effort_logs
+
   resources :project_phase_deliverables do
     post :getuom, :on => :collection
   end

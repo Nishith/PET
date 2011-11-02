@@ -1,0 +1,2 @@
+module EffortLogsHelper
+end

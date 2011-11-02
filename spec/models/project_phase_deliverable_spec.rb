@@ -29,12 +29,31 @@ describe ProjectPhaseDeliverable do
     @phase.errors[:total_effort].should_not be_empty
   end
 
-   it "should validate  a correct total effort calculation" do
+  it "should validate  a correct total effort calculation" do
     @phase = Factory(:project_phase_deliverable, :position => 1)
     @phase.estimated_size = 10
     @phase.production_rate = 5
     @phase.total_effort = 50
     @phase.should be_valid
+  end
+
+  it "should not be able to update if there are some efforts logged" do
+    @effort_log = Factory(:effort_log)
+    @effort_log.project_phase_deliverable.update_attributes({:name => "Project Deliverable name Test"}).should == false
+  end
+
+  it "should allow not unique names on create" do
+    @deliverable = Factory(:project_phase_deliverable)
+    @deliverable2 = Factory.build(:project_phase_deliverable, :name => @deliverable.name)
+    @deliverable2.should be_valid
+  end
+
+  it "should not allow not unique names on update" do
+    @deliverable = Factory(:project_phase_deliverable)
+    @deliverable2 = Factory(:project_phase_deliverable)
+    @deliverable2.name = @deliverable.name
+    @deliverable2.should_not be_valid
+    @deliverable2.errors[:name].should_not be_empty
   end
 end
 

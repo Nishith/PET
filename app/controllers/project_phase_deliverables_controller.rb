@@ -26,7 +26,11 @@ class ProjectPhaseDeliverablesController < ApplicationController
     @project_phase_deliverable = ProjectPhaseDeliverable.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      if(params[:no_layout] == "true")
+        format.html { render :layout => false}
+      else
+        format.html # show.html.erb
+      end
       format.xml  { render :xml => @project_phase_deliverable }
     end
   end
@@ -46,6 +50,14 @@ class ProjectPhaseDeliverablesController < ApplicationController
   # Display the edit form
   def edit
     @project_phase_deliverable = ProjectPhaseDeliverable.find(params[:id])
+
+    respond_to do |format|
+      if(params[:no_layout] == "true")
+        format.html { render :layout => false}
+      else
+        format.html # show.html.erb
+      end
+    end
   end
 
   # Triggered by POST /project_phase_deliverables and POST /project_phase_deliverables.xml

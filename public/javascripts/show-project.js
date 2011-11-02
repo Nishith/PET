@@ -121,3 +121,42 @@ $(".deliverables tbody").sortable({
         });
     }
 }).disableSelection();
+
+function show_deliverable_dialog(deliverable_id){
+    $("#view-deliverable-dialog-content").load("/project_phase_deliverables/"+deliverable_id+"/?no_layout=true",
+    function(){
+        $("#view-deliverable-dialog").dialog({
+            autoOpen:false,
+            title: "Deliverable Details",
+            modal: true
+        });
+        $("#view-deliverable-dialog").dialog("open");
+        $("#edit-deliverable-link").click(function(){
+            edit_deliverable_dialog(deliverable_id);
+            $("#view-deliverable-dialog").dialog("close");
+            return false;
+        });
+    });
+
+    return false;
+}
+
+function edit_deliverable_dialog(deliverable_id){
+    $("#edit-deliverable-dialog-content").load("/project_phase_deliverables/"+deliverable_id+"/edit/?no_layout=true",
+    function(){
+        $("#edit-deliverable-dialog").dialog({
+            autoOpen:false,
+            title: "Edit Deliverable",
+            modal: true,
+            width: '500px'
+
+        });
+
+        $("#edit-deliverable-dialog").dialog("open");
+    });
+    return false;
+}
+
+function close_show_deliverable_dialog(){
+    $("#view-deliverable-dialog").dialog("close");
+}

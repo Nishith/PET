@@ -10,13 +10,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111026215531) do
+ActiveRecord::Schema.define(:version => 20111101203006) do
 
   create_table "deliverable_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "uom_id"
+  end
+
+  create_table "effort_logs", :force => true do |t|
+    t.date     "date"
+    t.float    "effort"
+    t.float    "interrupt_time"
+    t.text     "comments"
+    t.integer  "project_phase_deliverable_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "lifecycle_phase_deliverables", :force => true do |t|

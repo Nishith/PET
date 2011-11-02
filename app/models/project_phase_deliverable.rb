@@ -24,11 +24,15 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
   belongs_to :project_phase
   belongs_to :deliverable_type
   belongs_to :uom
+  has_many :effort_logs
 
   validates_presence_of(:position)
   validates_uniqueness_of(:position, :scope => :project_phase_id)
+  validates_uniqueness_of(:name, :on => :update, :scope => :project_phase_id)
   validates_numericality_of(:position, :greater_than => 0)
   validate :total_effort_calculation_should_be_valid, :if => :validate_total_effort?
+
+  before_update { |record| return !record.has_effort_log? }
 
   # the methed converts the complexity integer of the deliverable to a real string
   # by consulting LifecylePhaseDeliverable::COMPLEXITY constant

@@ -73,6 +73,9 @@
                         <td>
                           <% #deliverable.actual_effort %>
                         </td>
+                        <td>
+                          <%= link_to_function "Show", "show_deliverable_dialog(#{deliverable.id})" %>
+                        </td>
                       </tr>
                   <% end %>
 
@@ -105,6 +108,13 @@
 
 <div id="new-deliverable-dialog">
   <%= render 'project_phase_deliverables/new_deliverable' %>
+</div>
+
+<div id="view-deliverable-dialog">
+    <div id="view-deliverable-dialog-content"></div>
+</div>
+<div id="edit-deliverable-dialog">
+    <div id="edit-deliverable-dialog-content"></div>
 </div>
 
 <%= javascript_include_tag 'show-project' %>

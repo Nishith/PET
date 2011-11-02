@@ -1,10 +1,10 @@
-<%= form_for(@project_phase_deliverable) do |f| %>
-  <% if @project_phase_deliverable.errors.any? %>
+<%= form_for(@new_project_phase_deliverable) do |f| %>
+  <% if @new_project_phase_deliverable.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@project_phase_deliverable.errors.count, "error") %> prohibited this project_phase_deliverable from being saved:</h2>
+      <h2><%= pluralize(@new_project_phase_deliverable.errors.count, "error") %> prohibited this project_phase_deliverable from being saved:</h2>
 
       <ul>
-      <% @project_phase_deliverable.errors.full_messages.each do |msg| %>
+      <% @new_project_phase_deliverable.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

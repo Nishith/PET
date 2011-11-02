@@ -32,7 +32,9 @@ class ProjectsController < ApplicationController
     number_of_phases = ProjectPhase.find_all_by_project_id(@project.id).size
     @project_phase.position = number_of_phases + 1
 
-    @project_phase_deliverable = ProjectPhaseDeliverable.new
+    @new_project_phase_deliverable = ProjectPhaseDeliverable.new
+
+
 
     respond_to do |format|
       format.html # show.html.erb

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Date:</b>
+  <%= @effort_log.date %>
+</p>
+
+<p>
+  <b>Effort:</b>
+  <%= @effort_log.effort %>
+</p>
+
+<p>
+  <b>Interrupt time:</b>
+  <%= @effort_log.interrupt_time %>
+</p>
+
+<p>
+  <b>Comments:</b>
+  <%= @effort_log.comments %>
+</p>
+
+<p>
+  <b>Project phase deliverable:</b>
+  <%= @effort_log.project_phase_deliverable_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @effort_log.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_effort_log_path(@effort_log) %> |
+<%= link_to 'Back', effort_logs_path %>
