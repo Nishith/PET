@@ -5,6 +5,7 @@ tmp/
 .idea/*
 coverage/*
 doc/coverage/*
+doc/app/*
 tmp/*
 *DS_Store
 .rspec

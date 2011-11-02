@@ -22,7 +22,8 @@
 
 <p>
   <b>Complexity:</b>
-  <%= LifecyclePhaseDeliverable::COMPLEXITY[@project_phase_deliverable.complexity] unless @project_phase_deliverable.complexity.blank? %>
+  <%= @project_phase_deliverable.complexity_str %>
+  <% #LifecyclePhaseDeliverable::COMPLEXITY[@project_phase_deliverable.complexity-1] unless @project_phase_deliverable.complexity.blank? %>
 </p>
 
 <p>

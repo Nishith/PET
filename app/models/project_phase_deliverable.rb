@@ -46,9 +46,9 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
   # return value: complexity string
   def complexity_str
     if !self.complexity.blank? &&
-        self.complexity >= 0 &&
-        self.complexity < LifecyclePhaseDeliverable::COMPLEXITY.size then
-      LifecyclePhaseDeliverable::COMPLEXITY[self.complexity]
+        self.complexity >= 1 &&
+        self.complexity <= LifecyclePhaseDeliverable::COMPLEXITY.size then
+      LifecyclePhaseDeliverable::COMPLEXITY[self.complexity - 1]
     else
       ""
     end

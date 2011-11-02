@@ -33,7 +33,7 @@
   </div>
   <div class="field">
     <%= f.label :complexity %><br />
-    <%= select(:project_phase_deliverable, :complexity, LifecyclePhaseDeliverable::COMPLEXITY.collect.with_index {|c,i| [c, i+1]}) %>
+    <%= select(:project_phase_deliverable, :complexity, LifecyclePhaseDeliverable::COMPLEXITY.collect.with_index {|c,i| [c, i+1]}, :selected => @project_phase_deliverable.complexity) %>
   </div>
   <div class="field">
     <%= f.label :estimated_size %><br />
