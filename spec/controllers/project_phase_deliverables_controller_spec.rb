@@ -27,6 +27,10 @@ describe ProjectPhaseDeliverablesController do
     {:position => 1, :project_phase_id => 1}
   end
 
+  def adhoc_valid_attributes
+    {:position => 1, :project_phase_id => 1, :deliverable_type_id => ''}
+  end
+
   before(:each) do
     @admin = Factory(:admin)
     sign_in @admin
@@ -81,6 +85,12 @@ describe ProjectPhaseDeliverablesController do
         post :create, :project_phase_deliverable => valid_attributes
         assigns(:project_phase_deliverable).should be_a(ProjectPhaseDeliverable)
         assigns(:project_phase_deliverable).should be_persisted
+      end
+
+      it "creates a ad-hoc deliverable" do
+        expect {
+          post :create, :project_phase_deliverable => adhoc_valid_attributes
+        }.to change(ProjectPhaseDeliverable, :count).by(1)
       end
 
     end

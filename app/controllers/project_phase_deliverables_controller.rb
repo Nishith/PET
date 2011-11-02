@@ -67,6 +67,10 @@ class ProjectPhaseDeliverablesController < ApplicationController
   # Triggered by POST /project_phase_deliverables and POST /project_phase_deliverables.xml
   # Receive the parameters from client side and create a new project phase deliverable
   def create
+    if params[:project_phase_deliverable][:deliverable_type_id] == ""
+      #it is ad-hoc
+      params[:project_phase_deliverable][:deliverable_type_id] = 0
+    end
     @project_phase_deliverable = ProjectPhaseDeliverable.new(params[:project_phase_deliverable])
 
     respond_to do |format|

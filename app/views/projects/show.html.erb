@@ -65,7 +65,11 @@
                           <%= deliverable.name %>
                         </td>
                         <td>
-                          <%= deliverable.deliverable_type.name %>
+                          <% if deliverable.deliverable_type == nil %>
+                            <%= "Ad-hoc" %>
+                          <% else %>
+                            <%= deliverable.deliverable_type.name %>
+                          <% end %>
                         </td>
                         <td>
                           <%= deliverable.complexity_str %>

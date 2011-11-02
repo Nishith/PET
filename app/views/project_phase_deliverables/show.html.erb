@@ -12,7 +12,11 @@
 
 <p>
   <b>Deliverable type:</b>
-  <%= @project_phase_deliverable.deliverable_type.name unless @project_phase_deliverable.deliverable_type.blank? %>
+  <% if @project_phase_deliverable.deliverable_type == nil %>
+    <%= "Ad-hoc" %>
+  <% else %>
+    <%= @project_phase_deliverable.deliverable_type.name unless @project_phase_deliverable.deliverable_type_id.blank? %>
+  <% end %>
 </p>
 
 <p>

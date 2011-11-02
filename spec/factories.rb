@@ -52,6 +52,13 @@ FactoryGirl.define do
     project_phase_id 1
   end
 
+  factory :project_phase_deliverable_adhoc, :class => ProjectPhaseDeliverable do |deliverable|
+    deliverable.sequence(:name){|n| "Test project deliverable #{n}" }
+    deliverable.sequence(:position){|n| n}
+    deliverable.deliverable_type_id ""
+    project_phase_id 1
+  end
+
   factory :effort_log, :class => EffortLog do |effort_log|
     effort_log.date Date.today
     effort_log.effort 3.0

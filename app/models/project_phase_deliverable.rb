@@ -72,5 +72,14 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
     end
   end
 
+  #def deliverable_type_name
+  #  if self.deliverable_type_id == 0
+  #    #it is ad-hoc
+  #    return "Ad-hoc"
+  #  else
+  #    return self.deliverable_type.name
+  #  end
+
+  #end
 end
 
