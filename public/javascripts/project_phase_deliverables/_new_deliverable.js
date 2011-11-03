@@ -38,3 +38,19 @@ $("#project_phase_deliverable_uom_id").change(function(obj){
 $(".deliverable_form").submit(function(){
     $("#project_phase_deliverable_uom_id").removeAttr("disabled");
 });
+
+function calculate_effort(obj){
+    var size   = $("#project_phase_deliverable_estimated_size").val();
+    var rate   = $("#project_phase_deliverable_production_rate").val();
+    var effort = $("#project_phase_deliverable_total_effort").val();
+    if((size != 0) && (rate != 0)){
+        $("#project_phase_deliverable_total_effort").val(size * rate);
+    }
+    else if((rate != 0) && (effort != 0)){
+        $("#project_phase_deliverable_estimated_size").val(effort / rate);
+    }
+    else if((effort != 0) && (size != 0)){
+        $("#project_phase_deliverable_production_rate").val(effort / size);
+    }
+    else alert("Please enter two of the values from Estimated size, Production rate, or Total effort to calculate the third.");
+}

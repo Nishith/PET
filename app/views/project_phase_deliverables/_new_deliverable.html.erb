@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.text_area :description, :rows => 5 %>
   </div>
   <div class="field">
     <%= f.label :deliverable_type_id %><br/>
@@ -41,6 +41,9 @@
     <%= f.text_field :production_rate %>
     hours /
     <%= content_tag(:span, Uom.all.first.name.singularize.downcase, :id => "size_uom_singular")  %>
+  </div>
+  <div class="field">
+    <%= button_to_function "Calculate", "calculate_effort()", :class => "ok" %>
   </div>
   <div class="field">
     <%= f.label :total_effort %><br />
