@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111101203006) do
+ActiveRecord::Schema.define(:version => 20111103213431) do
 
   create_table "deliverable_types", :force => true do |t|
     t.string   "name"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(:version => 20111101203006) do
     t.text     "comments"
     t.integer  "project_phase_deliverable_id"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "historical_data", :force => true do |t|
+    t.integer  "project_phase_deliverable_id"
+    t.integer  "deliverable_type_id"
+    t.integer  "complexity"
+    t.float    "estimated_size"
+    t.float    "production_rate"
+    t.float    "total_effort"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
