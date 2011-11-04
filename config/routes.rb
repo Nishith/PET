@@ -27,7 +27,7 @@ PET::Application.routes.draw do
 
   resources :users
 
-  #match 'project_phases/sort' => 'project_phases#sort'
+  match 'historical_data/get' => "historical_data#get", :via => :post
 
 
 

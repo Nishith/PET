@@ -38,11 +38,11 @@ class ProjectPhaseDeliverablesController < ApplicationController
   # Triggered by GET /project_phase_deliverables/new and GET /project_phase_deliverables/new.xml
   # Display the creation form for a new project phase deliverable
   def new
-    @project_phase_deliverable = ProjectPhaseDeliverable.new
+    @new_project_phase_deliverable = ProjectPhaseDeliverable.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @project_phase_deliverable }
+      format.xml  { render :xml => @new_project_phase_deliverable }
     end
   end
 
@@ -50,6 +50,10 @@ class ProjectPhaseDeliverablesController < ApplicationController
   # Display the edit form
   def edit
     @project_phase_deliverable = ProjectPhaseDeliverable.find(params[:id])
+    if(!@project_phase_deliverable.deliverable_type.blank? && !@project_phase_deliverable.complexity.blank?)
+      @historical_data = HistoricalData.get_historical_data(@project_phase_deliverable.deliverable_type_id,
+                                                            @project_phase_deliverable.complexity)
+    end
 
     respond_to do |format|
       if(!@project_phase_deliverable.has_effort_log?)
@@ -71,15 +75,15 @@ class ProjectPhaseDeliverablesController < ApplicationController
       #it is ad-hoc
       params[:project_phase_deliverable][:deliverable_type_id] = 0
     end
-    @project_phase_deliverable = ProjectPhaseDeliverable.new(params[:project_phase_deliverable])
+    @new_project_phase_deliverable = ProjectPhaseDeliverable.new(params[:project_phase_deliverable])
 
     respond_to do |format|
-      if @project_phase_deliverable.save
-        format.html { redirect_to(@project_phase_deliverable.project_phase.project, :notice => 'Project phase deliverable was successfully created.') }
-        format.xml  { render :xml => @project_phase_deliverable, :status => :created, :location => @project_phase_deliverable }
+      if @new_project_phase_deliverable.save
+        format.html { redirect_to(@new_project_phase_deliverable.project_phase.project, :notice => 'Project phase deliverable was successfully created.') }
+        format.xml  { render :xml => @new_project_phase_deliverable, :status => :created, :location => @new_project_phase_deliverable }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @project_phase_deliverable.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @new_project_phase_deliverable.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -91,7 +95,7 @@ class ProjectPhaseDeliverablesController < ApplicationController
 
     respond_to do |format|
       if @project_phase_deliverable.update_attributes(params[:project_phase_deliverable])
-        format.html { redirect_to(@project_phase_deliverable.project_phase.project, :notice => 'Project phase deliverable was successfully updated.') }
+        format.html { redirect_to(Project.find(@project_phase_deliverable.project_phase.project), :notice => 'Project phase deliverable was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

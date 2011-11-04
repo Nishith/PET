@@ -32,6 +32,14 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
   validates_numericality_of(:position, :greater_than => 0)
   validate :total_effort_calculation_should_be_valid, :if => :validate_total_effort?
 
+  after_destroy { |record|
+    go_after = ProjectPhaseDeliverable.where("project_phase_id = #{record.project_phase_id} AND position > #{record.position}")
+    go_after.each do |d|
+      d.position = d.position - 1
+      d.save
+    end
+  }
+
   before_update { |record|
     if(record.has_effort_log?)
       record.errors[:total_effort] = "You cannot update a deliverable that has logged effort"

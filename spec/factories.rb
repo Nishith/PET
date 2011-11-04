@@ -84,4 +84,12 @@ FactoryGirl.define do
     lifecycle_phase_id 1
     position 1
   end
+
+  factory :historical_data, :class => HistoricalData do
+    deliverable_type_id 1
+    complexity 1
+    estimated_size 10
+    production_rate 2
+    total_effort 20
+  end
 end

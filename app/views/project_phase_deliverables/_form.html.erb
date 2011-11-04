@@ -33,7 +33,8 @@
   </div>
   <div class="field">
     <%= f.label :complexity %><br />
-    <%= select(:project_phase_deliverable, :complexity, LifecyclePhaseDeliverable::COMPLEXITY.collect.with_index {|c,i| [c, i+1]}, :selected => @project_phase_deliverable.complexity) %>
+    <%= select(:project_phase_deliverable, :complexity, LifecyclePhaseDeliverable::COMPLEXITY.collect.with_index {|c,i| [c, i+1]},
+               {:selected => @project_phase_deliverable.complexity}, {:id => "edit_project_phase_deliverable_complexity"}) %>
   </div>
   <div class="field">
     <%= f.label :estimated_size %><br />
@@ -63,6 +64,39 @@
   </div>
   <div class="actions">
     <%= f.submit %>
+  </div>
+  <div id="edit-historical-data">
+    <table>
+        <thead>
+          <tr>
+            <th colspan="3">
+                   Historical Data
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        <% if !@historical_data.blank? %>
+            <% [:estimated_size,:production_rate,:total_effort].each do |attr| %>
+            <tr>
+              <td>Min</td>
+              <td>Avg</td>
+              <td>Max</td>
+            </tr>
+            <tr>
+              <td><%= @historical_data[attr][:min]%></td>
+              <td><%= @historical_data[attr][:avg]%></td>
+              <td><%= @historical_data[attr][:max]%></td>
+            </tr>
+            <% end %>
+        <% else %>
+            <tr>
+              <td colspan="3">
+                Not available for Ad-Hoc Deliverables
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
   </div>
 <% end %>
 

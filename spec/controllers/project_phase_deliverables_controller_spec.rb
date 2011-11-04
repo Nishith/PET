@@ -56,7 +56,7 @@ describe ProjectPhaseDeliverablesController do
   describe "GET new" do
     it "assigns a new project_phase_deliverable as @project_phase_deliverable" do
       get :new
-      assigns(:project_phase_deliverable).should be_a_new(ProjectPhaseDeliverable)
+      assigns(:new_project_phase_deliverable).should be_a_new(ProjectPhaseDeliverable)
     end
   end
 
@@ -83,8 +83,8 @@ describe ProjectPhaseDeliverablesController do
 
       it "assigns a newly created project_phase_deliverable as @project_phase_deliverable" do
         post :create, :project_phase_deliverable => valid_attributes
-        assigns(:project_phase_deliverable).should be_a(ProjectPhaseDeliverable)
-        assigns(:project_phase_deliverable).should be_persisted
+        assigns(:new_project_phase_deliverable).should be_a(ProjectPhaseDeliverable)
+        assigns(:new_project_phase_deliverable).should be_persisted
       end
 
       it "creates a ad-hoc deliverable" do
@@ -100,7 +100,7 @@ describe ProjectPhaseDeliverablesController do
         # Trigger the behavior that occurs when invalid params are submitted
         ProjectPhaseDeliverable.any_instance.stub(:save).and_return(false)
         post :create, :project_phase_deliverable => {}
-        assigns(:project_phase_deliverable).should be_a_new(ProjectPhaseDeliverable)
+        assigns(:new_project_phase_deliverable).should be_a_new(ProjectPhaseDeliverable)
       end
 
       it "re-renders the 'new' template" do
