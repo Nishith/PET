@@ -15,9 +15,9 @@ describe ProjectPhase do
   end
 
   it "should not have an existing position number" do
-    @phase = Factory(:project_phase, :position => 1)
-
-    @phase2 = Factory.build(:project_phase, :position => 1)
+    @project = Factory(:project)
+    @phase = Factory(:project_phase, :position => 1, :project => @project)
+    @phase2 = Factory.build(:project_phase, :position => 1, :project => @project)
     @phase2.should_not be_valid
     @phase2.errors[:position].should_not be_empty
   end
@@ -33,11 +33,13 @@ describe ProjectPhase do
   end
 
   it "name should be unique" do
-    @phase1 = Factory.create(:project_phase, :name => "Test phase")
+    @project = Factory(:project)
+    @phase1 = Factory.create(:project_phase, :name => "Test phase", :project => @project)
 
-    Factory.build(:project_phase, :name => "Test phase").should_not be_valid
+    Factory.build(:project_phase, :name => "Test phase", :project => @project).should_not be_valid
   end
 end
+
 
 # == Schema Information
 #
@@ -49,5 +51,6 @@ end
 #  project_id  :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#  position    :integer
 #
 

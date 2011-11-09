@@ -21,6 +21,7 @@ describe LifecyclePhaseDeliverable do
   end
 end
 
+
 # == Schema Information
 #
 # Table name: lifecycle_phase_deliverables
@@ -32,5 +33,6 @@ end
 #  lifecycle_phase_id  :integer
 #  created_at          :datetime
 #  updated_at          :datetime
+#  position            :integer
 #
 

@@ -19,6 +19,14 @@ class Project < ActiveRecord::Base
 
   has_many :project_phases, :order => "position"
   has_many :project_phase_deliverables, :through => :project_phases
+
+  def effort_logs
+    self.project_phase_deliverables.collect{|d| d.effort_logs }.flatten
+  end
+
+  def total_actual_effort
+    self.effort_logs.inject(0){|sum, ef| sum + ef.effort}
+  end
 end
 
 

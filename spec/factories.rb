@@ -20,43 +20,43 @@ FactoryGirl.define do
     password  '123456'
   end
 
-  factory :project, :class => Project do
-    name 'Test project'
+  factory :project, :class => Project do |project|
+    project.sequence(:name) {|n| "Test project #{n}"}
   end
 
   factory :full_project, :class => Project do |project|
     project.name 'Test Full Project'
-    project.project_phases {|phases| [phases.association(:project_phase),
-                                      phases.association(:project_phase),
-                                      phases.association(:project_phase)]}
+    project.project_phases {|phases| [phases.association(:project_phase, :project_id => project.id),
+                                      phases.association(:project_phase, :project_id => project.id),
+                                      phases.association(:project_phase, :project_id => project.id)]}
   end
 
   factory :project_phase, :class => ProjectPhase do |phase|
     phase.sequence(:name){|n| "Test project phase #{n}" }
     phase.sequence(:position){|n| n}
-    project_id 1
+    phase.project {|project| project.association(:project)}
   end
 
   factory :full_phase, :class => ProjectPhase do |phase|
     phase.name "Test Project Phase"
     phase.position 1
-    project_id 1
-    phase.project_phase_deliverables {|deliverables| [deliverables.association(:project_phase_deliverable),
-                                                      deliverables.association(:project_phase_deliverable),
-                                                      deliverables.association(:project_phase_deliverable)]}
+    phase.project {|project| project.association(:project)}
+    phase.project_phase_deliverables {|deliverables| [deliverables.association(:project_phase_deliverable, :project_phase => phase),
+                                                      deliverables.association(:project_phase_deliverable, :project_phase => phase),
+                                                      deliverables.association(:project_phase_deliverable, :project_phase => phase)]}
   end
 
   factory :project_phase_deliverable, :class => ProjectPhaseDeliverable do |deliverable|
     deliverable.sequence(:name){|n| "Test project deliverable #{n}" }
     deliverable.sequence(:position){|n| n}
-    project_phase_id 1
+    deliverable.project_phase {|phase| phase.association(:project_phase)}
   end
 
   factory :project_phase_deliverable_adhoc, :class => ProjectPhaseDeliverable do |deliverable|
     deliverable.sequence(:name){|n| "Test project deliverable #{n}" }
     deliverable.sequence(:position){|n| n}
     deliverable.deliverable_type_id ""
-    project_phase_id 1
+    deliverable.project_phase {|phase| phase.association(:project_phase)}
   end
 
   factory :effort_log, :class => EffortLog do |effort_log|
@@ -65,6 +65,7 @@ FactoryGirl.define do
     effort_log.interrupt_time 0.5
     effort_log.comments "abcd"
     effort_log.project_phase_deliverable {|deliverable| deliverable.association(:project_phase_deliverable)}
+    effort_log.user {|user| user.association(:developer)}
   end
 
   factory :lifecycle, :class => Lifecycle do

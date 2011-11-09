@@ -23,6 +23,7 @@ describe LifecyclePhase do
   end
 end
 
+
 # == Schema Information
 #
 # Table name: lifecycle_phases
@@ -33,5 +34,6 @@ end
 #  lifecycle_id :integer
 #  created_at   :datetime
 #  updated_at   :datetime
+#  position     :integer
 #
 

@@ -84,7 +84,9 @@ class ProjectsController < ApplicationController
         pf.save
 
         lf_phase.lifecycle_phase_deliverables.each do |lf_ph_deliverable|
+          name = lf_ph_deliverable.deliverable_type.blank?? "None" : lf_ph_deliverable.deliverable_type.name
           deliverable = ProjectPhaseDeliverable.new(:description => lf_ph_deliverable.description,
+                                                    :name => name,
                                                     :uom_id => lf_ph_deliverable.uom_id,
                                                     :deliverable_type_id => lf_ph_deliverable.deliverable_type_id,
                                                     :project_phase_id => pf.id,

@@ -16,25 +16,26 @@
     </div>
     <div id="container" class="container-fluid">
       <div id="sidebar" class="sidebar">
-	<ul class="tabs">
-	  <li <%= controller_name == 'lifecycles'? "class='active'": "" %> >
-            <a href="/lifecycles">Lifecycle Management</a>
-	  </li>
-	  <li <%= controller_name == 'projects'?"class='active'":"" %> >
-            <a href="/projects">Project Management</a>
-	  </li>
-	  <li <%= controller_name == 'effort_logs'? "class='active'":"" %> >
-            <a href="/effort_logs"">Effort Logging</a>
-	  </li>
-	  <li <%= controller_name == 'invitations'? "class='active'":"" %> >
-            <a href="/users/invitation/new"">Invite a User</a>
-	  </li>
+        <ul class="horizontal-tabs tabs">
+          <li <%= controller_name == 'lifecycles'? "class='active'": "" %> >
+                <a href="/lifecycles">Lifecycle Management</a>
+          </li>
+          <li <%= controller_name == 'projects'?"class='active'":"" %> >
+                <a href="/projects">Project Management</a>
+          </li>
+          <li <%= controller_name == 'effort_logs'? "class='active'":"" %> >
+                <a href="/effort_logs">Effort Logging</a>
+          </li>
+          <li <%= controller_name == 'invitations'? "class='active'":"" %> >
+                <a href="/users/invitation/new">Invite a User</a>
+          </li>
+        </ul>
       </div>
       <div id="content" class="content">
           <p id="notice" class="notice"><%= notice %></p>
           <p id="alert" class="alert"><%= alert %></p>
           <p id="error" class="error"><%= flash[:error] %></p>
-          <%= yield %>
+          <%= content_for?(:content) ? yield(:content) : yield %>
       </div>
     </div>
     <div id="footer" class="container-fluid">

@@ -1,33 +1,25 @@
-<h1>Listing effort_logs</h1>
+<h3>Recent deliverables</h3>
 
 <table>
   <tr>
-    <th>Date</th>
+    <th>Project</th>
+    <th>Phase</th>
+    <th>Deliverable</th>
     <th>Effort</th>
-    <th>Interrupt time</th>
-    <th>Comments</th>
-    <th>Project phase deliverable</th>
-    <th>User</th>
-    <th></th>
-    <th></th>
     <th></th>
   </tr>
 
-<% @effort_logs.each do |effort_log| %>
-  <tr>
-    <td><%= effort_log.date %></td>
-    <td><%= effort_log.effort %></td>
-    <td><%= effort_log.interrupt_time %></td>
-    <td><%= effort_log.comments %></td>
-    <td><%= effort_log.project_phase_deliverable_id %></td>
-    <td><%= effort_log.user_id %></td>
-    <td><%= link_to 'Show', effort_log %></td>
-    <td><%= link_to 'Edit', edit_effort_log_path(effort_log) %></td>
-    <td><%= link_to 'Destroy', effort_log, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<% if !@recent_deliverables.blank? %>
+    <% @recent_deliverables.each do |deliverable| %>
+      <tr>
+        <td><%= deliverable.project_phase.project.name %></td>
+        <td><%= deliverable.project_phase.name %></td>
+        <td><%= deliverable.name %></td>
+        <td><%= deliverable.total_logged_effort %></td>
+        <td><%= link_to 'New Effort log', new_effort_log_path %></td>
+      </tr>
+    <% end %>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Effort log', new_effort_log_path %>

@@ -8,9 +8,9 @@ describe Project do
   end
 
   it "name should be unique" do
-    @project1 = Factory.create(:project)
+    @project1 = Factory.create(:project, :name => "Test Project")
 
-    Factory.build(:project).should_not be_valid
+    Factory.build(:project, :name => "Test Project").should_not be_valid
   end
 end
 

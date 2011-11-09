@@ -1,0 +1,15 @@
+<% content_for :content do %>
+  <ul class="tabs">
+          <li <%= controller.action_name == 'index'? "class='active'": "" %> >
+                <a href="/effort_logs">Recently Used</a>
+          </li>
+          <li <%= controller.action_name == 'index_by_project'?"class='active'":"" %> >
+                <a href="/effort_logs/projects">By Project</a>
+          </li>
+  </ul>
+  <div id="effort_content">
+    <%= content_for?(:effort_content) ? yield(:effort_content) : yield %>
+  </div>
+<% end %>
+
+<%= render :template => 'layouts/application' %>

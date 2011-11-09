@@ -7,6 +7,7 @@ describe DeliverableType do
   end
 end
 
+
 # == Schema Information
 #
 # Table name: deliverable_types
@@ -15,5 +16,6 @@ end
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  uom_id     :integer
 #
 

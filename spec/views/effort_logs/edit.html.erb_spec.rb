@@ -19,8 +19,7 @@ describe "effort_logs/edit.html.erb" do
       assert_select "input#effort_log_effort", :name => "effort_log[effort]"
       assert_select "input#effort_log_interrupt_time", :name => "effort_log[interrupt_time]"
       assert_select "textarea#effort_log_comments", :name => "effort_log[comments]"
-      assert_select "input#effort_log_project_phase_deliverable_id", :name => "effort_log[project_phase_deliverable_id]"
-      assert_select "input#effort_log_user_id", :name => "effort_log[user_id]"
+      assert_select "select#effort_log_project_phase_deliverable_id", :name => "effort_log[project_phase_deliverable_id]"
     end
   end
 end

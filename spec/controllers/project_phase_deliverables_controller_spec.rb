@@ -24,11 +24,13 @@ describe ProjectPhaseDeliverablesController do
   # ProjectPhaseDeliverable. As you add validations to ProjectPhaseDeliverable, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {:position => 1, :project_phase_id => 1}
+    {:name => "New Deliverable 1",
+     :position => 1,
+     :project_phase_id => 1}
   end
 
   def adhoc_valid_attributes
-    {:position => 1, :project_phase_id => 1, :deliverable_type_id => ''}
+    {:name => "New Deliverable 1", :position => 1, :project_phase_id => 1, :deliverable_type_id => ''}
   end
 
   before(:each) do

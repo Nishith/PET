@@ -1,18 +1,6 @@
 # ProjectPhase belongs to Project.
 # ProjectPhase has many ProjectPhaseDeliverable.
 #
-# == Schema Information
-#
-# Table name: project_phases
-#
-#  id          :integer         not null, primary key
-#  name        :string(255)
-#  description :text
-#  project_id  :integer
-#  created_at  :datetime
-#  updated_at  :datetime
-#
-
 class ProjectPhase < ActiveRecord::Base
 
   belongs_to :project
@@ -31,4 +19,18 @@ class ProjectPhase < ActiveRecord::Base
 
 end
 
+
+
+# == Schema Information
+#
+# Table name: project_phases
+#
+#  id          :integer         not null, primary key
+#  name        :string(255)
+#  description :text
+#  project_id  :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#  position    :integer
+#
 

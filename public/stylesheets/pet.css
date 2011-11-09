@@ -21,22 +21,22 @@ body{
     padding-left: 30px;
 }
 
-ul.tabs > li{
+ul.horizontal-tabs > li{
     float:none;
     position:relative;
     left:3px;
 }
 
-ul.tabs > li > a{
+ul.horizontal-tabs > li > a{
     border-radius: 4px 0px 0px 4px;
 }
 
-ul.tabs > li > a:hover{
+ul.horizontal-tabs > li > a:hover{
     border: 1px solid transparent;
     border-right: 0;
 }
 
-#sidebar ul.tabs > li.active > a{
+#sidebar ul.horizontal-tabs > li.active > a{
     border: #DDD 1px solid;
     border-right-color: white;
     border-radius: 4px 0px 0px 4px;
@@ -53,7 +53,7 @@ ul.tabs > li > a:hover{
     border-left: 1px solid #DDD;
 }
 
-ul.tabs {
+ul.horizontal-tabs {
     border-bottom: 0px;
 }
 #footer{

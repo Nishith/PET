@@ -13,20 +13,21 @@ describe ProjectPhaseDeliverable do
   end
 
   it "should not have an existing position number" do
-    @phase = Factory(:project_phase_deliverable, :position => 1)
+    @phase = Factory(:project_phase)
+    @deliverable = Factory(:project_phase_deliverable, :position => 1, :project_phase => @phase)
 
-    @phase2 = Factory.build(:project_phase_deliverable, :position => 1)
-    @phase2.should_not be_valid
-    @phase2.errors[:position].should_not be_empty
+    @deliverable2 = Factory.build(:project_phase_deliverable, :position => 1, :project_phase => @phase)
+    @deliverable2.should_not be_valid
+    @deliverable2.errors[:position].should_not be_empty
   end
 
   it "should invalidate an incorrect total effort calculation" do
-    @phase = Factory(:project_phase_deliverable, :position => 1)
-    @phase.estimated_size = 10
-    @phase.production_rate = 5
-    @phase.total_effort = 10
-    @phase.should_not be_valid
-    @phase.errors[:total_effort].should_not be_empty
+    @deliverable = Factory(:project_phase_deliverable, :position => 1)
+    @deliverable.estimated_size = 10
+    @deliverable.production_rate = 5
+    @deliverable.total_effort = 10
+    @deliverable.should_not be_valid
+    @deliverable.errors[:total_effort].should_not be_empty
   end
 
   it "should validate  a correct total effort calculation" do
@@ -49,13 +50,15 @@ describe ProjectPhaseDeliverable do
   end
 
   it "should not allow not unique names on update" do
-    @deliverable = Factory(:project_phase_deliverable)
-    @deliverable2 = Factory(:project_phase_deliverable)
+    @phase = Factory(:project_phase)
+    @deliverable = Factory(:project_phase_deliverable, :project_phase => @phase)
+    @deliverable2 = Factory(:project_phase_deliverable, :project_phase => @phase)
     @deliverable2.name = @deliverable.name
     @deliverable2.should_not be_valid
     @deliverable2.errors[:name].should_not be_empty
   end
 end
+
 
 # == Schema Information
 #
@@ -73,5 +76,7 @@ end
 #  project_phase_id    :integer
 #  created_at          :datetime
 #  updated_at          :datetime
+#  position            :integer
+#  finished            :boolean
 #
 

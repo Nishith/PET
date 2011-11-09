@@ -1,4 +1,7 @@
 PET::Application.routes.draw do
+  match 'effort_logs/project/:id' => "effort_logs#index_by_project"
+  match 'effort_logs/projects' => "effort_logs#index_by_project"
+
   resources :effort_logs
 
   resources :project_phase_deliverables do
@@ -28,8 +31,6 @@ PET::Application.routes.draw do
   resources :users
 
   match 'historical_data/get' => "historical_data#get", :via => :post
-
-
 
 
   # The priority is based upon order of creation:

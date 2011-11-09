@@ -20,3 +20,19 @@ describe HistoricalData do
     results[:total_effort][:max].should == 40
   end
 end
+
+# == Schema Information
+#
+# Table name: historical_data
+#
+#  id                           :integer         not null, primary key
+#  project_phase_deliverable_id :integer
+#  deliverable_type_id          :integer
+#  complexity                   :integer
+#  estimated_size               :float
+#  production_rate              :float
+#  total_effort                 :float
+#  created_at                   :datetime
+#  updated_at                   :datetime
+#
+

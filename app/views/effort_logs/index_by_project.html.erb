@@ -1,0 +1,78 @@
+<div class="object-navigation">
+  <% if @project %>
+    Project: <%= collection_select :project, :id, @projects, :id, :name, {}, {:id => "project-select"} %>
+  <% else %>
+    Project: <%= collection_select :project, :id, @projects, :id, :name, {:include_blank => true}, {:id => "project-select"} %>
+  <% end %>
+    &nbsp;&nbsp;
+</div>
+
+<hr/>
+<% if @project %>
+    <div class="object-info">
+      <p>
+        <b>Name:</b>
+        <%= @project.name %>
+      </p>
+
+      <p>
+        <b>Description:</b>
+        <%= @project.description %>
+      </p>
+
+      <p>
+        <b>Total Effort:</b>
+        <%= @project.total_actual_effort %> hours
+      </p>
+    </div>
+
+    <table class="deliverables">
+      <thead>
+      <tr>
+        <th>
+          Phase
+        </th>
+        <th>
+          Deliverable
+        </th>
+        <th>
+          Effort
+        </th>
+        <th>
+          Status
+        </th>
+        <th>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @project.project_phases.each do |phase| %>
+          <% phase.project_phase_deliverables.each do |deliverable| %>
+              <tr id="deliverable_<%= deliverable.id %>">
+                <td>
+                  <%= deliverable.project_phase.name %>
+                </td>
+                <td>
+                  <%= hidden_field_tag 'deliverable_id', deliverable.id %>
+                  <%= deliverable.name %>
+                <td>
+                  <%= deliverable.total_logged_effort %>
+                </td>
+                <td>
+                  <%= deliverable.status_s %>
+                </td>
+                <td>
+                    <a href="#" class="log-effort">Log Effort</a>
+                </td>
+              </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+
+<div id="new-effort-log-dialog">
+  <%= render 'effort_logs/form' %>
+</div>
+
+<%= javascript_include_tag 'show-effort-log' %>

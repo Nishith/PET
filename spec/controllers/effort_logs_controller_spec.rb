@@ -24,14 +24,25 @@ describe EffortLogsController do
   # EffortLog. As you add validations to EffortLog, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :date => Date.today,
+      :effort => 12.0,
+      :user_id => 1,
+      :project_phase_deliverable => Factory(:project_phase_deliverable)
+    }
+  end
+
+  before(:each) do
+    @admin = Factory(:admin)
+    sign_in @admin
   end
 
   describe "GET index" do
-    it "assigns all effort_logs as @effort_logs" do
-      effort_log = EffortLog.create! valid_attributes
+    it "assigns recent logged against deliverables as @recent_deliverables" do
+      Factory(:effort_log)
+      recent_deliverables = ProjectPhaseDeliverable.recently_logged
       get :index
-      assigns(:effort_logs).should eq([effort_log])
+      assigns(:recent_deliverables).should eq(recent_deliverables)
     end
   end
 
@@ -74,7 +85,8 @@ describe EffortLogsController do
 
       it "redirects to the created effort_log" do
         post :create, :effort_log => valid_attributes
-        response.should redirect_to(EffortLog.last)
+        response.should redirect_to(:action => "index_by_project", :controller => "effort_logs",
+                                    :id => EffortLog.last.project_phase_deliverable.project_phase.project)
       end
     end
 
@@ -116,7 +128,9 @@ describe EffortLogsController do
       it "redirects to the effort_log" do
         effort_log = EffortLog.create! valid_attributes
         put :update, :id => effort_log.id, :effort_log => valid_attributes
-        response.should redirect_to(effort_log)
+        effort_log = EffortLog.find(effort_log.id)
+        response.should redirect_to(:action => "index_by_project", :controller => "effort_logs",
+                                    :id => effort_log.project_phase_deliverable.project_phase.project)
       end
     end
 
