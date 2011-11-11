@@ -27,6 +27,17 @@ class Project < ActiveRecord::Base
   def total_actual_effort
     self.effort_logs.inject(0){|sum, ef| sum + ef.effort}
   end
+
+  def total_estimated_effort
+    sum = 0.0;
+    self.project_phase_deliverables.each do |deliverable|
+      if deliverable.total_effort.nil?
+        next
+      end
+      sum += deliverable.total_effort
+    end
+    return sum
+  end
 end
 
 

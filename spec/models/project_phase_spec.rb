@@ -38,6 +38,12 @@ describe ProjectPhase do
 
     Factory.build(:project_phase, :name => "Test phase", :project => @project).should_not be_valid
   end
+
+  #it "should calculate correct total estimated effort" do
+  #  @project_phase = Factory(:full_phase)
+  #  @project_phase.total_estimated_effort.should == 30
+  #end
+
 end
 
 

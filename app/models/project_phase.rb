@@ -17,6 +17,24 @@ class ProjectPhase < ActiveRecord::Base
     name
   end
 
+  def total_estimated_effort
+    sum = 0.0
+    self.project_phase_deliverables.each do |deliverable|
+      if deliverable.total_effort.nil?
+        next
+      end
+      sum += deliverable.total_effort
+    end
+    return sum
+  end
+
+  def total_actual_effort
+    sum = 0.0
+    self.project_phase_deliverables.each do |deliverable|
+      sum += deliverable.total_logged_effort
+    end
+    return sum
+  end
 end
 
 

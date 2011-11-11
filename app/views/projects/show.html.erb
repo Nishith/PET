@@ -27,7 +27,7 @@
 
   <p>
     <b>Total efforts:</b>
-    <%= @project.total_actual_effort %>
+    <%= @project.total_actual_effort %> hours / <%= @project.total_estimated_effort %> hours (actual / estimated)
   </p>
 </div>
 
@@ -83,7 +83,7 @@
                           <%= deliverable.total_effort %>
                         </td>
                         <td>
-                          <% #deliverable.actual_effort %>
+                          <%= deliverable.total_logged_effort %>
                         </td>
                         <td>
                           <%= link_to_function "Show", "show_deliverable_dialog(#{deliverable.id})" %>
@@ -93,7 +93,9 @@
 
                   </tbody>
                 </table>
-
+                <p>
+                Total effort for this phase: <%= phase.total_actual_effort %> hours / <%= phase.total_estimated_effort %> hours (actual / estimated)
+                </p>
                 <a href="#" class="new-deliverable">New Deliverable</a>
               </div>
             </li>

@@ -52,6 +52,8 @@ FactoryGirl.define do
     deliverable.project_phase {|phase| phase.association(:project_phase)}
   end
 
+
+
   factory :project_phase_deliverable_adhoc, :class => ProjectPhaseDeliverable do |deliverable|
     deliverable.sequence(:name){|n| "Test project deliverable #{n}" }
     deliverable.sequence(:position){|n| n}

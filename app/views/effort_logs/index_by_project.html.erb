@@ -22,35 +22,41 @@
 
       <p>
         <b>Total Effort:</b>
-        <%= @project.total_actual_effort %> hours
+        <%= @project.total_actual_effort %> hours / <%= @project.total_estimated_effort %> hours (actual / estimated)
       </p>
     </div>
 
-    <table class="deliverables">
-      <thead>
-      <tr>
-        <th>
-          Phase
-        </th>
-        <th>
-          Deliverable
-        </th>
-        <th>
-          Effort
-        </th>
-        <th>
-          Status
-        </th>
-        <th>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
+
       <% @project.project_phases.each do |phase| %>
-          <% phase.project_phase_deliverables.each do |deliverable| %>
+        <table class="deliverables">
+          <thead>
+          <tr>
+            <th>
+              Phase
+            </th>
+            <th>
+              Deliverable
+            </th>
+            <th>
+              Effort
+            </th>
+            <th>
+              Status
+            </th>
+            <th>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+
+        <% first_row = true %>
+        <% phase.project_phase_deliverables.each do |deliverable| %>
               <tr id="deliverable_<%= deliverable.id %>">
                 <td>
-                  <%= deliverable.project_phase.name %>
+                  <% if first_row %>
+                    <% first_row = false %>
+                    <%= deliverable.project_phase.name %>
+                  <% end %>
                 </td>
                 <td>
                   <%= hidden_field_tag 'deliverable_id', deliverable.id %>
@@ -66,9 +72,16 @@
                 </td>
               </tr>
           <% end %>
+                </tbody>
+            </table>
+
+            <p>
+                Total effort for this phase: <%= phase.total_actual_effort %> hours / <%= phase.total_estimated_effort %> hours (actual / estimated)
+                <br><br><br>
+            </p>
+
       <% end %>
-      </tbody>
-    </table>
+
 <% end %>
 
 <div id="new-effort-log-dialog">
