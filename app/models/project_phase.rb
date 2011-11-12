@@ -13,10 +13,12 @@ class ProjectPhase < ActiveRecord::Base
   validates_uniqueness_of(:name, :scope => :project_id)
   validates_numericality_of(:position, :greater_than => 0)
 
+  # return the name
   def to_s
     name
   end
 
+  # return the total estimated effort of deliverables that belong to this phase
   def total_estimated_effort
     sum = 0.0
     self.project_phase_deliverables.each do |deliverable|
@@ -28,6 +30,7 @@ class ProjectPhase < ActiveRecord::Base
     return sum
   end
 
+  # return the total logged effort of deliverables that belong to this phase
   def total_actual_effort
     sum = 0.0
     self.project_phase_deliverables.each do |deliverable|

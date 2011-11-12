@@ -1,8 +1,11 @@
+# EffortLogsController manages EffortLog
+#
 class EffortLogsController < ApplicationController
-  # GET /effort_logs
-  # GET /effort_logs.xml
+
   before_filter :authenticate_user!
 
+  # Triggered by "GET /effort_logs".
+  # list all effot logs
   def index
     @effort_log = EffortLog.new
     @recent_deliverables = ProjectPhaseDeliverable.recently_logged
@@ -13,6 +16,8 @@ class EffortLogsController < ApplicationController
     end
   end
 
+  # should contain params[:id] as project id
+  # list all effort log for that project
   def index_by_project
     @effort_log = EffortLog.new
     @projects = Project.all
@@ -25,8 +30,8 @@ class EffortLogsController < ApplicationController
     end
   end
 
-  # GET /effort_logs/1
-  # GET /effort_logs/1.xml
+  # Triggered by "GET /effort_logs/1".
+  # Show a effort log
   def show
     @effort_log = EffortLog.find(params[:id])
 
@@ -36,8 +41,8 @@ class EffortLogsController < ApplicationController
     end
   end
 
-  # GET /effort_logs/new
-  # GET /effort_logs/new.xml
+  # Triggered by "GET /effort_logs/new".
+  # Display the new form
   def new
     @effort_log = EffortLog.new
 
@@ -47,13 +52,14 @@ class EffortLogsController < ApplicationController
     end
   end
 
-  # GET /effort_logs/1/edit
+  # Triggered by "GET /effort_logs/1/edit".
+  # Display the edit form
   def edit
     @effort_log = EffortLog.find(params[:id])
   end
 
-  # POST /effort_logs
-  # POST /effort_logs.xml
+  # Triggered by "POST /effort_logs".
+  # Receive parameters from client side and create a effort log
   def create
     @effort_log = EffortLog.new(params[:effort_log])
     @effort_log.user = current_user
@@ -70,8 +76,8 @@ class EffortLogsController < ApplicationController
     end
   end
 
-  # PUT /effort_logs/1
-  # PUT /effort_logs/1.xml
+  # Triggered by "PUT /effort_logs/1".
+  # Receive parameters from client side and update a effort log
   def update
     @effort_log = EffortLog.find(params[:id])
 
@@ -87,8 +93,8 @@ class EffortLogsController < ApplicationController
     end
   end
 
-  # DELETE /effort_logs/1
-  # DELETE /effort_logs/1.xml
+  # Triggered by "DELETE /effort_logs/1".
+  # destroy an effort log
   def destroy
     @effort_log = EffortLog.find(params[:id])
     @effort_log.destroy

@@ -1,7 +1,26 @@
+# HistoricalData belongs to ProjectPhaseDeliverable and DeliverableType
+# It holds estimations for total effort, size and production rate of finished deliverables.
+#
+# == Schema Information
+#
+# Table name: historical_data
+#
+#  id                           :integer         not null, primary key
+#  project_phase_deliverable_id :integer
+#  deliverable_type_id          :integer
+#  complexity                   :integer
+#  estimated_size               :float
+#  production_rate              :float
+#  total_effort                 :float
+#  created_at                   :datetime
+#  updated_at                   :datetime
+#
 class HistoricalData < ActiveRecord::Base
   belongs_to :project_phase_deliverable
   belongs_to :deliverable_type
 
+  # Given deliverable_type and complexity, the method returns a hash consisting of min, average and max
+  # for size, production rate and total effort
   def self.get_historical_data(deliverable_type_id, complexity)
     matches = self.where("deliverable_type_id = #{deliverable_type_id} AND complexity = #{complexity}")
     if(matches.count > 0)

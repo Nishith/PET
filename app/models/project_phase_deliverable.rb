@@ -14,15 +14,18 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
   validates_numericality_of(:position, :greater_than => 0)
   validate :total_effort_calculation_should_be_valid, :if => :validate_total_effort?
 
+  # return the deliverables being logged effort against recently
   def self.recently_logged
     recent_logs = EffortLog.select("*").order("updated_at ASC").group("project_phase_deliverable_id")
     recent_logs.collect{|l| l.project_phase_deliverable }
   end
 
+  # return the sum of total logged effort
   def total_logged_effort
     self.effort_logs.inject (0){|sum, ef| sum + ef.effort}
   end
 
+  # return the status. Can be "New", "In progress" or "Finished"
   def status_s
     self.finished?? "Finished" : ( self.effort_logs.empty?? "New":"In Progress")
   end
@@ -57,7 +60,7 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
     end
   end
 
-
+  # return boolean to represent whether the deliverable has effort logs
   def has_effort_log?
     if EffortLog.find_by_project_phase_deliverable_id(self.id) then
       return true
@@ -65,25 +68,19 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
     return false
   end
 
+  # return whether the deliverable has production rate, size and total effort
   def validate_total_effort?
     self.production_rate? && self.estimated_size? && self.total_effort?
   end
 
+  # If the total effort does not equal the multiplication of size and production rate, append an error
   def total_effort_calculation_should_be_valid
     if self.estimated_size * self.production_rate != self.total_effort
       errors.add(:total_effort, "should be Estimated Size times Production Rate")
     end
   end
 
-  #def deliverable_type_name
-  #  if self.deliverable_type_id == 0
-  #    #it is ad-hoc
-  #    return "Ad-hoc"
-  #  else
-  #    return self.deliverable_type.name
-  #  end
 
-  #end
 end
 
 

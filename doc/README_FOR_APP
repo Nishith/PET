@@ -8,3 +8,11 @@ deliverable, PM can utilize historical data to estimate the size, productivity a
 takes place, developers can log effort against a deliverable. PM then track the total effort of deliverables to monitor
 progress. Besides project management, PM can also create, edit or delete lifecycles to produce desired project
 templates.
+
+To further explore the application, please go to ProjectsController, ProjectPhasesController and
+ProjectPhaseDeliverablesController to see how the major queries of the website are handled.
+
+Design decisions:
+
+1. Since DeliverableType is associated with specific Uom, ad-hoc deliverable will have nil as deliverable type.
+2. To facilitate historical data queries, HistoricalData model is created. After a deliverable is marked as finished, the estimations data of it (size, production rate and total effort) will be moved to HistoricalData table.
