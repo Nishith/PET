@@ -44,12 +44,21 @@ $(".deliverable_form").submit(function(){
     $("#project_phase_deliverable_uom_id").removeAttr("disabled");
 });
 
+var change_effort = true;
+$("#project_phase_deliverable_total_effort").change(function(obj){
+    change_effort = false;
+});
+
 function calculate_effort(obj){
     var size   = $("#project_phase_deliverable_estimated_size").val();
     var rate   = $("#project_phase_deliverable_production_rate").val();
     var effort = $("#project_phase_deliverable_total_effort").val();
-    if((size != 0) && (rate != 0)){
+    if((size != 0) && (rate != 0) && (change_effort)){
         $("#project_phase_deliverable_total_effort").val(size * rate);
+    }
+    else if((size != 0) && (rate != 0) && (!change_effort)){
+        $("#project_phase_deliverable_production_rate").val(effort / size);
+        change_effort = true;
     }
     else if((rate != 0) && (effort != 0)){
         $("#project_phase_deliverable_estimated_size").val(effort / rate);
