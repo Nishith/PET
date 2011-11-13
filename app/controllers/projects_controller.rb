@@ -126,9 +126,30 @@ class ProjectsController < ApplicationController
   end
 
   # Triggered by DELETE /projects/1 and DELETE /projects/1.xml
-  # Delete a project
+  # Delete a project and its associated deliverable phases and
+  # deliverables. A project will not be deleted if there is an
+  # effort log associated with it
   def destroy
     @project = Project.find(params[:id])
+    @phases = ProjectPhase.find_all_by_project_id(params[:id])
+    @phases.each do |p|
+      @deliverables = ProjectPhaseDeliverable.find_all_by_project_phase_id(p.id)
+      @deliverables.each do |ds|
+        @logged = EffortLog.find_all_by_project_phase_deliverable_id(ds.id)
+        if @logged != :null
+          flash[:error] = 'Project could not be deleted as there was effort logged against it.'
+          redirect_to(projects_url)
+          return
+        end
+      end
+    end
+    @phases.each do |p|
+      @deliverables = ProjectPhaseDeliverable.find_all_by_project_phase_id(p.id)
+      @deliverables.each do |ds|
+        ds.destroy
+      end
+      p.destroy
+    end
     @project.destroy
 
     respond_to do |format|

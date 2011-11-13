@@ -194,6 +194,13 @@ describe ProjectsController do
       }.to change(Project, :count).by(-1)
     end
 
+    it "destroys the requested project and its associated phases" do
+      project = Factory(:full_project)
+      expect {
+        delete :destroy, :id => project.id.to_s
+      }.to change(ProjectPhase, :count).by(-3)
+    end
+
     it "redirects to the projects list" do
       project = Project.create! valid_attributes
       delete :destroy, :id => project.id.to_s
