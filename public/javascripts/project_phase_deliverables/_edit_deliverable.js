@@ -6,6 +6,10 @@
  * To change this template use File | Settings | File Templates.
  */
 
+$(function(){
+    update_edit_historical_data();
+});
+
 $("#edit_project_phase_deliverable_deliverable_type_id").change(function(obj){
     update_edit_historical_data();
     if($("#edit_project_phase_deliverable_deliverable_type_id").val() == ""){

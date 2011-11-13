@@ -62,7 +62,7 @@ $("#new-deliverable-dialog").dialog({
     autoOpen:false,
     title: "New Deliverable",
     modal: true,
-    width: '700px'
+    width: '500px'
 
 });
 $(".new-deliverable").click(function() {
@@ -148,7 +148,7 @@ function edit_deliverable_dialog(deliverable_id){
             autoOpen:false,
             title: "Edit Deliverable",
             modal: true,
-            width: '700px'
+            width: '500px'
 
         });
 

@@ -33,24 +33,25 @@
   </div>
   <div class="field">
     <%= f.label :estimated_size %><br />
-    <%= f.text_field :estimated_size %>
+    &nbsp;&nbsp; <%= f.text_field :estimated_size, :size => 15 %>
     <%= content_tag(:span, Uom.all.first.blank?? "nil": Uom.all.first.name.downcase, :id => "size_uom") %>
   </div>
   <div class="field">
     <%= f.label :production_rate %><br />
-    <%= f.text_field :production_rate %>
+    X <%= f.text_field :production_rate, :size => 15 %>
     hours /
     <%= content_tag(:span, Uom.all.first.blank?? "nil": Uom.all.first.name.singularize.downcase, :id => "size_uom_singular")  %>
+  </div>
+  <hr style="height:0; border: 1px solid black; width:40%;"/>
+  <div class="field">
+    <%= f.label :total_effort %><br />
+    = <%= f.text_field :total_effort, :size => 15%>
+    hours
   </div>
   <div class="field">
     <%= button_to_function "Calculate", "calculate_effort()", :class => "ok" %>
   </div>
-  <div class="field">
-    <%= f.label :total_effort %><br />
-    <%= f.text_field :total_effort %>
-    hours
-  </div>
-  <div class="field">
+  <div class="field" style="display:none;">
     <%= f.label :project_phase %><br />
     <%= f.text_field :project_phase, :id=> "phase_name", :disabled => true %>
   </div>
@@ -63,7 +64,7 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-  <div id="historical-data">
+  <div id="historical-data" class="historical-data">
     <table>
         <thead>
           <tr>

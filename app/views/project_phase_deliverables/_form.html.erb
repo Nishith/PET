@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.text_area :description, :rows => 5 %>
   </div>
   <div class="field">
     <%= f.label :deliverable_type_id %><br/>
@@ -38,21 +38,25 @@
   </div>
   <div class="field">
     <%= f.label :estimated_size %><br />
-    <%= f.text_field :estimated_size %>
+    &nbsp; &nbsp;<%= f.text_field :estimated_size, :size => 15 %>
     <%= content_tag(:span, Uom.all.first.blank?? "nil": Uom.all.first.name.downcase, :id => "edit_size_uom") %>
   </div>
   <div class="field">
     <%= f.label :production_rate %><br />
-    <%= f.text_field :production_rate %>
+    X <%= f.text_field :production_rate, :size => 15 %>
     hours /
     <%= content_tag(:span, Uom.all.first.blank?? "nil": Uom.all.first.name.singularize.downcase, :id => "edit_size_uom_singular")  %>
   </div>
+  <hr style="height:0; border: 1px solid black; width:40%;"/>
   <div class="field">
     <%= f.label :total_effort %><br />
-    <%= f.text_field :total_effort %>
+    = <%= f.text_field :total_effort, :size => 15 %>
     hours
   </div>
   <div class="field">
+    <%= button_to_function "Calculate", "calculate_effort()", :class => "ok" %>
+  </div>
+      <div class="field" style="display:none;">
     <%= f.label :project_phase %><br />
     <%= f.text_field :project_phase, :id=> "edit_phase_name", :disabled => true %>
   </div>
@@ -65,7 +69,7 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-  <div id="edit-historical-data">
+  <div id="edit-historical-data" class="historical-data">
     <table>
         <thead>
           <tr>

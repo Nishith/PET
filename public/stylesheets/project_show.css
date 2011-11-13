@@ -9,5 +9,21 @@ ul#phases {
 }
 
 ul#phases li {
-    padding: 10px;
+    padding: 1px;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    background: right center url('../images/arrowupdown.png') no-repeat;
+}
+
+.ui-accordion-content a{
+    text-decoration: underline;
+}
+
+table.deliverables tr{
+    border: 1px solid black;
+}
+
+table.deliverables tr td:last-child{
+    background: right center url('../images/arrowupdown.png') no-repeat;
 }
