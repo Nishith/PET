@@ -16,7 +16,7 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
 
   # return the deliverables being logged effort against recently
   def self.recently_logged
-    recent_logs = EffortLog.select("*").order("updated_at ASC").group("project_phase_deliverable_id")
+    recent_logs = EffortLog.select("*").order("updated_at DESC").group("project_phase_deliverable_id")
     recent_logs.collect{|l| l.project_phase_deliverable }
   end
 
