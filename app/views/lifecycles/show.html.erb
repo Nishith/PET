@@ -1,4 +1,15 @@
-<p id="notice"><%= notice %></p>
+<div class="object-navigation">
+  Project: <%= collection_select :lifecycle, :id, @lifecycles, :id, :name, {}, {:id => "lifecycle-select"} %>
+  &nbsp;&nbsp;
+  <a href="#" id="new-lifecycle">New Lifecycle</a>
+
+</div>
+
+<hr/>
+<div class="object-actions">
+  <a href="#" id="edit-lifecycle">Edit</a>
+  <%= link_to 'Back', lifecycles_path %>
+</div>
 
 <p>
   <b>Name:</b>
@@ -11,5 +22,68 @@
 </p>
 
 
-<%= link_to 'Edit', edit_lifecycle_path(@lifecycle) %> |
-<%= link_to 'Back', lifecycles_path %>
+
+
+<b>Phases:</b>
+<div class="object-details" id="notaccordion">
+  <% if @lifecycle.lifecycle_phases.count > 0 %>
+      <ul id="phases">
+        <% @lifecycle.lifecycle_phases.each do |phase| %>
+            <li id="phase_<%= phase.id %>"><h3><a href="#"><%= phase.name %></a></h3>
+              <div>
+
+                <table class="deliverables">
+                  <thead>
+                  <tr>
+
+                    <th>
+                      Type
+                    </th>
+                    <th>
+                      Unit of measurement
+                    </th>
+                    <th></th>
+
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  <% phase.lifecycle_phase_deliverables.each do |deliverable| %>
+                      <tr id="deliverable_<%= deliverable.id %>">
+                        <td>
+                          <%= deliverable.deliverable_type.name %>
+                        </td>
+
+                        <td>
+                          <%= deliverable.uom.name %>
+                        </td>
+                        <td>
+                          <%= link_to_function "Show", "show_deliverable_dialog(#{deliverable.id})" %>
+                        </td>
+                      </tr>
+                  <% end %>
+
+                  </tbody>
+                </table>
+
+                <a href="#" class="new-deliverable">New Deliverable</a>
+              </div>
+            </li>
+        <% end %>
+      </ul>
+  <% else %>
+      No phases are defined for this project.
+  <% end %>
+</div>
+
+
+
+
+<div id="new-dialog">
+  <%= render 'new_form' %>
+</div>
+<div id="edit-dialog">
+  <%= render 'form' %>
+</div>
+
+<%= javascript_include_tag 'show-lifecycle' %>

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "lifecycles/new.html.erb" do
   before(:each) do
-    assign(:lifecycle, stub_model(Lifecycle,
+    assign(:new_lifecycle, stub_model(Lifecycle,
       :name => "MyString",
       :description => "MyText"
     ).as_new_record)

@@ -21,6 +21,8 @@ class LifecyclesController < ApplicationController
   # Show the Lifecycle specified by user.
   def show
     @lifecycle = Lifecycle.find(params[:id])
+    @lifecycles = Lifecycle.all
+    @new_lifecycle = Lifecycle.new
 
     respond_to do |format|
       format.html # show.html.erb
@@ -31,11 +33,11 @@ class LifecyclesController < ApplicationController
   # Triggered by "GET /lifecycles/new".
   # Display the creation form for users to create new Lifecycle.
   def new
-    @lifecycle = Lifecycle.new
+    @new_lifecycle = Lifecycle.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @lifecycle }
+      format.xml  { render :xml => @new_lifecycle }
     end
   end
 
@@ -88,4 +90,18 @@ class LifecyclesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+
+  def sort
+    if params['phase'].is_a? Array
+      params['phase'].each do |phase|
+        @phase = LifecyclePhase.find(phase)
+        @phase.update_attribute("position",params['phase'].index(@phase.id.to_s) + 1)
+      end
+      respond_to do |format|
+        format.json { head :ok }
+      end
+    end
+  end
+
 end

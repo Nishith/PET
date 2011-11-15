@@ -88,4 +88,14 @@ class LifecyclePhasesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def sort
+    params['deliverable'].each do |deliverable|
+      @deliverable = LifecyclePhaseDeliverable.find(deliverable)
+      @deliverable.update_attribute("position",params['deliverable'].index(@deliverable.id.to_s) + 1)
+    end
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
 end

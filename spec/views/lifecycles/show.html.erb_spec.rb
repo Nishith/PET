@@ -6,6 +6,9 @@ describe "lifecycles/show.html.erb" do
       :name => "Name",
       :description => "MyText"
     ))
+    @lifecycles = []
+    @lifecycles << @lifecycle
+    @new_lifecycle = Lifecycle.new
   end
 
   it "renders attributes in <p>" do

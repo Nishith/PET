@@ -14,9 +14,13 @@ PET::Application.routes.draw do
 
   resources :lifecycle_phase_deliverables
 
-  resources :lifecycle_phases
+  resources :lifecycle_phases do
+    post :sort, :on => :collection
+  end
 
-  resources :lifecycles
+  resources :lifecycles do
+    post :sort, :on => :collection
+  end
 
   resources :projects do
     post :sort, :on => :collection
