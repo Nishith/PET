@@ -14,9 +14,9 @@ describe LifecyclePhase do
   end
 
   it "should not have an existing position number" do
-    @phase = Factory(:lifecycle_phase)
+    @phase = Factory(:lifecycle_phase_test)
 
-    @phase2 = Factory.build(:lifecycle_phase)
+    @phase2 = Factory.build(:lifecycle_phase_test)
     @phase2.should_not be_valid
 
     @phase2.errors[:position].should_not be_empty

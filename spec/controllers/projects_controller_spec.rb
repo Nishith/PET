@@ -102,7 +102,7 @@ describe ProjectsController do
 
       it "creates a new project and copies the lifecycle data to it" do
         lifecycle = Factory(:lifecycle)
-        lifecycle_phase = Factory(:lifecycle_phase)
+        lifecycle_phase = Factory(:lifecycle_phase_test)
         lifecycle_phase_deliverable = Factory(:lifecycle_phase_deliverable)
         post :create, :project => project_lifecycle
         prj = Project.find_by_name("Test project Lifecycle")

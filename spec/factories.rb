@@ -88,6 +88,13 @@ FactoryGirl.define do
     phase.lifecycle {|lifecycle| lifecycle.association(:lifecycle)}
   end
 
+  factory :lifecycle_phase_test, :class =>LifecyclePhase do
+    id 1
+    name 'Test lifecycle phase'
+    lifecycle_id 1
+    position 1
+  end
+
   factory :lifecycle_phase_deliverable, :class => LifecyclePhaseDeliverable do
     deliverable_type_id '1'
     lifecycle_phase_id 1
