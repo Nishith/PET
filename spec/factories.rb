@@ -75,11 +75,17 @@ FactoryGirl.define do
     name 'Test lifecycle'
   end
 
-  factory :lifecycle_phase, :class =>LifecyclePhase do
-    id 1
-    name 'Test lifecycle phase'
-    lifecycle_id 1
-    position 1
+  factory :full_lifecycle, :class => Lifecycle do |lifecycle|
+    lifecycle.name 'Test Full Lifecycle'
+    lifecycle.lifecycle_phases {|phases| [phases.association(:lifecycle_phase, :lifecycle_id => lifecycle.id),
+                                          phases.association(:lifecycle_phase, :lifecycle_id => lifecycle.id),
+                                          phases.association(:lifecycle_phase, :lifecycle_id => lifecycle.id)]}
+  end
+
+  factory :lifecycle_phase, :class => LifecyclePhase do |phase|
+    phase.sequence(:name){|n| "Test lifecycle phase #{n}" }
+    phase.sequence(:position){|n| n}
+    phase.lifecycle {|lifecycle| lifecycle.association(:lifecycle)}
   end
 
   factory :lifecycle_phase_deliverable, :class => LifecyclePhaseDeliverable do

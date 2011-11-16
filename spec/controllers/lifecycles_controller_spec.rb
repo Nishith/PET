@@ -152,6 +152,13 @@ describe LifecyclesController do
       }.to change(Lifecycle, :count).by(-1)
     end
 
+    it "destroys the requested project and its associated phases" do
+      lifecycle = Factory(:full_lifecycle)
+      expect {
+        delete :destroy, :id => lifecycle.id.to_s
+      }.to change(LifecyclePhase, :count).by(-3)
+    end
+
     it "redirects to the lifecycles list" do
       lifecycle = Lifecycle.create! valid_attributes
       delete :destroy, :id => lifecycle.id.to_s

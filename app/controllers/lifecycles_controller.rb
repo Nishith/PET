@@ -81,6 +81,14 @@ class LifecyclesController < ApplicationController
   # Delete a Lifecycle.
   def destroy
     @lifecycle = Lifecycle.find(params[:id])
+    @phases = LifecyclePhase.find_all_by_lifecycle_id(params[:id])
+    @phases.each do |p|
+      @deliverables = LifecyclePhaseDeliverable.find_all_by_lifecycle_phase_id(p.id)
+      @deliverables.each do |ds|
+        ds.destroy
+      end
+      p.destroy
+    end
     @lifecycle.destroy
 
     respond_to do |format|
