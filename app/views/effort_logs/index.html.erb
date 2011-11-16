@@ -14,12 +14,22 @@
       <tr>
         <td><%= deliverable.project_phase.project.name %></td>
         <td><%= deliverable.project_phase.name %></td>
-        <td><%= deliverable.name %></td>
+        <td>
+          <%= hidden_field_tag 'deliverable_id', deliverable.id %>
+          <%= deliverable.name %>
+        </td>
         <td><%= deliverable.total_logged_effort %></td>
-        <td><%= link_to 'New Effort log', new_effort_log_path %></td>
+        <td><a href="#" class="log-effort">Log Effort</a></td>
       </tr>
     <% end %>
 <% end %>
 </table>
 
 <br />
+
+
+<div id="new-effort-log-dialog">
+  <%= render 'effort_logs/form' %>
+</div>
+
+<%= javascript_include_tag 'effort_logs/show-effort-log' %>

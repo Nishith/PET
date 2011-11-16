@@ -16,7 +16,7 @@ class Lifecycle < ActiveRecord::Base
   validates_presence_of(:name)
   validates_uniqueness_of(:name)
 
-  has_many :lifecycle_phases, :order => ":position"
+  has_many :lifecycle_phases, :order => "position"
   has_many :lifecycle_phase_deliverables, :through => :lifecycle_phases
 end
 

@@ -6,7 +6,7 @@ class LifecyclePhase < ActiveRecord::Base
   validates_uniqueness_of(:name)
 
   belongs_to :lifecycle
-  has_many :lifecycle_phase_deliverables, :order => ":position"
+  has_many :lifecycle_phase_deliverables, :order => "position"
 
   validates_presence_of(:position)
   validates_uniqueness_of(:position, :scope => :lifecycle_id)

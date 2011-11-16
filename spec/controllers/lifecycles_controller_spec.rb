@@ -51,7 +51,7 @@ describe LifecyclesController do
   describe "GET new" do
     it "assigns a new lifecycle as @lifecycle" do
       get :new
-      assigns(:lifecycle).should be_a_new(Lifecycle)
+      assigns(:new_lifecycle).should be_a_new(Lifecycle)
     end
   end
 

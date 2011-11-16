@@ -1,6 +1,3 @@
-<% if flash[:notice] %>
-    <p class="flash-notice"><%= flash[:notice] %></p>
-<% end %>
 <div class="object-navigation">
   Project: <%= collection_select :project, :id, @projects, :id, :name, {}, {:id => "project-select"} %>
   &nbsp;&nbsp;

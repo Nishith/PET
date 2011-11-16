@@ -14,6 +14,7 @@
   <div class="field">
     <%= f.label :date %><br />
     <%= f.date_select :date %>
+    <input type="hidden" id="selectedDatepicker" disabled="disabled" size="10"/>
   </div>
   <div class="field">
     <%= f.label :effort %><br />
@@ -35,3 +36,5 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<%= javascript_include_tag 'effort_logs/new-effort-log' %>
