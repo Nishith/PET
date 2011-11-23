@@ -58,6 +58,7 @@ class ProjectPhaseDeliverablesController < ApplicationController
     respond_to do |format|
       if(!@project_phase_deliverable.has_effort_log?)
         if(params[:no_layout] == "true")
+          @no_layout = true
           format.html { render :layout => false}
         else
           format.html # show.html.erb

@@ -36,10 +36,10 @@
                   <thead>
                   <tr>
 
-                    <th>
+                    <th style="width:20%;">
                       Type
                     </th>
-                    <th>
+                    <th style="width:70%;">
                       Unit of measurement
                     </th>
                     <th></th>
@@ -65,7 +65,7 @@
 
                   </tbody>
                 </table>
-
+                <%= link_to_function "Show Phase Details", "show_phase_dialog(#{phase.id})" %> |
                 <a href="#" class="new-deliverable">New Deliverable</a>
               </div>
             </li>
@@ -74,9 +74,9 @@
   <% else %>
       No phases are defined for this project.
   <% end %>
+  <br />
+  <a href="#" id="new-phase">New Lifecycle Phase</a>
 </div>
-
-
 
 
 <div id="new-dialog">
@@ -85,5 +85,17 @@
 <div id="edit-dialog">
   <%= render 'form' %>
 </div>
+
+<div id="new-phase-dialog">
+  <%= render 'lifecycle_phases/form' %>
+</div>
+
+<div id="view-phase-dialog">
+    <div id="view-phase-dialog-content"></div>
+</div>
+<div id="edit-phase-dialog">
+    <div id="edit-phase-dialog-content"></div>
+</div>
+
 
 <%= javascript_include_tag 'show-lifecycle' %>

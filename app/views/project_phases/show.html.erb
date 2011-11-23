@@ -12,9 +12,9 @@
 
 <p>
   <b>Project:</b>
-  <%= @project_phase.project_id %>
+  <%= @project_phase.project.name %>
 </p>
 
 
-<%= link_to 'Edit', edit_project_phase_path(@project_phase) %> |
-<%= link_to 'Back', project_phases_path %>
+<%= link_to 'Edit', edit_project_phase_path(@project_phase), :id => "edit-phase-link" %> |
+<%= link_to 'Destroy', @project_phase, :confirm => 'Are you sure?', :method => :delete %>

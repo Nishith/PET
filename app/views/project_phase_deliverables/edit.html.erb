@@ -1,1 +1,6 @@
 <%= render 'form' %>
+
+<% unless @no_layout  %>
+    <%= link_to 'Show', @project_phase_deliverable %> |
+    <%= link_to 'Back', project_phase_deliverables_path %>
+<% end %>

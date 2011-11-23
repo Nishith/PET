@@ -12,9 +12,9 @@
 
 <p>
   <b>Lifecycle:</b>
-  <%= @lifecycle_phase.lifecycle_id %>
+  <%= @lifecycle_phase.lifecycle.name %>
 </p>
 
 
-<%= link_to 'Edit', edit_lifecycle_phase_path(@lifecycle_phase) %> |
-<%= link_to 'Back', lifecycle_phases_path %>
+<%= link_to 'Edit', edit_lifecycle_phase_path(@lifecycle_phase), :id => "edit-phase-link" %> |
+<%= link_to 'Destroy', @lifecycle_phase, :confirm => 'Are you sure?', :method => :delete %>

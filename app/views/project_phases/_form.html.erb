@@ -20,8 +20,10 @@
     <%= f.text_area :description, :rows => 5 %>
   </div>
   <div class="field">
-    <%= f.label :project_id %><br />
-    <%= f.text_field :project_id %>
+    <%= f.hidden_field :project_id %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :position %>
   </div>
   <div class="actions">
     <%= f.submit %>

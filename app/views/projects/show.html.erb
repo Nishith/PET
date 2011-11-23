@@ -38,23 +38,22 @@
         <% @project.project_phases.each do |phase| %>
             <li id="phase_<%= phase.id %>"><h3><a href="#"><%= phase.name %></a></h3>
               <div>
-
                 <table class="deliverables">
                   <thead>
                   <tr>
-                    <th>
+                    <th style="width: 28%;">
                       Name
                     </th>
-                    <th>
+                    <th style="width: 29%;">
                       Type
                     </th>
-                    <th>
+                    <th style="width: 10%;">
                       Complexity
                     </th>
-                    <th>
+                    <th style="width: 14%;">
                       Estimated Effort
                     </th>
-                    <th>
+                    <th style="width: 11%;">
                       Actual Effort
                     </th>
                     <th>
@@ -96,6 +95,7 @@
                 <p>
                 Total effort for this phase: <%= phase.total_actual_effort %> hours / <%= phase.total_estimated_effort %> hours (actual / estimated)
                 </p>
+                <%= link_to_function "Show Phase Details", "show_phase_dialog(#{phase.id})" %> |
                 <a href="#" class="new-deliverable">New Deliverable</a>
               </div>
             </li>
@@ -107,7 +107,6 @@
   <br />
   <a href="#" id="new-phase">New Project Phase</a>
   <br /><br />
-  <%# link_to "Add Phase", new_project_phase_path %>
 </div>
 
 <div id="new-dialog">
@@ -117,11 +116,18 @@
   <%= render 'form' %>
 </div>
 <div id="new-phase-dialog">
-  <%= render 'project_phases/new_project_phase' %>
+  <%= render 'project_phases/form' %>
 </div>
 
 <div id="new-deliverable-dialog">
   <%= render 'project_phase_deliverables/new_deliverable' %>
+</div>
+
+<div id="view-phase-dialog">
+    <div id="view-phase-dialog-content"></div>
+</div>
+<div id="edit-phase-dialog">
+    <div id="edit-phase-dialog-content"></div>
 </div>
 
 <div id="view-deliverable-dialog">

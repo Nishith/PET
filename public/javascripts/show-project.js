@@ -122,6 +122,41 @@ $(".deliverables tbody").sortable({
     }
 }).disableSelection();
 
+function show_phase_dialog(phase_id){
+    $("#view-phase-dialog-content").load("/project_phases/"+phase_id+"/?no_layout=true",
+    function(){
+        $("#view-phase-dialog").dialog({
+            autoOpen:false,
+            title: "Phase Details",
+            modal: true
+        });
+        $("#view-phase-dialog").dialog("open");
+        $("#edit-phase-link").click(function(){
+            edit_phase_dialog(phase_id);
+            $("#view-phase-dialog").dialog("close");
+            return false;
+        });
+    });
+
+    return false;
+}
+
+function edit_phase_dialog(phase_id){
+    $("#edit-phase-dialog-content").load("/project_phases/"+phase_id+"/edit/?no_layout=true",
+    function(){
+        $("#edit-phase-dialog").dialog({
+            autoOpen:false,
+            title: "Edit Phase",
+            modal: true,
+            width: '500px'
+
+        });
+
+        $("#edit-phase-dialog").dialog("open");
+    });
+    return false;
+}
+
 function show_deliverable_dialog(deliverable_id){
     $("#view-deliverable-dialog-content").load("/project_phase_deliverables/"+deliverable_id+"/?no_layout=true",
     function(){

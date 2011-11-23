@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @project_phase %> |
-<%= link_to 'Back', project_phases_path %>
+<% unless @no_layout  %>
+    <%= link_to 'Show', @project_phase %> |
+    <%= link_to 'Back', project_phases_path %>
+<% end %>

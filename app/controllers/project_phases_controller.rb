@@ -26,7 +26,11 @@ class ProjectPhasesController < ApplicationController
     @project_phase = ProjectPhase.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      if(params[:no_layout] == "true")
+        format.html { render :layout => false}
+      else
+        format.html # show.html.erb
+      end
       format.xml  { render :xml => @project_phase }
     end
   end
@@ -46,6 +50,14 @@ class ProjectPhasesController < ApplicationController
   # Display the project edit form
   def edit
     @project_phase = ProjectPhase.find(params[:id])
+    respond_to do |format|
+      if(params[:no_layout] == "true")
+        @no_layout = true
+        format.html { render :layout => false}
+      else
+        format.html # edit.html.erb
+      end
+    end
   end
 
   # Triggered by POST /project_phases and POST /project_phases.xml
@@ -88,7 +100,7 @@ class ProjectPhasesController < ApplicationController
     @project_phase.destroy
 
     respond_to do |format|
-      format.html { redirect_to(project_phases_url) }
+      format.html { redirect_to(@project_phase.project) }
       format.xml  { head :ok }
     end
   end

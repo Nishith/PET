@@ -23,7 +23,12 @@ class LifecyclePhasesController < ApplicationController
     @lifecycle_phase = LifecyclePhase.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      if(params[:no_layout] == "true")
+        format.html { render :layout => false}
+      else
+        format.html # show.html.erb
+      end
+
       format.xml  { render :xml => @lifecycle_phase }
     end
   end
@@ -43,6 +48,14 @@ class LifecyclePhasesController < ApplicationController
   # Display the edit form.
   def edit
     @lifecycle_phase = LifecyclePhase.find(params[:id])
+    respond_to do |format|
+      if(params[:no_layout] == "true")
+        @no_layout = true
+        format.html { render :layout => false}
+      else
+        format.html # show.html.erb
+      end
+    end
   end
 
   # Triggered by "POST /lifecycle_phases".
@@ -52,7 +65,7 @@ class LifecyclePhasesController < ApplicationController
 
     respond_to do |format|
       if @lifecycle_phase.save
-        format.html { redirect_to(@lifecycle_phase, :notice => 'Lifecycle phase was successfully created.') }
+        format.html { redirect_to(@lifecycle_phase.lifecycle, :notice => 'Lifecycle phase was successfully created.') }
         format.xml  { render :xml => @lifecycle_phase, :status => :created, :location => @lifecycle_phase }
       else
         format.html { render :action => "new" }
@@ -68,7 +81,7 @@ class LifecyclePhasesController < ApplicationController
 
     respond_to do |format|
       if @lifecycle_phase.update_attributes(params[:lifecycle_phase])
-        format.html { redirect_to(@lifecycle_phase, :notice => 'Lifecycle phase was successfully updated.') }
+        format.html { redirect_to(@lifecycle_phase.lifecycle, :notice => 'Lifecycle phase was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -84,7 +97,7 @@ class LifecyclePhasesController < ApplicationController
     @lifecycle_phase.destroy
 
     respond_to do |format|
-      format.html { redirect_to(lifecycle_phases_url) }
+      format.html { redirect_to(@lifecycle_phase.lifecycle) }
       format.xml  { head :ok }
     end
   end

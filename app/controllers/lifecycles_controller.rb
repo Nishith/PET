@@ -24,6 +24,11 @@ class LifecyclesController < ApplicationController
     @lifecycles = Lifecycle.all
     @new_lifecycle = Lifecycle.new
 
+    @lifecycle_phase = LifecyclePhase.new
+    @lifecycle_phase.lifecycle_id = @lifecycle.id
+    number_of_phases = LifecyclePhase.find_all_by_lifecycle_id(@lifecycle.id).size
+    @lifecycle_phase.position = number_of_phases + 1
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @lifecycle }
