@@ -24,12 +24,13 @@ describe LifecyclePhasesController do
   # LifecyclePhase. As you add validations to LifecyclePhase, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {:name => "Test phase", :position => 1}
+    {:name => "Test phase 2", :position => 1, :lifecycle_id => 1}
   end
 
   before(:each) do
     @admin = Factory(:admin)
     sign_in @admin
+    @lifecycle = Factory(:lifecycle)
   end
 
   describe "GET index" do
@@ -77,9 +78,9 @@ describe LifecyclePhasesController do
         assigns(:lifecycle_phase).should be_persisted
       end
 
-      it "redirects to the created lifecycle_phase" do
+      it "redirects to the lifecycle of the phase" do
         post :create, :lifecycle_phase => valid_attributes
-        response.should redirect_to(LifecyclePhase.last)
+        response.should redirect_to(@lifecycle)
       end
     end
 
@@ -118,10 +119,10 @@ describe LifecyclePhasesController do
         assigns(:lifecycle_phase).should eq(lifecycle_phase)
       end
 
-      it "redirects to the lifecycle_phase" do
+      it "redirects to the lifecycle_phase's lifecycle'" do
         lifecycle_phase = LifecyclePhase.create! valid_attributes
         put :update, :id => lifecycle_phase.id, :lifecycle_phase => valid_attributes
-        response.should redirect_to(lifecycle_phase)
+        response.should redirect_to(lifecycle_phase.lifecycle)
       end
     end
 
@@ -152,10 +153,10 @@ describe LifecyclePhasesController do
       }.to change(LifecyclePhase, :count).by(-1)
     end
 
-    it "redirects to the lifecycle_phases list" do
+    it "redirects to the lifecycle_phase's lifecycle" do
       lifecycle_phase = LifecyclePhase.create! valid_attributes
       delete :destroy, :id => lifecycle_phase.id.to_s
-      response.should redirect_to(lifecycle_phases_url)
+      response.should redirect_to(lifecycle_phase.lifecycle)
     end
   end
 

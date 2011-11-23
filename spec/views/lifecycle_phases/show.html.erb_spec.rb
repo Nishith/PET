@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe "lifecycle_phases/show.html.erb" do
   before(:each) do
+    @lifecycle = Factory(:lifecycle)
     @lifecycle_phase = assign(:lifecycle_phase, stub_model(LifecyclePhase,
       :name => "Name",
       :description => "MyText",
-      :lifecycle_id => 1
+      :lifecycle => @lifecycle
     ))
   end
 

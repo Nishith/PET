@@ -160,7 +160,7 @@ describe ProjectPhasesController do
     it "redirects to the project_phases list" do
       project_phase = ProjectPhase.create! valid_attributes
       delete :destroy, :id => project_phase.id.to_s
-      response.should redirect_to(project_phases_url)
+      response.should redirect_to(project_phase.project)
     end
   end
 

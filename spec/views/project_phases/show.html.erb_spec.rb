@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe "project_phases/show.html.erb" do
   before(:each) do
+    @project = Factory(:project)
     @project_phase = assign(:project_phase, stub_model(ProjectPhase,
       :name => "Name",
       :description => "MyText",
-      :project_id => 1
+      :project => @project
     ))
   end
 

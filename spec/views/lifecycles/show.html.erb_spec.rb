@@ -9,6 +9,7 @@ describe "lifecycles/show.html.erb" do
     @lifecycles = []
     @lifecycles << @lifecycle
     @new_lifecycle = Lifecycle.new
+    @lifecycle_phase = LifecyclePhase.new
   end
 
   it "renders attributes in <p>" do
