@@ -2,3 +2,9 @@ page:
   name: Pages
 hour:
   name: Hours
+feature:
+  name: Features
+item:
+  name: Items
+story:
+  name: Stories
