@@ -16,19 +16,26 @@
     </div>
     <div id="container" class="container-fluid">
       <div id="sidebar" class="sidebar">
+
         <ul class="horizontal-tabs tabs">
-          <li <%= controller_name == 'lifecycles'? "class='active'": "" %> >
-                <a href="/lifecycles">Lifecycle Management</a>
-          </li>
-          <li <%= controller_name == 'projects'?"class='active'":"" %> >
-                <a href="/projects">Project Management</a>
-          </li>
-          <li <%= controller_name == 'effort_logs'? "class='active'":"" %> >
-                <a href="/effort_logs">Effort Logging</a>
-          </li>
-          <li <%= controller_name == 'invitations'? "class='active'":"" %> >
-                <a href="/users/invitation/new">Invite a User</a>
-          </li>
+          <% if @user_type == "admin" || @user_type == "manager" %>
+              <li <%= controller_name == 'lifecycles'? "class='active'": "" %> >
+                    <a href="/lifecycles">Lifecycle Management</a>
+              </li>
+              <li <%= controller_name == 'projects'?"class='active'":"" %> >
+                    <a href="/projects">Project Management</a>
+              </li>
+          <% end %>
+          <% if @user_type == "developer" || @user_type == "admin" %>
+              <li <%= controller_name == 'effort_logs'? "class='active'":"" %> >
+                    <a href="/effort_logs">Effort Logging</a>
+              </li>
+          <% end %>
+          <% if @user_type == 'admin' || @user_type == "manager" %>
+              <li <%= controller_name == 'invitations'? "class='active'":"" %> >
+                    <a href="/users/invitation/new">Invite a User</a>
+              </li>
+          <% end %>
         </ul>
       </div>
       <div id="content" class="content">
