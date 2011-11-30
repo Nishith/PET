@@ -68,7 +68,9 @@
                   <%= deliverable.status_s %>
                 </td>
                 <td>
+                    <% unless deliverable.finished %>
                     <a href="#" class="log-effort">Log Effort</a>
+                    <% end %>
                 </td>
               </tr>
           <% end %>

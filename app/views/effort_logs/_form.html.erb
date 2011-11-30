@@ -30,7 +30,15 @@
   </div>
   <div class="field">
     <%= f.label :project_phase_deliverable_id %><br />
-    <%= select(:effort_log, :project_phase_deliverable_id, ProjectPhaseDeliverable.all.collect {|lf| [ lf.name, lf.id ] }) %>
+    <%= select(:effort_log, :project_phase_deliverable_id, ProjectPhaseDeliverable.all
+        .each_with_object([]){|lf,a|
+            unless lf.finished
+              a << [ lf.name, lf.id ]
+            end }) %>
+  </div>
+  <div class="field">
+    <%= label_tag :mark_deliverable_as_finished %><br />
+    <%= check_box_tag :mark_deliverable_as_finished, 0 %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -8,7 +8,7 @@ class EffortLogsController < ApplicationController
   # list all effot logs
   def index
     @effort_log = EffortLog.new
-    @recent_deliverables = ProjectPhaseDeliverable.recently_logged
+    @recent_deliverables = ProjectPhaseDeliverable.recently_logged_by_user(current_user)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -66,6 +66,13 @@ class EffortLogsController < ApplicationController
 
     respond_to do |format|
       if @effort_log.save
+        unless params[:mark_deliverable_as_finished].blank? || params[:mark_deliverable_as_finished] != "0"
+          unless @effort_log.project_phase_deliverable.mark_finished
+            flash[:error] = "Something went wrong finishing the deliverable"
+            format.html { render :action => "new"}
+            format.xml  { render :xml => @effort_log.errors, :status => :unprocessable_entity }
+          end
+        end
         format.html { redirect_to(:controller => "effort_logs", :action => "index_by_project",
                                   :id => @effort_log.project_phase_deliverable.project_phase.project) }
         format.xml  { render :xml => @effort_log, :status => :created, :location => @effort_log }

@@ -5,6 +5,7 @@
     <th>Project</th>
     <th>Phase</th>
     <th>Deliverable</th>
+    <th>Status</th>
     <th>Effort</th>
     <th></th>
   </tr>
@@ -18,8 +19,9 @@
           <%= hidden_field_tag 'deliverable_id', deliverable.id %>
           <%= deliverable.name %>
         </td>
+        <td><%= deliverable.status_s %></td>
         <td><%= deliverable.total_logged_effort %></td>
-        <td><a href="#" class="log-effort">Log Effort</a></td>
+        <td><% unless deliverable.finished %><a href="#" class="log-effort">Log Effort</a><% end %></td>
       </tr>
     <% end %>
 <% end %>

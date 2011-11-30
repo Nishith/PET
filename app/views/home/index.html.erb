@@ -1,0 +1,25 @@
+<h3>Recently updated</h3>
+
+<table>
+  <tr>
+    <th>Project</th>
+    <th>Last Updated Phase</th>
+    <th>Last Updated Deliverable</th>
+    <th>Estimated Effort</th>
+    <th>Actual Effort</th>
+  </tr>
+
+<% if !@recent_projects.blank? %>
+    <% @recent_projects.each do |project| %>
+      <tr>
+        <td><%= link_to project[0].name, project[0] %></td>
+        <td><%= project[1][0].project_phase.name %></td>
+        <td><%= project[1][0].name %></td>
+        <td><%= project[0].total_estimated_effort %></td>
+        <td><%= project[0].total_actual_effort %></td>
+      </tr>
+    <% end %>
+<% end %>
+</table>
+
+<br />

@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :size => 23 %>
   </div>
   <div class="field">
     <%= f.label :description %><br />
@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :lifecycle_name %><br />
-    <%= f.text_field :lifecycle_name, :readonly => "readonly" %>
+    <%= f.text_field :lifecycle_name, :readonly => "readonly", :size => 23 %>
   </div>
   <div class="actions">
     <%= f.submit %>

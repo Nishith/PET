@@ -14,9 +14,23 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
   validates_numericality_of(:position, :greater_than => 0)
   validate :total_effort_calculation_should_be_valid, :if => :validate_total_effort?
 
+  def project
+    if !self.project_phase.blank?
+      self.project_phase.project
+    end
+  end
+
   # return the deliverables being logged effort against recently
   def self.recently_logged
     recent_logs = EffortLog.select("effort_logs.project_phase_deliverable_id, MAX(effort_logs.updated_at)").order("MAX(effort_logs.updated_at) DESC").group("project_phase_deliverable_id")
+    recent_logs.collect{|l| l.project_phase_deliverable }
+  end
+
+  def self.recently_logged_by_user(user)
+    recent_logs = EffortLog.select("effort_logs.project_phase_deliverable_id, MAX(effort_logs.updated_at)")
+      .where("effort_logs.user_id = ?",user.id)
+      .order("MAX(effort_logs.updated_at) DESC")
+      .group("project_phase_deliverable_id")
     recent_logs.collect{|l| l.project_phase_deliverable }
   end
 
@@ -39,9 +53,13 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
   }
 
   before_update { |record|
-    if(record.has_effort_log?)
-      record.errors[:total_effort] = "You cannot update a deliverable that has logged effort"
-      false
+    unless record.finished_changed?
+      if(record.has_effort_log?)
+        record.errors[:total_effort] = "You cannot update a deliverable that has logged effort"
+        false
+      else
+        true
+      end
     else
       true
     end
@@ -80,6 +98,14 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
     end
   end
 
+  def mark_finished
+    self.finished = true
+    hd = HistoricalData.new(:deliverable_type => self.deliverable_type,
+      :complexity => self.complexity, :estimated_size => self.estimated_size,
+      :production_rate => self.production_rate, :total_effort => self.total_effort)
+    hd.save
+    self.save
+  end
 
 end
 
