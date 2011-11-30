@@ -38,9 +38,9 @@ describe EffortLogsController do
   end
 
   describe "GET index" do
-    it "assigns recent logged against deliverables as @recent_deliverables" do
+    it "assigns recent logged against deliverables by the user as @recent_deliverables" do
       Factory(:effort_log)
-      recent_deliverables = ProjectPhaseDeliverable.recently_logged
+      recent_deliverables = ProjectPhaseDeliverable.recently_logged_by_user(@admin)
       get :index
       assigns(:recent_deliverables).should eq(recent_deliverables)
     end
