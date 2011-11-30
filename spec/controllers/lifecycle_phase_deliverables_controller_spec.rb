@@ -55,14 +55,6 @@ describe LifecyclePhaseDeliverablesController do
     end
   end
 
-  describe "GET edit" do
-    it "assigns the requested lifecycle_phase_deliverable as @lifecycle_phase_deliverable" do
-      lifecycle_phase_deliverable = LifecyclePhaseDeliverable.create! valid_attributes
-      get :edit, :id => lifecycle_phase_deliverable.id.to_s
-      assigns(:lifecycle_phase_deliverable).should eq(lifecycle_phase_deliverable)
-    end
-  end
-
   describe "POST create" do
     describe "with valid params" do
       it "creates a new LifecyclePhaseDeliverable" do
@@ -76,20 +68,9 @@ describe LifecyclePhaseDeliverablesController do
         assigns(:lifecycle_phase_deliverable).should be_a(LifecyclePhaseDeliverable)
         assigns(:lifecycle_phase_deliverable).should be_persisted
       end
-
-      it "redirects to the created lifecycle_phase_deliverable" do
-        post :create, :lifecycle_phase_deliverable => valid_attributes
-        response.should redirect_to(LifecyclePhaseDeliverable.last)
-      end
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved lifecycle_phase_deliverable as @lifecycle_phase_deliverable" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        LifecyclePhaseDeliverable.any_instance.stub(:save).and_return(false)
-        post :create, :lifecycle_phase_deliverable => {}
-        assigns(:lifecycle_phase_deliverable).should be_a_new(LifecyclePhaseDeliverable)
-      end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
@@ -150,12 +131,6 @@ describe LifecyclePhaseDeliverablesController do
       expect {
         delete :destroy, :id => lifecycle_phase_deliverable.id.to_s
       }.to change(LifecyclePhaseDeliverable, :count).by(-1)
-    end
-
-    it "redirects to the lifecycle_phase_deliverables list" do
-      lifecycle_phase_deliverable = LifecyclePhaseDeliverable.create! valid_attributes
-      delete :destroy, :id => lifecycle_phase_deliverable.id.to_s
-      response.should redirect_to(lifecycle_phase_deliverables_url)
     end
   end
 

@@ -21,9 +21,11 @@ class LifecyclePhaseDeliverablesController < ApplicationController
   # Show the LifecyclePhaseDeliverable specified by user.
   def show
     @lifecycle_phase_deliverable = LifecyclePhaseDeliverable.find(params[:id])
-    @type = DeliverableType.find_by_id(@lifecycle_phase_deliverable.deliverable_type_id)
-    @uom = Uom.find_by_id(@lifecycle_phase_deliverable.uom_id)
-    @lifecycle_phase = LifecyclePhase.find_by_id(@lifecycle_phase_deliverable.lifecycle_phase_id)
+    if @lifecycle_phase_deliverable
+      @type = DeliverableType.find_by_id(@lifecycle_phase_deliverable.deliverable_type_id)
+      @uom = Uom.find_by_id(@lifecycle_phase_deliverable.uom_id)
+      @lifecycle_phase = LifecyclePhase.find_by_id(@lifecycle_phase_deliverable.lifecycle_phase_id)
+    end
     
     respond_to do |format|
       if(params[:no_layout] == "true")
@@ -51,8 +53,10 @@ class LifecyclePhaseDeliverablesController < ApplicationController
   # Display the edit form.
   def edit
     @lifecycle_phase_deliverable = LifecyclePhaseDeliverable.find(params[:id])
-    @lifecycle_phase = LifecyclePhase.find_by_id(@lifecycle_phase_deliverable.lifecycle_phase_id)
-    @lifecycle = Lifecycle.find_by_id(@lifecycle_phase.lifecycle_id)
+    if @lifecycle_phase_deliverable
+      @lifecycle_phase = LifecyclePhase.find_by_id(@lifecycle_phase_deliverable.lifecycle_phase_id)
+      @lifecycle = Lifecycle.find_by_id(@lifecycle_phase.lifecycle_id)
+    end
     
     respond_to do |format|
       if(params[:no_layout] == "true")
@@ -70,7 +74,7 @@ class LifecyclePhaseDeliverablesController < ApplicationController
     @lifecycle_phase_deliverable = LifecyclePhaseDeliverable.new(params[:lifecycle_phase_deliverable])
 
     respond_to do |format|
-      if @lifecycle_phase_deliverable.save
+      if @lifecycle_phase_deliverable.save and @lifecycle_phase_deliverable.lifecycle_phase
         format.html { redirect_to(@lifecycle_phase_deliverable.lifecycle_phase.lifecycle, :notice => 'Lifecycle phase deliverable was successfully created.') }
         format.xml  { render :xml => @lifecycle_phase_deliverable, :status => :created, :location => @lifecycle_phase_deliverable }
       else
@@ -103,7 +107,9 @@ class LifecyclePhaseDeliverablesController < ApplicationController
     @lifecycle_phase_deliverable.destroy
 
     respond_to do |format|
-      format.html { redirect_to(@lifecycle_phase_deliverable.lifecycle_phase.lifecycle) }
+      if @lifecycle_phase_deliverable and @lifecycle_phase_deliverable.lifecycle_phase
+        format.html { redirect_to(@lifecycle_phase_deliverable.lifecycle_phase.lifecycle) }
+      end
       format.xml  { head :ok }
     end
   end
