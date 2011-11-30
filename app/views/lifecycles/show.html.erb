@@ -1,8 +1,7 @@
 <div class="object-navigation">
-  Project: <%= collection_select :lifecycle, :id, @lifecycles, :id, :name, {}, {:id => "lifecycle-select"} %>
+  Lifecycle: <%= collection_select :lifecycle, :id, @lifecycles, :id, :name, {}, {:id => "lifecycle-select"} %>
   &nbsp;&nbsp;
   <a href="#" id="new-lifecycle">New Lifecycle</a>
-
 </div>
 
 <hr/>
@@ -39,9 +38,10 @@
                     <th style="width:20%;">
                       Type
                     </th>
-                    <th style="width:70%;">
+                    <th style="width:50%;">
                       Unit of measurement
                     </th>
+                    <th></th>
                     <th></th>
 
                   </tr>
@@ -51,7 +51,9 @@
                   <% phase.lifecycle_phase_deliverables.each do |deliverable| %>
                       <tr id="deliverable_<%= deliverable.id %>">
                         <td>
-                          <%= deliverable.deliverable_type.name %>
+                          <% if deliverable and deliverable.deliverable_type %>
+                            <%= deliverable.deliverable_type.name %>
+                          <% end %>
                         </td>
 
                         <td>
@@ -59,6 +61,9 @@
                         </td>
                         <td>
                           <%= link_to_function "Show", "show_deliverable_dialog(#{deliverable.id})" %>
+                        </td>
+                        <td>
+                          <%= link_to_function "Edit", "edit_deliverable_dialog(#{deliverable.id})" %>
                         </td>
                       </tr>
                   <% end %>
@@ -95,6 +100,12 @@
 </div>
 <div id="edit-phase-dialog">
     <div id="edit-phase-dialog-content"></div>
+</div>
+<div id="view-deliverable-dialog">
+    <div id="view-deliverable-dialog-content"></div>
+</div>
+<div id="edit-deliverable-dialog">
+    <div id="edit-deliverable-dialog-content"></div>
 </div>
 
 

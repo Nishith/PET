@@ -16,16 +16,8 @@
     <%= f.text_area :description, :rows => 5 %>
   </div>
   <div class="field">
-    <%= f.label :type_id %><br />
-    <%= f.text_field :type_id %>
-  </div>
-  <div class="field">
-    <%= f.label :uom_id %><br />
-    <%= f.text_field :uom_id %>
-  </div>
-  <div class="field">
-    <%= f.label :lifecycle_phase_id %><br />
-    <%= f.text_field :lifecycle_phase_id %>
+    <%= f.label :uom_id %>
+    <%= select(:lifecycle_phase_deliverable, :uom_id, Uom.all.collect {|u| [ u.name, u.id ] }, {},{:id => "edit_lifecycle_phase_deliverable_uom_id"}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

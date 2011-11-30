@@ -2,5 +2,8 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @lifecycle_phase_deliverable %> |
-<%= link_to 'Back', lifecycle_phase_deliverables_path %>
+<% unless @no_layout %>
+    <%= link_to 'Show', @lifecycle_phase_deliverable %> |
+    <%= link_to 'Destroy', @lifecycle_phase_deliverable, :confirm => 'Are you sure?', :method => :delete %> |
+    <%= link_to 'Back', lifecycle_path(@lifecycle) %>
+<% end %>

@@ -144,3 +144,53 @@ function edit_phase_dialog(phase_id){
     });
     return false;
 }
+
+//Adding dialog boxes for phase deliverables
+
+$("#new-deliverable-dialog").dialog({
+    autoOpen:false,
+    title: "New Lifecycle Phase deliverable",
+    modal: true,
+    width: '500px'
+
+});
+$("#new-deliverable").click(function() {
+    $("#new-deliverable-dialog").dialog("open");
+    return false;
+});
+
+function show_deliverable_dialog(deliverable_id){
+    $("#view-deliverable-dialog-content").load("/lifecycle_phase_deliverables/"+deliverable_id+"/?no_layout=true",
+    function(){
+        $("#view-deliverable-dialog").dialog({
+            autoOpen:false,
+            title: "Deliverable Details",
+            modal: true
+        });
+        $("#view-deliverable-dialog").dialog("open");
+        $("#edit-deliverable-link").click(function(){
+            edit_deliverable_dialog(phase_id);
+            $("#view-deliverable-dialog").dialog("close");
+            return false;
+        });
+    });
+
+    return false;
+}
+
+function edit_deliverable_dialog(deliverable_id){
+    $("#edit-deliverable-dialog-content").load("/lifecycle_phase_deliverables/"+deliverable_id+"/edit/?no_layout=true",
+    function(){
+        $("#edit-deliverable-dialog").dialog({
+            autoOpen:false,
+            title: "Edit Deliverable",
+            modal: true,
+            width: '500px'
+
+        });
+
+        $("#edit-deliverable-dialog").dialog("open");
+    });
+    return false;
+}
+
