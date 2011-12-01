@@ -24,7 +24,8 @@ describe LifecyclePhaseDeliverablesController do
   # LifecyclePhaseDeliverable. As you add validations to LifecyclePhaseDeliverable, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {:position => 1}
+    {:position => 1,
+    :lifecycle_phase_id => 1}
   end
 
   before(:each) do
