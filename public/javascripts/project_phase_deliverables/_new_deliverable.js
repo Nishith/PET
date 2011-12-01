@@ -50,21 +50,21 @@ $("#project_phase_deliverable_total_effort").change(function(obj){
 });
 
 function calculate_effort(obj){
-    var size   = $("#project_phase_deliverable_estimated_size").val();
-    var rate   = $("#project_phase_deliverable_production_rate").val();
-    var effort = $("#project_phase_deliverable_total_effort").val();
+    var size   = $(obj).parent().parent().find("#project_phase_deliverable_estimated_size").val();
+    var rate   = $(obj).parent().parent().find("#project_phase_deliverable_production_rate").val();
+    var effort = $(obj).parent().parent().find("#project_phase_deliverable_total_effort").val();
     if((size != 0) && (rate != 0) && (change_effort)){
-        $("#project_phase_deliverable_total_effort").val(size * rate);
+        $(obj).parent().parent().find("#project_phase_deliverable_total_effort").val(size * rate);
     }
     else if((size != 0) && (rate != 0) && (!change_effort)){
-        $("#project_phase_deliverable_production_rate").val(effort / size);
+        $(obj).parent().parent().find("#project_phase_deliverable_production_rate").val(effort / size);
         change_effort = true;
     }
     else if((rate != 0) && (effort != 0)){
-        $("#project_phase_deliverable_estimated_size").val(effort / rate);
+        $(obj).parent().parent().find("#project_phase_deliverable_estimated_size").val(effort / rate);
     }
     else if((effort != 0) && (size != 0)){
-        $("#project_phase_deliverable_production_rate").val(effort / size);
+        $(obj).parent().parent().find("#project_phase_deliverable_production_rate").val(effort / size);
     }
     else alert("Please enter two of the values from Estimated size, Production rate, or Total effort to calculate the third.");
 }

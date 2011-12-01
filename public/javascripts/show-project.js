@@ -179,6 +179,10 @@ function show_deliverable_dialog(deliverable_id){
 function edit_deliverable_dialog(deliverable_id){
     $("#edit-deliverable-dialog-content").load("/project_phase_deliverables/"+deliverable_id+"/edit/?no_layout=true",
     function(){
+        change_effort = true;
+        $("#project_phase_deliverable_total_effort").change(function(obj){
+            change_effort = false;
+        });
         $("#edit-deliverable-dialog").dialog({
             autoOpen:false,
             title: "Edit Deliverable",
@@ -186,7 +190,6 @@ function edit_deliverable_dialog(deliverable_id){
             width: '500px'
 
         });
-
         $("#edit-deliverable-dialog").dialog("open");
     });
     return false;
