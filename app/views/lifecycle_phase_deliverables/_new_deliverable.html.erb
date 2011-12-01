@@ -1,0 +1,36 @@
+<%= form_for(@new_lifecycle_phase_deliverable) do |f| %>
+  <% if @new_lifecycle_phase_deliverable.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@new_lifecycle_phase_deliverable.errors.count, "error") %> prohibited this lifecycle_phase_deliverable from being saved:</h2>
+
+      <ul>
+      <% @new_lifecycle_phase_deliverable.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="field">
+  <%= f.label :deliverable_type_id %>
+  <%= select(:lifecycle_phase_deliverable, :deliverable_type_id, DeliverableType.all.collect {|u| [ u.name, u.id ] }, {},{:id => "edit_lifecycle_phase_deliverable_uom_id"}) %>
+</div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description, :rows => 5 %>
+  </div>
+  <div class="field">
+    <%= f.label :uom_id %>
+    <%= select(:lifecycle_phase_deliverable, :uom_id, Uom.all.collect {|u| [ u.name, u.id ] }, {},{:id => "edit_lifecycle_phase_deliverable_uom_id"}) %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :lifecycle_phase_id %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :position, :id => "deliverable_position" %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

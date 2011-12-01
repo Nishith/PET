@@ -91,7 +91,7 @@ class LifecyclePhaseDeliverablesController < ApplicationController
 
     respond_to do |format|
       if @lifecycle_phase_deliverable.update_attributes(params[:lifecycle_phase_deliverable])
-        format.html { redirect_to(@lifecycle_phase_deliverable, :notice => 'Lifecycle phase deliverable was successfully updated.') }
+        format.html { redirect_to(@lifecycle_phase_deliverable.lifecycle_phase.lifecycle, :notice => 'Lifecycle phase deliverable was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
