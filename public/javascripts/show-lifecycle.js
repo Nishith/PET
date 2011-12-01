@@ -169,7 +169,7 @@ function show_deliverable_dialog(deliverable_id){
         });
         $("#view-deliverable-dialog").dialog("open");
         $("#edit-deliverable-link").click(function(){
-            edit_deliverable_dialog(phase_id);
+            edit_deliverable_dialog(deliverable_id);
             $("#view-deliverable-dialog").dialog("close");
             return false;
         });
@@ -194,3 +194,18 @@ function edit_deliverable_dialog(deliverable_id){
     return false;
 }
 
+$("#new-deliverable-dialog").dialog({
+    autoOpen:false,
+    title: "New Deliverable",
+    modal: true,
+    width: '500px'
+
+});
+
+$(".new-deliverable").click(function() {
+    $("#deliverable_position").val($(this).parent().find('tr').length);
+    $("#phase_name").val($(this).parent().parent().find('a').get(0).text);
+    $("#lifecycle_phase_deliverable_lifecycle_phase_id").val($(this).parent().parent().attr('id').substr(6));
+    $("#new-deliverable-dialog").dialog("open");
+    return false;
+});
