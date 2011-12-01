@@ -27,7 +27,7 @@ describe User::InvitationsController do
     it "should redirect to user index when inviting for #{role}" do
       sign_in eval(role)
       post 'create', :user => {:email => "asd@asd.com", :password => "123456", :role => "admin", :name => "Asd"}, :skip_invitation => true
-      response.should redirect_to('/users')
+      response.should redirect_to(root_url)
     end
 
   end
