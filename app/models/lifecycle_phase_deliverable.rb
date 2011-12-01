@@ -14,6 +14,15 @@ class LifecyclePhaseDeliverable < ActiveRecord::Base
 
   # The constant is for converting complexity integer to real meaningful string
   COMPLEXITY = ["Low","Medium","High"]
+  
+  after_destroy { |record|
+    go_after = LifecyclePhaseDeliverable.where("lifecycle_phase_id = #{record.lifecycle_phase_id} AND position > #{record.position}")
+    go_after.each do |d|
+      d.position = d.position - 1
+      d.save
+    end
+  }
+
 end
 
 
