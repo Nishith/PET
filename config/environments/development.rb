@@ -40,7 +40,7 @@ PET::Application.configure do
     :domain         => 'gmail.com',
     :authentication => :plain,
     :user_name      => 'cmu.team.maglev',
-    :password       => 'TeAmMaGlEv2011'
+    :password       => 'TeAmMaGlEv'
   }
 
 end
