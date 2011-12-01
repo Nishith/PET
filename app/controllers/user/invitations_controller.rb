@@ -12,7 +12,7 @@ class User::InvitationsController < Devise::InvitationsController
   # * resource : The object that has been invited.
 
   def after_invite_path_for(resource)
-    users_path
+    home_path
   end
 
   # Handles the POST request for a new invitation, if it contains some errors,
