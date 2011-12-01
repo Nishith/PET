@@ -31,7 +31,7 @@ describe ProjectsController do
 
   def project_lifecycle
     {:name => "Test project Lifecycle",
-    :lifecycle_name => "Test lifecycle"}
+    :lifecycle_name => "Test Full Lifecycle"}
   end
 
   def lifecycle
@@ -101,14 +101,13 @@ describe ProjectsController do
       end
 
       it "creates a new project and copies the lifecycle data to it" do
-        lifecycle = Factory(:lifecycle)
-        lifecycle_phase = Factory(:lifecycle_phase_test)
-        lifecycle_phase_deliverable = Factory(:lifecycle_phase_deliverable)
+        lifecycle = Factory(:full_lifecycle)
+        Factory(:lifecycle_phase_deliverable, :lifecycle_phase => lifecycle.lifecycle_phases[0])
         post :create, :project => project_lifecycle
         prj = Project.find_by_name("Test project Lifecycle")
-        prj.lifecycle_name.should == "Test lifecycle"
+        prj.lifecycle_name.should == "Test Full Lifecycle"
         projectphase = ProjectPhase.find_by_project_id(prj.id)
-        projectphase.name == "Test lifecycle phase"
+        projectphase.name == "Test lifecycle phase 1"
         ProjectPhaseDeliverable.find_by_project_phase_id(projectphase.id).deliverable_type_id == 1
       end
 
