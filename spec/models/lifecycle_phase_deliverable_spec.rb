@@ -13,9 +13,9 @@ describe LifecyclePhaseDeliverable do
   end
 
   it "should not have an existing position number" do
-    @phase = Factory(:lifecycle_phase_deliverable)
-
-    @phase2 = Factory.build(:lifecycle_phase_deliverable)
+    @orig_phase = Factory(:lifecycle_phase)
+    @phase = Factory(:lifecycle_phase_deliverable, :position => 1, :lifecycle_phase => @orig_phase)
+    @phase2 = Factory.build(:lifecycle_phase_deliverable, :position => 1, :lifecycle_phase => @orig_phase)
     @phase2.should_not be_valid
     @phase2.errors[:position].should_not be_empty
   end

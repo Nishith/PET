@@ -10,6 +10,7 @@ describe "lifecycles/show.html.erb" do
     @lifecycles << @lifecycle
     @new_lifecycle = Lifecycle.new
     @lifecycle_phase = LifecyclePhase.new
+    @new_lifecycle_phase_deliverable = LifecyclePhaseDeliverable.new
   end
 
   it "renders attributes in <p>" do

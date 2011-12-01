@@ -84,7 +84,7 @@ describe LifecyclePhaseDeliverablesController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested lifecycle_phase_deliverable" do
-        lifecycle_phase_deliverable = LifecyclePhaseDeliverable.create! valid_attributes
+        lifecycle_phase_deliverable = Factory(:lifecycle_phase_deliverable)
         # Assuming there are no other lifecycle_phase_deliverables in the database, this
         # specifies that the LifecyclePhaseDeliverable created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -94,21 +94,21 @@ describe LifecyclePhaseDeliverablesController do
       end
 
       it "assigns the requested lifecycle_phase_deliverable as @lifecycle_phase_deliverable" do
-        lifecycle_phase_deliverable = LifecyclePhaseDeliverable.create! valid_attributes
+        lifecycle_phase_deliverable = Factory(:lifecycle_phase_deliverable)
         put :update, :id => lifecycle_phase_deliverable.id, :lifecycle_phase_deliverable => valid_attributes
         assigns(:lifecycle_phase_deliverable).should eq(lifecycle_phase_deliverable)
       end
 
       it "redirects to the lifecycle_phase_deliverable" do
-        lifecycle_phase_deliverable = LifecyclePhaseDeliverable.create! valid_attributes
+        lifecycle_phase_deliverable = Factory(:lifecycle_phase_deliverable)
         put :update, :id => lifecycle_phase_deliverable.id, :lifecycle_phase_deliverable => valid_attributes
-        response.should redirect_to(lifecycle_phase_deliverable)
+        response.should redirect_to(lifecycle_phase_deliverable.lifecycle_phase.lifecycle)
       end
     end
 
     describe "with invalid params" do
       it "assigns the lifecycle_phase_deliverable as @lifecycle_phase_deliverable" do
-        lifecycle_phase_deliverable = LifecyclePhaseDeliverable.create! valid_attributes
+        lifecycle_phase_deliverable = Factory(:lifecycle_phase_deliverable)
         # Trigger the behavior that occurs when invalid params are submitted
         LifecyclePhaseDeliverable.any_instance.stub(:save).and_return(false)
         put :update, :id => lifecycle_phase_deliverable.id.to_s, :lifecycle_phase_deliverable => {}
@@ -116,7 +116,7 @@ describe LifecyclePhaseDeliverablesController do
       end
 
       it "re-renders the 'edit' template" do
-        lifecycle_phase_deliverable = LifecyclePhaseDeliverable.create! valid_attributes
+        lifecycle_phase_deliverable = Factory(:lifecycle_phase_deliverable)
         # Trigger the behavior that occurs when invalid params are submitted
         LifecyclePhaseDeliverable.any_instance.stub(:save).and_return(false)
         put :update, :id => lifecycle_phase_deliverable.id.to_s, :lifecycle_phase_deliverable => {}

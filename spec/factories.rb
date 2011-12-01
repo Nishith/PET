@@ -70,9 +70,8 @@ FactoryGirl.define do
     effort_log.user {|user| user.association(:developer)}
   end
 
-  factory :lifecycle, :class => Lifecycle do
-    id 1
-    name 'Test lifecycle'
+  factory :lifecycle, :class => Lifecycle do |lifecycle|
+    lifecycle.sequence(:name){|n| "Test lifecycle #{n}"}
   end
 
   factory :full_lifecycle, :class => Lifecycle do |lifecycle|
@@ -95,10 +94,10 @@ FactoryGirl.define do
     position 1
   end
 
-  factory :lifecycle_phase_deliverable, :class => LifecyclePhaseDeliverable do
-    deliverable_type_id '1'
-    lifecycle_phase_id 1
-    position 1
+  factory :lifecycle_phase_deliverable, :class => LifecyclePhaseDeliverable do |deliverable|
+    deliverable.sequence(:description){|n| "Test lifecycle deliverable #{n}" }
+    deliverable.sequence(:position){|n| n}
+    deliverable.lifecycle_phase {|phase| phase.association(:lifecycle_phase)}
   end
 
   factory :historical_data, :class => HistoricalData do
