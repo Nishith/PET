@@ -3,7 +3,7 @@ HistoricalData.delete_all
   #High complexity
   types = DeliverableType.all.collect {|p| p.id}
   types.each do |t|
-    rate = 5 + rand(5)
+    rate = 1 + rand(5)
     size = 100 + rand(500)
     effort = rate * size
     HistoricalData.create!(:deliverable_type_id => t, :complexity => 3, :total_effort => effort, :production_rate => rate, :estimated_size => size)
@@ -19,7 +19,7 @@ HistoricalData.delete_all
   #Low complexity
   types = DeliverableType.all.collect {|p| p.id}
   types.each do |t|
-    rate = 1 + rand(5)
+    rate = 5 + rand(5)
     size = 100 + rand(500)
     effort = rate * size
     HistoricalData.create!(:deliverable_type_id => t, :complexity => 1, :total_effort => effort, :production_rate => rate, :estimated_size => size)
