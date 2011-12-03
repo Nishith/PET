@@ -28,17 +28,3 @@ end
 #  position     :integer
 #
 
-
-# == Schema Information
-#
-# Table name: lifecycle_phases
-#
-#  id           :integer         not null, primary key
-#  name         :string(255)
-#  description  :text
-#  lifecycle_id :integer
-#  created_at   :datetime
-#  updated_at   :datetime
-#  position     :integer
-#
-

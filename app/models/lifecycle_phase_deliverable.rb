@@ -15,6 +15,7 @@ class LifecyclePhaseDeliverable < ActiveRecord::Base
   # The constant is for converting complexity integer to real meaningful string
   COMPLEXITY = ["Low","Medium","High"]
   
+  # When a Lifecycle phase deliverable is deleted decrease the positions of all the following deliverables by 1
   after_destroy { |record|
     go_after = LifecyclePhaseDeliverable.where("lifecycle_phase_id = #{record.lifecycle_phase_id} AND position > #{record.position}")
     go_after.each do |d|

@@ -158,7 +158,7 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # receive the ajax query from project#show page and remember the order of phases in database
+  # Receive the ajax query from project#show page and remember the order of phases in database
   # Note: If at some point there are restrictions to the projects that a manager can view,
   # this validation has to be added to this method so that the phases all belong to the
   # same project and that the user has edit permissions on that project.

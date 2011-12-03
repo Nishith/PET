@@ -102,6 +102,7 @@ class LifecyclePhasesController < ApplicationController
     end
   end
 
+  # Used to keep track of the positions of the lifecycle phase deliverables in the list
   def sort
     params['deliverable'].each do |deliverable|
       @deliverable = LifecyclePhaseDeliverable.find(deliverable)

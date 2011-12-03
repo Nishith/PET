@@ -1,11 +1,12 @@
 # EffortLogsController manages EffortLog
-#
+# Enables and keeps track of all the effort that is logged against various
+# projects.
 class EffortLogsController < ApplicationController
 
   before_filter :authenticate_user!
 
   # Triggered by "GET /effort_logs".
-  # list all effot logs
+  # List all the effort logs
   def index
     @effort_log = EffortLog.new
     @recent_deliverables = ProjectPhaseDeliverable.recently_logged_by_user(current_user)
@@ -17,7 +18,7 @@ class EffortLogsController < ApplicationController
   end
 
   # should contain params[:id] as project id
-  # list all effort log for that project
+  # List all effort logs for that project
   def index_by_project
     @effort_log = EffortLog.new
     @projects = Project.all
@@ -31,7 +32,7 @@ class EffortLogsController < ApplicationController
   end
 
   # Triggered by "GET /effort_logs/1".
-  # Show a effort log
+  # Show an effort log
   def show
     @effort_log = EffortLog.find(params[:id])
 
@@ -42,7 +43,7 @@ class EffortLogsController < ApplicationController
   end
 
   # Triggered by "GET /effort_logs/new".
-  # Display the new form
+  # Display the new effort log form
   def new
     @effort_log = EffortLog.new
 
@@ -59,7 +60,7 @@ class EffortLogsController < ApplicationController
   end
 
   # Triggered by "POST /effort_logs".
-  # Receive parameters from client side and create a effort log
+  # Receive parameters from client side and create an effort log
   def create
     @effort_log = EffortLog.new(params[:effort_log])
     @effort_log.user = current_user
@@ -84,7 +85,7 @@ class EffortLogsController < ApplicationController
   end
 
   # Triggered by "PUT /effort_logs/1".
-  # Receive parameters from client side and update a effort log
+  # Receive parameters from client side and update an effort log
   def update
     @effort_log = EffortLog.find(params[:id])
 
@@ -101,7 +102,7 @@ class EffortLogsController < ApplicationController
   end
 
   # Triggered by "DELETE /effort_logs/1".
-  # destroy an effort log
+  # Destroy an effort log
   def destroy
     @effort_log = EffortLog.find(params[:id])
     @effort_log.destroy

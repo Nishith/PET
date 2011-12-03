@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :load_sidebar
 
+  # Sets the user type variable which will be used later to determine the content of the sidebar
   def load_sidebar
     if current_user.nil?
       @user_type = "not login"

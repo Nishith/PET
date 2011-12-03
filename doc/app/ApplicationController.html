@@ -60,6 +60,16 @@
       
 
       
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-i-load_sidebar">#load_sidebar</a></li>
+          
+        </ul>
+      </div>
+      
 
       
     </div>
@@ -103,6 +113,18 @@
           <li><a href="./ApplicationHelper.html">ApplicationHelper</a></li>
         
           <li><a href="./DeliverableType.html">DeliverableType</a></li>
+        
+          <li><a href="./EffortLog.html">EffortLog</a></li>
+        
+          <li><a href="./EffortLogsController.html">EffortLogsController</a></li>
+        
+          <li><a href="./EffortLogsHelper.html">EffortLogsHelper</a></li>
+        
+          <li><a href="./HistoricalData.html">HistoricalData</a></li>
+        
+          <li><a href="./HistoricalDataController.html">HistoricalDataController</a></li>
+        
+          <li><a href="./HistoricalDataHelper.html">HistoricalDataHelper</a></li>
         
           <li><a href="./HomeController.html">HomeController</a></li>
         
@@ -182,6 +204,50 @@ inherit.</p>
 
       <!-- Methods -->
       
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="load_sidebar-method" class="method-detail ">
+          <a name="method-i-load_sidebar"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">load_sidebar</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Sets the user type variable which will be used later to determine the
+content of the sidebar</p>
+            
+
+            
+            <div class="method-source-code" id="load_sidebar-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/application_controller.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_sidebar</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-ivar">@user_type</span> = <span class="ruby-string">&quot;not login&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@user_type</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">role</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- load_sidebar-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- load_sidebar-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
     </div><!-- 5Buntitled-5D -->
   
 

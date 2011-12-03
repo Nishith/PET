@@ -77,6 +77,8 @@
           
           <li><a href="#method-i-show">#show</a></li>
           
+          <li><a href="#method-i-sort">#sort</a></li>
+          
           <li><a href="#method-i-update">#update</a></li>
           
         </ul>
@@ -125,6 +127,18 @@
           <li><a href="./ApplicationHelper.html">ApplicationHelper</a></li>
         
           <li><a href="./DeliverableType.html">DeliverableType</a></li>
+        
+          <li><a href="./EffortLog.html">EffortLog</a></li>
+        
+          <li><a href="./EffortLogsController.html">EffortLogsController</a></li>
+        
+          <li><a href="./EffortLogsHelper.html">EffortLogsHelper</a></li>
+        
+          <li><a href="./HistoricalData.html">HistoricalData</a></li>
+        
+          <li><a href="./HistoricalDataController.html">HistoricalDataController</a></li>
+        
+          <li><a href="./HistoricalDataHelper.html">HistoricalDataHelper</a></li>
         
           <li><a href="./HomeController.html">HomeController</a></li>
         
@@ -229,7 +243,7 @@ from client side and create a new <a href="Project.html">Project</a>.</p>
             
             <div class="method-source-code" id="create-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 55</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@new_project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:project</span>])
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@new_project</span>.<span class="ruby-identifier">lifecycle_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-keyword">then</span>
@@ -253,7 +267,9 @@ from client side and create a new <a href="Project.html">Project</a>.</p>
       <span class="ruby-identifier">pf</span>.<span class="ruby-identifier">save</span>
 
       <span class="ruby-identifier">lf_phase</span>.<span class="ruby-identifier">lifecycle_phase_deliverables</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">lf_ph_deliverable</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">name</span> = <span class="ruby-identifier">lf_ph_deliverable</span>.<span class="ruby-identifier">deliverable_type</span>.<span class="ruby-identifier">blank?</span><span class="ruby-operator">?</span> <span class="ruby-string">&quot;None&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">lf_ph_deliverable</span>.<span class="ruby-identifier">deliverable_type</span>.<span class="ruby-identifier">name</span>
         <span class="ruby-identifier">deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lf_ph_deliverable</span>.<span class="ruby-identifier">description</span>,
+                                                  <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>,
                                                   <span class="ruby-value">:uom_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lf_ph_deliverable</span>.<span class="ruby-identifier">uom_id</span>,
                                                   <span class="ruby-value">:deliverable_type_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lf_ph_deliverable</span>.<span class="ruby-identifier">deliverable_type_id</span>,
                                                   <span class="ruby-value">:project_phase_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">pf</span>.<span class="ruby-identifier">id</span>,
@@ -298,15 +314,36 @@ from client side and create a new <a href="Project.html">Project</a>.</p>
 
           <div class="method-description">
             
-            <p>Triggered by DELETE /projects/1 and DELETE /projects/1.xml Delete a project</p>
+            <p>Triggered by DELETE /projects/1 and DELETE /projects/1.xml Delete a project
+and its associated deliverable phases and deliverables. A project will not
+be deleted if there is an effort log associated with it</p>
             
 
             
             <div class="method-source-code" id="destroy-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 119</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 132</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@phases</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">find_all_by_project_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@phases</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@deliverables</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">find_all_by_project_phase_id</span>(<span class="ruby-identifier">p</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-ivar">@deliverables</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ds</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@logged</span> = <span class="ruby-constant">EffortLog</span>.<span class="ruby-identifier">find_all_by_project_phase_deliverable_id</span>(<span class="ruby-identifier">ds</span>.<span class="ruby-identifier">id</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-ivar">@logged</span> <span class="ruby-operator">!=</span> <span class="ruby-value">:null</span>
+        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">'Project could not be deleted as there was effort logged against it.'</span>
+        <span class="ruby-identifier">redirect_to</span>(<span class="ruby-identifier">projects_url</span>)
+        <span class="ruby-keyword">return</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@phases</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@deliverables</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">find_all_by_project_phase_id</span>(<span class="ruby-identifier">p</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-ivar">@deliverables</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ds</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">ds</span>.<span class="ruby-identifier">destroy</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">p</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-keyword">end</span>
   <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">destroy</span>
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -343,7 +380,7 @@ from client side and create a new <a href="Project.html">Project</a>.</p>
             
             <div class="method-source-code" id="edit-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 49</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 <span class="ruby-keyword">end</span></pre>
@@ -415,7 +452,7 @@ creation form for the users to create a new project</p>
             
             <div class="method-source-code" id="new-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 38</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@new_project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">new</span>
 
@@ -460,6 +497,15 @@ specified by the user</p>
   <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@new_project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">new</span>
 
+  <span class="ruby-ivar">@project_phase</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@project_phase</span>.<span class="ruby-identifier">project_id</span> = <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-identifier">number_of_phases</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">find_all_by_project_id</span>(<span class="ruby-ivar">@project</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">size</span>
+  <span class="ruby-ivar">@project_phase</span>.<span class="ruby-identifier">position</span> = <span class="ruby-identifier">number_of_phases</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+
+  <span class="ruby-ivar">@new_project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">new</span>
+
+
+
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb</span>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span> }
@@ -473,6 +519,52 @@ specified by the user</p>
 
           
         </div><!-- show-method -->
+
+      
+        <div id="sort-method" class="method-detail ">
+          <a name="method-i-sort"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">sort</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Receive the ajax query from project<a
+href="ProjectsController.html#method-i-show">show</a> page and remember the
+order of phases in database Note: If at some point there are restrictions
+to the projects that a manager can view, this validation has to be added to
+this method so that the phases all belong to the same project and that the
+user has edit permissions on that project.</p>
+            
+
+            
+            <div class="method-source-code" id="sort-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 166</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sort</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-string">'phase'</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Array</span>
+    <span class="ruby-identifier">params</span>[<span class="ruby-string">'phase'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">phase</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@phase</span> = <span class="ruby-constant">ProjectPhase</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">phase</span>)
+      <span class="ruby-ivar">@phase</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-string">&quot;position&quot;</span>,<span class="ruby-identifier">params</span>[<span class="ruby-string">'phase'</span>].<span class="ruby-identifier">index</span>(<span class="ruby-ivar">@phase</span>.<span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:ok</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- sort-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- sort-method -->
 
       
         <div id="update-method" class="method-detail ">
@@ -495,7 +587,7 @@ from client side and update the <a href="Project.html">Project</a>.</p>
             
             <div class="method-source-code" id="update-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 103</span>
+<span class="ruby-comment"># File app/controllers/projects_controller.rb, line 114</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 

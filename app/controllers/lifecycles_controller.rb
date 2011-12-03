@@ -106,7 +106,7 @@ class LifecyclesController < ApplicationController
     end
   end
 
-
+  # Used to keep track of the positions of the lifecycle phases in the list
   def sort
     if params['phase'].is_a? Array
       params['phase'].each do |phase|

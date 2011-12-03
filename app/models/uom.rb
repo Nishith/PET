@@ -16,14 +16,3 @@ class Uom < ActiveRecord::Base
   has_many :project_phase_deliverables
   has_one :deliverable_type
 end
-
-# == Schema Information
-#
-# Table name: uoms
-#
-#  id         :integer         not null, primary key
-#  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-

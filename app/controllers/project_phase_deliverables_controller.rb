@@ -119,7 +119,6 @@ class ProjectPhaseDeliverablesController < ApplicationController
 
 
   # Return the corresponding UoM for a specified DeliverableType
-
   def getuom
     @deliverable_type = DeliverableType.find(params[:id])
     respond_to do |format|

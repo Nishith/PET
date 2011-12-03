@@ -77,6 +77,8 @@
           
           <li><a href="#method-i-show">#show</a></li>
           
+          <li><a href="#method-i-sort">#sort</a></li>
+          
           <li><a href="#method-i-update">#update</a></li>
           
         </ul>
@@ -125,6 +127,18 @@
           <li><a href="./ApplicationHelper.html">ApplicationHelper</a></li>
         
           <li><a href="./DeliverableType.html">DeliverableType</a></li>
+        
+          <li><a href="./EffortLog.html">EffortLog</a></li>
+        
+          <li><a href="./EffortLogsController.html">EffortLogsController</a></li>
+        
+          <li><a href="./EffortLogsHelper.html">EffortLogsHelper</a></li>
+        
+          <li><a href="./HistoricalData.html">HistoricalData</a></li>
+        
+          <li><a href="./HistoricalDataController.html">HistoricalDataController</a></li>
+        
+          <li><a href="./HistoricalDataHelper.html">HistoricalDataHelper</a></li>
         
           <li><a href="./HomeController.html">HomeController</a></li>
         
@@ -228,7 +242,7 @@ and create a new <a href="Lifecycle.html">Lifecycle</a>.</p>
             
             <div class="method-source-code" id="create-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/lifecycles_controller.rb, line 50</span>
+<span class="ruby-comment"># File app/controllers/lifecycles_controller.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@lifecycle</span> = <span class="ruby-constant">Lifecycle</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:lifecycle</span>])
 
@@ -272,9 +286,17 @@ href="Lifecycle.html">Lifecycle</a>.</p>
             
             <div class="method-source-code" id="destroy-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/lifecycles_controller.rb, line 82</span>
+<span class="ruby-comment"># File app/controllers/lifecycles_controller.rb, line 91</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@lifecycle</span> = <span class="ruby-constant">Lifecycle</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@phases</span> = <span class="ruby-constant">LifecyclePhase</span>.<span class="ruby-identifier">find_all_by_lifecycle_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@phases</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@deliverables</span> = <span class="ruby-constant">LifecyclePhaseDeliverable</span>.<span class="ruby-identifier">find_all_by_lifecycle_phase_id</span>(<span class="ruby-identifier">p</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-ivar">@deliverables</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ds</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">ds</span>.<span class="ruby-identifier">destroy</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">p</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-keyword">end</span>
   <span class="ruby-ivar">@lifecycle</span>.<span class="ruby-identifier">destroy</span>
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -311,7 +333,7 @@ href="Lifecycle.html">Lifecycle</a>.</p>
             
             <div class="method-source-code" id="edit-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/lifecycles_controller.rb, line 44</span>
+<span class="ruby-comment"># File app/controllers/lifecycles_controller.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@lifecycle</span> = <span class="ruby-constant">Lifecycle</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 <span class="ruby-keyword">end</span></pre>
@@ -383,13 +405,13 @@ create new <a href="Lifecycle.html">Lifecycle</a>.</p>
             
             <div class="method-source-code" id="new-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/lifecycles_controller.rb, line 33</span>
+<span class="ruby-comment"># File app/controllers/lifecycles_controller.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
-  <span class="ruby-ivar">@lifecycle</span> = <span class="ruby-constant">Lifecycle</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@new_lifecycle</span> = <span class="ruby-constant">Lifecycle</span>.<span class="ruby-identifier">new</span>
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># new.html.erb</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@lifecycle</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@new_lifecycle</span> }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
             </div><!-- new-source -->
@@ -425,6 +447,15 @@ href="Lifecycle.html">Lifecycle</a> specified by user.</p>
 <span class="ruby-comment"># File app/controllers/lifecycles_controller.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@lifecycle</span> = <span class="ruby-constant">Lifecycle</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@lifecycles</span> = <span class="ruby-constant">Lifecycle</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-ivar">@new_lifecycle</span> = <span class="ruby-constant">Lifecycle</span>.<span class="ruby-identifier">new</span>
+
+  <span class="ruby-ivar">@lifecycle_phase</span> = <span class="ruby-constant">LifecyclePhase</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@lifecycle_phase</span>.<span class="ruby-identifier">lifecycle_id</span> = <span class="ruby-ivar">@lifecycle</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-identifier">number_of_phases</span> = <span class="ruby-constant">LifecyclePhase</span>.<span class="ruby-identifier">find_all_by_lifecycle_id</span>(<span class="ruby-ivar">@lifecycle</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">size</span>
+  <span class="ruby-ivar">@lifecycle_phase</span>.<span class="ruby-identifier">position</span> = <span class="ruby-identifier">number_of_phases</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+
+  <span class="ruby-ivar">@new_lifecycle_phase_deliverable</span> = <span class="ruby-constant">LifecyclePhaseDeliverable</span>.<span class="ruby-identifier">new</span>
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb</span>
@@ -439,6 +470,47 @@ href="Lifecycle.html">Lifecycle</a> specified by user.</p>
 
           
         </div><!-- show-method -->
+
+      
+        <div id="sort-method" class="method-detail ">
+          <a name="method-i-sort"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">sort</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Used to keep track of the positions of the lifecycle phases in the list</p>
+            
+
+            
+            <div class="method-source-code" id="sort-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/lifecycles_controller.rb, line 110</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sort</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-string">'phase'</span>].<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Array</span>
+    <span class="ruby-identifier">params</span>[<span class="ruby-string">'phase'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">phase</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@phase</span> = <span class="ruby-constant">LifecyclePhase</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">phase</span>)
+      <span class="ruby-ivar">@phase</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-string">&quot;position&quot;</span>,<span class="ruby-identifier">params</span>[<span class="ruby-string">'phase'</span>].<span class="ruby-identifier">index</span>(<span class="ruby-ivar">@phase</span>.<span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:ok</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- sort-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- sort-method -->
 
       
         <div id="update-method" class="method-detail ">
@@ -461,7 +533,7 @@ and update the <a href="Lifecycle.html">Lifecycle</a>.</p>
             
             <div class="method-source-code" id="update-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/lifecycles_controller.rb, line 66</span>
+<span class="ruby-comment"># File app/controllers/lifecycles_controller.rb, line 75</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@lifecycle</span> = <span class="ruby-constant">Lifecycle</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 

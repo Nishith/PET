@@ -72,6 +72,18 @@
         
           <li><a href="../DeliverableType.html">DeliverableType</a></li>
         
+          <li><a href="../EffortLog.html">EffortLog</a></li>
+        
+          <li><a href="../EffortLogsController.html">EffortLogsController</a></li>
+        
+          <li><a href="../EffortLogsHelper.html">EffortLogsHelper</a></li>
+        
+          <li><a href="../HistoricalData.html">HistoricalData</a></li>
+        
+          <li><a href="../HistoricalDataController.html">HistoricalDataController</a></li>
+        
+          <li><a href="../HistoricalDataHelper.html">HistoricalDataHelper</a></li>
+        
           <li><a href="../HomeController.html">HomeController</a></li>
         
           <li><a href="../HomeHelper.html">HomeHelper</a></li>
@@ -129,7 +141,9 @@
   <div id="documentation">
     
 <p>P.E.T. stands for <a href="../Project.html">Project</a> Enactment Tool. It
-helps project managers create estimation of projects based on historical
+is a tool to assist in project management and progress tracking. It
+leverages the project management knowledge that the company has acquired by
+helping project managers create estimations of projects based on historical
 data and then monitor progress during the development process.</p>
 
 <p>Three different roles are involved in our system: project manager,
@@ -139,10 +153,40 @@ phase. PET also provides a set of predefined lifecycles containing certain
 phases and deliverables that PM can take advantage of. For each
 deliverable, PM can utilize historical data to estimate the size,
 productivity and total effort. When the implementation takes place,
-developers can log effort against a deliverable. PM then track the total
-effort of deliverables to monitor progress. Besides project management, PM
-can also create, edit or delete lifecycles to produce desired project
-templates.</p>
+developers can log effort against a deliverable. PM can then track the
+total effort of deliverables to monitor progress. Besides project
+management, PM can also create, edit or delete lifecycles to produce
+desired project templates.</p>
+
+<p>To further explore the application, please go to <a
+href="../ProjectsController.html">ProjectsController</a>, <a
+href="../ProjectPhasesController.html">ProjectPhasesController</a> and <a
+href="../ProjectPhaseDeliverablesController.html">ProjectPhaseDeliverablesController</a>
+to see how the major queries of the website are handled.</p>
+
+<p>Design decisions:</p>
+<ol><li>
+<p>Since <a href="../DeliverableType.html">DeliverableType</a> is associated
+with specific <a href="../Uom.html">Uom</a>, ad-hoc deliverable will have
+nil as deliverable type.</p>
+</li><li>
+<p>To facilitate historical data queries, <a
+href="../HistoricalData.html">HistoricalData</a> model is created. After a
+deliverable is marked as finished,</p>
+</li></ol>
+
+<p>the estimations data of it (size, production rate and total effort) will be
+moved to <a href="../HistoricalData.html">HistoricalData</a> table.</p>
+<ol><li>
+<p>Once a project is created from a lifecycle, it does not have a direct link
+back to it. This is because if the lifecycle</p>
+</li></ol>
+
+<p>changes later the changes should not affect the already existing project.</p>
+<ol><li>
+<p>Deletion of a project, project phase, or a project phase deliverable is not
+permitted if there is logged effort for it.</p>
+</li></ol>
 
   </div>
 

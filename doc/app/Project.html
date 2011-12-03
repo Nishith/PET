@@ -60,6 +60,20 @@
       
 
       
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-i-effort_logs">#effort_logs</a></li>
+          
+          <li><a href="#method-i-total_actual_effort">#total_actual_effort</a></li>
+          
+          <li><a href="#method-i-total_estimated_effort">#total_estimated_effort</a></li>
+          
+        </ul>
+      </div>
+      
 
       
     </div>
@@ -103,6 +117,18 @@
           <li><a href="./ApplicationHelper.html">ApplicationHelper</a></li>
         
           <li><a href="./DeliverableType.html">DeliverableType</a></li>
+        
+          <li><a href="./EffortLog.html">EffortLog</a></li>
+        
+          <li><a href="./EffortLogsController.html">EffortLogsController</a></li>
+        
+          <li><a href="./EffortLogsHelper.html">EffortLogsHelper</a></li>
+        
+          <li><a href="./HistoricalData.html">HistoricalData</a></li>
+        
+          <li><a href="./HistoricalDataController.html">HistoricalDataController</a></li>
+        
+          <li><a href="./HistoricalDataHelper.html">HistoricalDataHelper</a></li>
         
           <li><a href="./HomeController.html">HomeController</a></li>
         
@@ -195,6 +221,119 @@ lifecycle_name :string(255)</pre>
 
       <!-- Methods -->
       
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="effort_logs-method" class="method-detail ">
+          <a name="method-i-effort_logs"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">effort_logs</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>return an array of all logged effort</p>
+            
+
+            
+            <div class="method-source-code" id="effort_logs-source">
+<pre>
+<span class="ruby-comment"># File app/models/project.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">effort_logs</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">project_phase_deliverables</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">d</span><span class="ruby-operator">|</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">effort_logs</span> }.<span class="ruby-identifier">flatten</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- effort_logs-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- effort_logs-method -->
+
+      
+        <div id="total_actual_effort-method" class="method-detail ">
+          <a name="method-i-total_actual_effort"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">total_actual_effort</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>return the total logged effort of deliverables that belong to this project</p>
+            
+
+            
+            <div class="method-source-code" id="total_actual_effort-source">
+<pre>
+<span class="ruby-comment"># File app/models/project.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">total_actual_effort</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">effort_logs</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">ef</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ef</span>.<span class="ruby-identifier">effort</span>}
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- total_actual_effort-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- total_actual_effort-method -->
+
+      
+        <div id="total_estimated_effort-method" class="method-detail ">
+          <a name="method-i-total_estimated_effort"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">total_estimated_effort</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>return the total estimated effort of deliverables that belong to this
+project</p>
+            
+
+            
+            <div class="method-source-code" id="total_estimated_effort-source">
+<pre>
+<span class="ruby-comment"># File app/models/project.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">total_estimated_effort</span>
+  <span class="ruby-identifier">sum</span> = <span class="ruby-value">0.0</span>;
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">project_phase_deliverables</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">deliverable</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">deliverable</span>.<span class="ruby-identifier">total_effort</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-keyword">next</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">sum</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">deliverable</span>.<span class="ruby-identifier">total_effort</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">sum</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- total_estimated_effort-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- total_estimated_effort-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
     </div><!-- 5Buntitled-5D -->
   
 

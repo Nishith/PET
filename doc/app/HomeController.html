@@ -114,6 +114,18 @@
         
           <li><a href="./DeliverableType.html">DeliverableType</a></li>
         
+          <li><a href="./EffortLog.html">EffortLog</a></li>
+        
+          <li><a href="./EffortLogsController.html">EffortLogsController</a></li>
+        
+          <li><a href="./EffortLogsHelper.html">EffortLogsHelper</a></li>
+        
+          <li><a href="./HistoricalData.html">HistoricalData</a></li>
+        
+          <li><a href="./HistoricalDataController.html">HistoricalDataController</a></li>
+        
+          <li><a href="./HistoricalDataHelper.html">HistoricalDataHelper</a></li>
+        
           <li><a href="./HomeController.html">HomeController</a></li>
         
           <li><a href="./HomeHelper.html">HomeHelper</a></li>
@@ -219,6 +231,16 @@ he is not logged in.</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">current_user</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_user_session_path</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">role?</span> <span class="ruby-string">&quot;developer&quot;</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">effort_logs_path</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@recent_projects</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">recently_logged</span>.<span class="ruby-identifier">group_by</span>(&amp;<span class="ruby-value">:project</span>)
+      <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># index.html.erb</span>
+        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@recent_projects</span> }
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
             </div><!-- index-source -->

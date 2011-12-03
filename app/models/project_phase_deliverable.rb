@@ -14,6 +14,7 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
   validates_numericality_of(:position, :greater_than => 0)
   validate :total_effort_calculation_should_be_valid, :if => :validate_total_effort?
 
+  # Return the project phase that this deliverable belongs to
   def project
     if !self.project_phase.blank?
       self.project_phase.project
@@ -44,6 +45,7 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
     self.finished?? "Finished" : ( self.effort_logs.empty?? "New":"In Progress")
   end
 
+  # When a Project phase deliverable is deleted decrease the positions of all the following deliverables by 1
   after_destroy { |record|
     go_after = ProjectPhaseDeliverable.where("project_phase_id = #{record.project_phase_id} AND position > #{record.position}")
     go_after.each do |d|
@@ -52,6 +54,7 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
     end
   }
 
+  # Prevents changing a deliverable against which some effort has been logged
   before_update { |record|
     unless record.finished_changed?
       if(record.has_effort_log?)
@@ -98,6 +101,8 @@ class ProjectPhaseDeliverable < ActiveRecord::Base
     end
   end
 
+  # When a deliverable is marked finished, the data logged against it joins the historical
+  # data
   def mark_finished
     self.finished = true
     hd = HistoricalData.new(:deliverable_type => self.deliverable_type,

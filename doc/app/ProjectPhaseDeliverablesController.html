@@ -71,6 +71,8 @@
           
           <li><a href="#method-i-edit">#edit</a></li>
           
+          <li><a href="#method-i-getuom">#getuom</a></li>
+          
           <li><a href="#method-i-index">#index</a></li>
           
           <li><a href="#method-i-new">#new</a></li>
@@ -125,6 +127,18 @@
           <li><a href="./ApplicationHelper.html">ApplicationHelper</a></li>
         
           <li><a href="./DeliverableType.html">DeliverableType</a></li>
+        
+          <li><a href="./EffortLog.html">EffortLog</a></li>
+        
+          <li><a href="./EffortLogsController.html">EffortLogsController</a></li>
+        
+          <li><a href="./EffortLogsHelper.html">EffortLogsHelper</a></li>
+        
+          <li><a href="./HistoricalData.html">HistoricalData</a></li>
+        
+          <li><a href="./HistoricalDataController.html">HistoricalDataController</a></li>
+        
+          <li><a href="./HistoricalDataHelper.html">HistoricalDataHelper</a></li>
         
           <li><a href="./HomeController.html">HomeController</a></li>
         
@@ -232,17 +246,21 @@ create a new project phase deliverable</p>
             
             <div class="method-source-code" id="create-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 53</span>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-  <span class="ruby-ivar">@project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:project_phase_deliverable</span>])
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:project_phase_deliverable</span>][<span class="ruby-value">:deliverable_type_id</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span>
+    <span class="ruby-comment">#it is ad-hoc</span>
+    <span class="ruby-identifier">params</span>[<span class="ruby-value">:project_phase_deliverable</span>][<span class="ruby-value">:deliverable_type_id</span>] = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@new_project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:project_phase_deliverable</span>])
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">save</span>
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@project_phase_deliverable</span>, <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Project phase deliverable was successfully created.'</span>) }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_phase_deliverable</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:created</span>, <span class="ruby-value">:location</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_phase_deliverable</span> }
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@new_project_phase_deliverable</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@new_project_phase_deliverable</span>.<span class="ruby-identifier">project_phase</span>.<span class="ruby-identifier">project</span>, <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Project phase deliverable was successfully created.'</span>) }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@new_project_phase_deliverable</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:created</span>, <span class="ruby-value">:location</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@new_project_phase_deliverable</span> }
     <span class="ruby-keyword">else</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;new&quot;</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:unprocessable_entity</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@new_project_phase_deliverable</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:unprocessable_entity</span> }
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -276,13 +294,13 @@ create a new project phase deliverable</p>
             
             <div class="method-source-code" id="destroy-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 85</span>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 110</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">destroy</span>
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-identifier">project_phase_deliverables_url</span>) }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">project_phase</span>.<span class="ruby-identifier">project</span>) }
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">head</span> <span class="ruby-value">:ok</span> }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -315,9 +333,26 @@ create a new project phase deliverable</p>
             
             <div class="method-source-code" id="edit-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 47</span>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 51</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">deliverable_type</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">complexity</span>.<span class="ruby-identifier">blank?</span>)
+    <span class="ruby-ivar">@historical_data</span> = <span class="ruby-constant">HistoricalData</span>.<span class="ruby-identifier">get_historical_data</span>(<span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">deliverable_type_id</span>,
+                                                          <span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">complexity</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">has_effort_log?</span>)
+      <span class="ruby-keyword">if</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:no_layout</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;true&quot;</span>)
+        <span class="ruby-ivar">@no_layout</span> = <span class="ruby-keyword">true</span>
+        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>}
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">project_phase</span>.<span class="ruby-identifier">project</span>, <span class="ruby-value">:error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'You cannot update a deliverable that has logged effort.'</span>) }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
             </div><!-- edit-source -->
             
@@ -327,6 +362,43 @@ create a new project phase deliverable</p>
 
           
         </div><!-- edit-method -->
+
+      
+        <div id="getuom-method" class="method-detail ">
+          <a name="method-i-getuom"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">getuom</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Return the corresponding UoM for a specified <a
+href="DeliverableType.html">DeliverableType</a></p>
+            
+
+            
+            <div class="method-source-code" id="getuom-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 122</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getuom</span>
+  <span class="ruby-ivar">@deliverable_type</span> = <span class="ruby-constant">DeliverableType</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@deliverable_type</span>.<span class="ruby-identifier">uom</span>}
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- getuom-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- getuom-method -->
 
       
         <div id="index-method" class="method-detail ">
@@ -389,13 +461,13 @@ project phase deliverable</p>
             
             <div class="method-source-code" id="new-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 36</span>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
-  <span class="ruby-ivar">@project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@new_project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">new</span>
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># new.html.erb</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_phase_deliverable</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@new_project_phase_deliverable</span> }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
             </div><!-- new-source -->
@@ -434,7 +506,11 @@ by the user</p>
   <span class="ruby-ivar">@project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb</span>
+    <span class="ruby-keyword">if</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:no_layout</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;true&quot;</span>)
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>}
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb</span>
+    <span class="ruby-keyword">end</span>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">render</span> <span class="ruby-value">:xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_phase_deliverable</span> }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -469,13 +545,13 @@ and update the project phase deliverable.</p>
             
             <div class="method-source-code" id="update-source">
 <pre>
-<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 69</span>
+<span class="ruby-comment"># File app/controllers/project_phase_deliverables_controller.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@project_phase_deliverable</span> = <span class="ruby-constant">ProjectPhaseDeliverable</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:project_phase_deliverable</span>])
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-ivar">@project_phase_deliverable</span>, <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Project phase deliverable was successfully updated.'</span>) }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span>(<span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@project_phase_deliverable</span>.<span class="ruby-identifier">project_phase</span>.<span class="ruby-identifier">project</span>), <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Project phase deliverable was successfully updated.'</span>) }
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xml</span>  { <span class="ruby-identifier">head</span> <span class="ruby-value">:ok</span> }
     <span class="ruby-keyword">else</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;edit&quot;</span> }

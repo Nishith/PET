@@ -65,7 +65,25 @@
         <h3 class="section-header">Methods</h3>
         <ul class="link-list">
           
+          <li><a href="#method-c-recently_logged">::recently_logged</a></li>
+          
+          <li><a href="#method-c-recently_logged_by_user">::recently_logged_by_user</a></li>
+          
           <li><a href="#method-i-complexity_str">#complexity_str</a></li>
+          
+          <li><a href="#method-i-has_effort_log-3F">#has_effort_log?</a></li>
+          
+          <li><a href="#method-i-mark_finished">#mark_finished</a></li>
+          
+          <li><a href="#method-i-project">#project</a></li>
+          
+          <li><a href="#method-i-status_s">#status_s</a></li>
+          
+          <li><a href="#method-i-total_effort_calculation_should_be_valid">#total_effort_calculation_should_be_valid</a></li>
+          
+          <li><a href="#method-i-total_logged_effort">#total_logged_effort</a></li>
+          
+          <li><a href="#method-i-validate_total_effort-3F">#validate_total_effort?</a></li>
           
         </ul>
       </div>
@@ -113,6 +131,18 @@
           <li><a href="./ApplicationHelper.html">ApplicationHelper</a></li>
         
           <li><a href="./DeliverableType.html">DeliverableType</a></li>
+        
+          <li><a href="./EffortLog.html">EffortLog</a></li>
+        
+          <li><a href="./EffortLogsController.html">EffortLogsController</a></li>
+        
+          <li><a href="./EffortLogsHelper.html">EffortLogsHelper</a></li>
+        
+          <li><a href="./HistoricalData.html">HistoricalData</a></li>
+        
+          <li><a href="./HistoricalDataController.html">HistoricalDataController</a></li>
+        
+          <li><a href="./HistoricalDataHelper.html">HistoricalDataHelper</a></li>
         
           <li><a href="./HomeController.html">HomeController</a></li>
         
@@ -177,23 +207,6 @@
 to <a href="ProjectPhase.html">ProjectPhase</a> It has type through
 deliverable_type_id. It has unit of measurement through uom_id.</p>
 
-<h2>Schema Information</h2>
-
-<p>Table name: project_phase_deliverables</p>
-
-<pre>id                  :integer         not null, primary key
-name                :string(255)
-description         :text
-deliverable_type_id :integer
-uom_id              :integer
-complexity          :integer
-estimated_size      :float
-production_rate     :float
-total_effort        :float
-project_phase_id    :integer
-created_at          :datetime
-updated_at          :datetime</pre>
-
     </div><!-- description -->
 
     
@@ -210,6 +223,83 @@ updated_at          :datetime</pre>
 
       <!-- Methods -->
       
+      <div id="public-class-method-details" class="method-section section">
+        <h3 class="section-header">Public Class Methods</h3>
+
+      
+        <div id="recently_logged-method" class="method-detail ">
+          <a name="method-c-recently_logged"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">recently_logged</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>return the deliverables being logged effort against recently</p>
+            
+
+            
+            <div class="method-source-code" id="recently_logged-source">
+<pre>
+<span class="ruby-comment"># File app/models/project_phase_deliverable.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recently_logged</span>
+  <span class="ruby-identifier">recent_logs</span> = <span class="ruby-constant">EffortLog</span>.<span class="ruby-identifier">select</span>(<span class="ruby-string">&quot;effort_logs.project_phase_deliverable_id, MAX(effort_logs.updated_at)&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;MAX(effort_logs.updated_at) DESC&quot;</span>).<span class="ruby-identifier">group</span>(<span class="ruby-string">&quot;project_phase_deliverable_id&quot;</span>)
+  <span class="ruby-identifier">recent_logs</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">project_phase_deliverable</span> }
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- recently_logged-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- recently_logged-method -->
+
+      
+        <div id="recently_logged_by_user-method" class="method-detail ">
+          <a name="method-c-recently_logged_by_user"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">recently_logged_by_user</span><span
+              class="method-args">(user)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="recently_logged_by_user-source">
+<pre>
+<span class="ruby-comment"># File app/models/project_phase_deliverable.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recently_logged_by_user</span>(<span class="ruby-identifier">user</span>)
+  <span class="ruby-identifier">recent_logs</span> = <span class="ruby-constant">EffortLog</span>.<span class="ruby-identifier">select</span>(<span class="ruby-string">&quot;effort_logs.project_phase_deliverable_id, MAX(effort_logs.updated_at)&quot;</span>)
+    .<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;effort_logs.user_id = ?&quot;</span>,<span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>)
+    .<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;MAX(effort_logs.updated_at) DESC&quot;</span>)
+    .<span class="ruby-identifier">group</span>(<span class="ruby-string">&quot;project_phase_deliverable_id&quot;</span>)
+  <span class="ruby-identifier">recent_logs</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">project_phase_deliverable</span> }
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- recently_logged_by_user-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- recently_logged_by_user-method -->
+
+      
+      </div><!-- public-class-method-details -->
+    
       <div id="public-instance-method-details" class="method-section section">
         <h3 class="section-header">Public Instance Methods</h3>
 
@@ -235,12 +325,12 @@ value: complexity string</p>
             
             <div class="method-source-code" id="complexity_str-source">
 <pre>
-<span class="ruby-comment"># File app/models/project_phase_deliverable.rb, line 35</span>
+<span class="ruby-comment"># File app/models/project_phase_deliverable.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">complexity_str</span>
   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">complexity</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">&amp;&amp;</span>
-      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">complexity</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span>
-      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">complexity</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">LifecyclePhaseDeliverable</span><span class="ruby-operator">::</span><span class="ruby-constant">COMPLEXITY</span>.<span class="ruby-identifier">size</span> <span class="ruby-keyword">then</span>
-    <span class="ruby-constant">LifecyclePhaseDeliverable</span><span class="ruby-operator">::</span><span class="ruby-constant">COMPLEXITY</span>[<span class="ruby-keyword">self</span>.<span class="ruby-identifier">complexity</span>]
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">complexity</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">1</span> <span class="ruby-operator">&amp;&amp;</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">complexity</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-constant">LifecyclePhaseDeliverable</span><span class="ruby-operator">::</span><span class="ruby-constant">COMPLEXITY</span>.<span class="ruby-identifier">size</span> <span class="ruby-keyword">then</span>
+    <span class="ruby-constant">LifecyclePhaseDeliverable</span><span class="ruby-operator">::</span><span class="ruby-constant">COMPLEXITY</span>[<span class="ruby-keyword">self</span>.<span class="ruby-identifier">complexity</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>]
   <span class="ruby-keyword">else</span>
     <span class="ruby-string">&quot;&quot;</span>
   <span class="ruby-keyword">end</span>
@@ -253,6 +343,251 @@ value: complexity string</p>
 
           
         </div><!-- complexity_str-method -->
+
+      
+        <div id="has_effort_log-3F-method" class="method-detail ">
+          <a name="method-i-has_effort_log-3F"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">has_effort_log?</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>return boolean to represent whether the deliverable has effort logs</p>
+            
+
+            
+            <div class="method-source-code" id="has_effort_log-3F-source">
+<pre>
+<span class="ruby-comment"># File app/models/project_phase_deliverable.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_effort_log?</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">EffortLog</span>.<span class="ruby-identifier">find_by_project_phase_deliverable_id</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword">then</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- has_effort_log-3F-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- has_effort_log-3F-method -->
+
+      
+        <div id="mark_finished-method" class="method-detail ">
+          <a name="method-i-mark_finished"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">mark_finished</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>When a deliverable is marked finished, the data logged against it joins the
+historical data</p>
+            
+
+            
+            <div class="method-source-code" id="mark_finished-source">
+<pre>
+<span class="ruby-comment"># File app/models/project_phase_deliverable.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mark_finished</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">finished</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-identifier">hd</span> = <span class="ruby-constant">HistoricalData</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:deliverable_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">deliverable_type</span>,
+    <span class="ruby-value">:complexity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">complexity</span>, <span class="ruby-value">:estimated_size</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">estimated_size</span>,
+    <span class="ruby-value">:production_rate</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">production_rate</span>, <span class="ruby-value">:total_effort</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">total_effort</span>)
+  <span class="ruby-identifier">hd</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- mark_finished-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- mark_finished-method -->
+
+      
+        <div id="project-method" class="method-detail ">
+          <a name="method-i-project"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">project</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Return the project phase that this deliverable belongs to</p>
+            
+
+            
+            <div class="method-source-code" id="project-source">
+<pre>
+<span class="ruby-comment"># File app/models/project_phase_deliverable.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">project</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">project_phase</span>.<span class="ruby-identifier">blank?</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">project_phase</span>.<span class="ruby-identifier">project</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- project-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- project-method -->
+
+      
+        <div id="status_s-method" class="method-detail ">
+          <a name="method-i-status_s"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">status_s</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>return the status. Can be “New”, “In progress” or “Finished”</p>
+            
+
+            
+            <div class="method-source-code" id="status_s-source">
+<pre>
+<span class="ruby-comment"># File app/models/project_phase_deliverable.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">status_s</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">finished?</span><span class="ruby-operator">?</span> <span class="ruby-string">&quot;Finished&quot;</span> <span class="ruby-operator">:</span> ( <span class="ruby-keyword">self</span>.<span class="ruby-identifier">effort_logs</span>.<span class="ruby-identifier">empty?</span><span class="ruby-operator">?</span> <span class="ruby-string">&quot;New&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;In Progress&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- status_s-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- status_s-method -->
+
+      
+        <div id="total_effort_calculation_should_be_valid-method" class="method-detail ">
+          <a name="method-i-total_effort_calculation_should_be_valid"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">total_effort_calculation_should_be_valid</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>If the total effort does not equal the multiplication of size and
+production rate, append an error</p>
+            
+
+            
+            <div class="method-source-code" id="total_effort_calculation_should_be_valid-source">
+<pre>
+<span class="ruby-comment"># File app/models/project_phase_deliverable.rb, line 98</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">total_effort_calculation_should_be_valid</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">estimated_size</span> * <span class="ruby-keyword">self</span>.<span class="ruby-identifier">production_rate</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">total_effort</span>
+    <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:total_effort</span>, <span class="ruby-string">&quot;should be Estimated Size times Production Rate&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- total_effort_calculation_should_be_valid-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- total_effort_calculation_should_be_valid-method -->
+
+      
+        <div id="total_logged_effort-method" class="method-detail ">
+          <a name="method-i-total_logged_effort"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">total_logged_effort</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>return the sum of total logged effort</p>
+            
+
+            
+            <div class="method-source-code" id="total_logged_effort-source">
+<pre>
+<span class="ruby-comment"># File app/models/project_phase_deliverable.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">total_logged_effort</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">effort_logs</span>.<span class="ruby-identifier">inject</span> (<span class="ruby-value">0</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">ef</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ef</span>.<span class="ruby-identifier">effort</span>}
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- total_logged_effort-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- total_logged_effort-method -->
+
+      
+        <div id="validate_total_effort-3F-method" class="method-detail ">
+          <a name="method-i-validate_total_effort-3F"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">validate_total_effort?</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>return whether the deliverable has production rate, size and total effort</p>
+            
+
+            
+            <div class="method-source-code" id="validate_total_effort-3F-source">
+<pre>
+<span class="ruby-comment"># File app/models/project_phase_deliverable.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_total_effort?</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">production_rate?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">estimated_size?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">total_effort?</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- validate_total_effort-3F-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- validate_total_effort-3F-method -->
 
       
       </div><!-- public-instance-method-details -->

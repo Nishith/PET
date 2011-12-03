@@ -20,14 +20,3 @@ class Lifecycle < ActiveRecord::Base
   has_many :lifecycle_phase_deliverables, :through => :lifecycle_phases
 end
 
-# == Schema Information
-#
-# Table name: lifecycles
-#
-#  id          :integer         not null, primary key
-#  name        :string(255)
-#  description :text
-#  created_at  :datetime
-#  updated_at  :datetime
-#
-
