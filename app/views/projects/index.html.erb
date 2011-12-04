@@ -1,3 +1,4 @@
+<% unless @projects.blank? || @projects.empty?%>
 <h1>Listing projects</h1>
 
 <table>
@@ -21,7 +22,10 @@
   </tr>
 <% end %>
 </table>
-
+<% else %>
+    You haven't created any projects.
+    <br/>
+<% end %>
 <br />
 
 <%= link_to 'New Project', new_project_path %>

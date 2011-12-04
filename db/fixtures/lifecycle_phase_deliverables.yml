@@ -313,7 +313,7 @@ wf_concept_risk_management_plan:
   lifecycle_phase: wf_concept
   uom: page
 wf_concept_feasibility_study:
-  deliverable_type: feasibility_study_plan
+  deliverable_type: feasibility_study
   position: 4
   description: |
     feasibility study deliverable

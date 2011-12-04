@@ -1,3 +1,4 @@
+<% if !@recent_projects.blank? %>
 <h3>Recently updated</h3>
 
 <table>
@@ -8,8 +9,6 @@
     <th>Estimated Effort</th>
     <th>Actual Effort</th>
   </tr>
-
-<% if !@recent_projects.blank? %>
     <% @recent_projects.each do |project| %>
       <tr>
         <td><%= link_to project[0].name, project[0] %></td>
@@ -19,7 +18,12 @@
         <td><%= project[0].total_actual_effort %></td>
       </tr>
     <% end %>
-<% end %>
 </table>
+<% else %>
+   No projects have been updated recently.
+<% end %>
+<br/>
+<br/>
+Do you want to <%= link_to 'create a new project', new_project_path %>?
 
 <br />

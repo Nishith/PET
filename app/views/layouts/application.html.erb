@@ -39,9 +39,9 @@
         </ul>
       </div>
       <div id="content" class="content">
-          <p id="notice" class="notice"><%= notice %></p>
-          <p id="alert" class="alert"><%= alert %></p>
-          <p id="error" class="error"><%= flash[:error] %></p>
+          <%- flash.each do |k, v| %>
+          <div id="<%= k %>"><%= v %></div>
+          <% end %>
           <%= content_for?(:content) ? yield(:content) : yield %>
       </div>
     </div>
