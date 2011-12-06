@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @users = User.all
     respond_to do |format|
       format.html { render "user/index" }
-      format.xml  { render :xml => @projects }
+      format.xml  { render :xml => @users }
     end
   end
 
